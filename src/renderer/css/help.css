@@ -1,0 +1,23 @@
+.help { padding: 20px; }
+
+.help > h2, .help > h3, .help > h4 {
+  margin-bottom: 8px;
+}
+
+.help > h2 {
+  font-size: 1.5rem;
+  border-bottom: 2px solid #ccc;
+}
+
+h3 { font-size: 1.125rem; }
+
+h4 {
+  font-weight: 400;
+  font-style: italic;
+}
+
+p + h2 { margin-top: 28px; }
+p + h3 { margin-top: 20px; }
+p + h4 { margin-top: 16px; }
+
+.help > p { margin-top: 8px; }

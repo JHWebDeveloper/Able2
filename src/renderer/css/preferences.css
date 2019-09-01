@@ -1,0 +1,117 @@
+.preferences {
+  width: 100%;
+  padding: 10px 10px 62px 10px;
+}
+
+.preferences > h1  { margin-bottom: 10px }
+.preferences > h1:nth-of-type(2) { margin-top: 20px; }
+
+.preferences > h1 + label {
+  margin-right: 10px;
+}
+
+table {
+  width: 510px;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+th {
+  padding: 0 2px;
+  text-align: left;
+}
+
+td {
+  height: 26px;
+  padding-right: 2px;
+  vertical-align: middle;
+}
+
+td:first-child {
+  width: 30px;
+  padding-left: 2px;
+  text-align: center;
+}
+
+td > input[type="checkbox"] { margin-right: 0; }
+
+td > label {
+  display: inline-block;
+  width: 80px;
+}
+
+td > button {
+  width: 24px;
+  height: 24px;
+}
+
+td > button {
+  display: inline-flex;
+  justify-content: center;
+  align-content: center;
+}
+
+td > button:first-child { margin-right: 2px; }
+
+tr:first-child button[name="up"],
+tr:last-child button[name="down"] {
+  visibility: hidden;
+}
+
+button > svg {
+  width: 18px;
+  height: 18px;
+}
+
+td > input[type="text"] {
+  height: 24px;
+  padding: 2px 5px;
+  border-radius: 5px;
+  line-height: 24px;
+  text-overflow: ellipsis;
+}
+
+input[name="label"] { background-color: #fff; }
+
+input[name="directory"] { background-color: #ccc; }
+
+button[name="save-prefs"] {
+  width: 78px;
+  height: 31px;
+  margin-right: 5px;
+}
+
+.preferences > div {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  border-top: 1px solid #ccc;
+  background: #eee;
+  padding: 10px;
+}
+
+.dir-enter,
+.dir-leave {
+  opacity: 0;
+}
+
+.dir-enter.dir-enter-active { opacity: 1; }
+
+.dir-enter.dir-enter-active {
+  transition: opacity 150ms 150ms;
+}
+
+.dir-enter ~ tr {
+  transform: translateY(-100%);
+}
+
+.dir-enter.dir-enter-active ~ tr {
+  transform: translateY(0);
+  transition: transform 150ms;
+}
+
+.dir-leave.dir-leave-active ~ tr {
+  transform: translateY(-100%);
+  transition: transform 150ms;
+}

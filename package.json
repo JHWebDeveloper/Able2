@@ -1,0 +1,115 @@
+{
+  "name": "able2",
+  "version": "1.0.0",
+  "description": "Able2 is a video downloader and processor designed to help get your links on air as fast and efficiently as possible.",
+  "main": "main.js",
+  "scripts": {
+    "main:dev": "webpack --mode development --config webpack.main.js",
+    "main:prod": "webpack --mode production --config webpack.main.js",
+    "dev": "npm run main:dev && NODE_ENV=development webpack-dev-server --config webpack.dev.js",
+    "build": "npm run main:prod && rimraf build && webpack --config webpack.prod.js",
+    "pack": "rimraf dist && electron-builder --dir",
+    "buildpack": "npm run build && npm run pack",
+    "dist": "rimraf dist && electron-builder",
+    "postinstall": "electron-builder install-app-deps",
+    "start": "electron ."
+  },
+  "author": "Jonathan Hamilton",
+  "license": "ISC",
+  "dependencies": {
+    "electron-util": "^0.12.1",
+    "ffmpeg-static-electron": "^2.0.1",
+    "ffprobe-static-electron": "^2.0.0",
+    "fix-path": "^2.1.0",
+    "fluent-ffmpeg": "^2.1.2",
+    "proptypes": "^1.1.0",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-helmet": "^5.2.1",
+    "react-router-dom": "^5.0.1",
+    "react-transition-group": "^1.2.1",
+    "uuid": "^3.3.2",
+    "youtube-dl-ffmpeg-ffprobe-static": "^1.2.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.6",
+    "babel-preset-minify": "^0.5.0",
+    "copy-webpack-plugin": "^5.0.4",
+    "core-js": "^3.2.0",
+    "css-loader": "^3.2.0",
+    "cssnano": "^4.1.10",
+    "electron": "^6.0.5",
+    "electron-builder": "^21.2.0",
+    "file-loader": "^4.2.0",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.8.0",
+    "postcss": "^7.0.17",
+    "postcss-loader": "^3.0.0",
+    "postcss-preset-env": "^6.7.0",
+    "regenerator-runtime": "^0.13.3",
+    "rimraf": "^2.6.3",
+    "style-loader": "^0.23.1",
+    "url-loader": "^2.1.0",
+    "webpack": "^4.39.1",
+    "webpack-cli": "^3.3.6",
+    "webpack-dev-server": "^3.8.0",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "browserslist": "electron 6.0.1",
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react",
+      [
+        "minify",
+        {
+          "builtIns": false
+        }
+      ]
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-object-rest-spread"
+    ]
+  },
+  "build": {
+    "productName": "Able2",
+    "directories": {
+      "buildResources": ".",
+      "output": "dist"
+    },
+    "files": [
+      "!dist",
+      "!src",
+      "!webpack.dev.js",
+      "!webpack.main.js",
+      "!webpack.prod.js",
+      "!notes.txt",
+      "node_modules/ffmpeg-static-electron/bin/${os}/${arch}/ffmpeg",
+      "node_modules/ffmpeg-static-electron/index.js",
+      "node_modules/ffmpeg-static-electron/package.json",
+      "node_modules/ffprobe-static-electron/bin/${os}/${arch}/ffmpeg",
+      "node_modules/ffprobe-static-electron/index.js",
+      "node_modules/ffprobe-static-electron/package.json",
+      "node_modules/youtube-dl-ffmpeg-ffprobe-static/bin/${os}/${arch}/ffmpeg",
+      "node_modules/youtube-dl-ffmpeg-ffprobe-static/index.js",
+      "node_modules/youtube-dl-ffmpeg-ffprobe-static/package.json"
+    ],
+    "mac": {
+      "files": [
+        "!node_modules/ffmpeg-static-electron/bin/win${/*}",
+        "!node_modules/ffmpeg-static-electron/bin/linux${/*}",
+        "!node_modules/ffprobe-static-electron/bin/win${/*}",
+        "!node_modules/ffprobe-static-electron/bin/linux${/*}",
+        "!node_modules/youtube-dl-ffmpeg-ffprobe-static/bin/win${/*}",
+        "!node_modules/youtube-dl-ffmpeg-ffprobe-static/bin/linux${/*}"
+      ]
+    },
+    "asarUnpack": [
+      "build/assets/backgrounds/**/*"
+    ]
+  }
+}

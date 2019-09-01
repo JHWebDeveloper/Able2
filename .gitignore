@@ -1,0 +1,6 @@
+node_modules/
+build/
+dist/
+main.js
+notes.txt
+src/renderer/backgrounds/

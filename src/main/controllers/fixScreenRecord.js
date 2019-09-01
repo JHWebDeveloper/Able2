@@ -26,8 +26,8 @@ const timestamp = () => {
 }
 
 const fileName = `Able2 Screen Record - ${timestamp()}.mp4`
-const original = path.join(tempDir, `temp.screen_record.mp4`)
-const fixed = path.join(tempDir, fileName)
+const original = path.join(tempDir, `screen_record.mp4`)
+const fixed = path.join(tempDir, `temp.${fileName}`)
 
 const fixScreenRecord = evt => {
   ffmpeg(original)

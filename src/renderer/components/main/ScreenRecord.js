@@ -60,7 +60,7 @@ const stopRecording = (dispatch, end) => {
 
   recorder.onstop = () => {
     toArrayBuffer(new Blob(blobs, { type: 'video/mp4' }), ab => {
-      fs.writeFile(path.join(tempDir, 'temp.screen_record.mp4'), toBuffer(ab), err => {
+      fs.writeFile(path.join(tempDir, 'screen_record.mp4'), toBuffer(ab), err => {
         if (err) throw err
 
         dispatch(getInfo(false, end, 'fix-screen-record'))

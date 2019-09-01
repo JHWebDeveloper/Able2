@@ -9,7 +9,7 @@ const base64_encode = file => `data:image/png;base64,${fs.readFileSync(file, 'ba
 const round = (n, dec = 2) => Number(Math.round(n+'e'+dec)+'e-'+dec)
 
 const getFileFormat = (evt, file, tempFile) => {
-  const isImage = testIsImage(file.name)
+  const isImage = testIsImage(tempFile)
   const screenshot = `screenshot.${uuidv1()}.jpg`
 
   const watcher = fs.watch(tempDir)

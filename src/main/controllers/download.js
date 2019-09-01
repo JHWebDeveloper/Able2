@@ -20,7 +20,7 @@ const download = (evt, { formData }) => {
     '--ffmpeg-location',
     fixPathForAsarUnpack(ffmpegStatic.path),
     '-o',
-    `${tempDir}/${fileName}.%(ext)s`,
+    `${tempDir}/temp.${fileName}.%(ext)s`,
     '--restrict-filenames',
     ...getDownloadFormat(renderOutput.split('x')[1], optimize)
   ]

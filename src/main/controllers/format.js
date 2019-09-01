@@ -74,7 +74,7 @@ const getTempFile = (evt, { formData }) => {
   evt.reply('render-started')
   fs.promises.readdir(tempDir).then(files => {
     const tempFile = files.filter(file => (
-      file.startsWith(formData.fileName)
+      file.startsWith('temp.')
     ))[0]
 
     format(evt, formData, tempFile)

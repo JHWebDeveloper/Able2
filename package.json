@@ -15,7 +15,7 @@
     "start": "electron ."
   },
   "author": "Jonathan Hamilton",
-  "license": "CC-BY-NC-2.0",
+  "license": "CC-BY-NC-4.0",
   "dependencies": {
     "electron-util": "^0.12.1",
     "ffmpeg-static-electron": "^2.0.1",

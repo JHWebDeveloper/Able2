@@ -101,11 +101,13 @@
       "node_modules/youtube-dl-ffmpeg-ffprobe-static/package.json"
     ],
     "win": {
-      "target": "portable",
-      "arch": [
-        "x64",
-        "ia32"
-      ],
+      "target": {
+        "target": "portable",
+        "arch": [
+          "x64",
+          "ia32"
+        ]
+      },
       "icon": "./build/assets/icons/icon.ico",
       "files": [
         "!node_modules/ffmpeg-static-electron/bin/mac${/*}",

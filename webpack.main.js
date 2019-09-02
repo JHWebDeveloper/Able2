@@ -18,7 +18,7 @@ module.exports = {
         use: ['babel-loader']
       },
       {
-        test: /\.(json|mov|png)$/,
+        test: /\.(json|png|mov|ico|icns)$/,
         use: [{
           loader: 'file-loader',
           options: {

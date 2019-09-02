@@ -42,7 +42,7 @@ const FileUpload = () => {
   const { end, dispatch } = useContext(FormContext)
 
   const checkFileType = useCallback((e, endData) => {
-    if (!accepted.includes(path.extname(e.target.files[0].name))) {
+    if (!accepted.includes(path.extname(e.target.files[0].name.toLowerCase()))) {
       e.preventDefault()
 
       dispatch({

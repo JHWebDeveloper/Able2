@@ -17,6 +17,8 @@ const download = (evt, { formData }) => {
 
   const options = [
     url,
+    '-r',
+    '100m',
     '--ffmpeg-location',
     fixPathForAsarUnpack(ffmpegStatic.path),
     '-o',

@@ -20,7 +20,7 @@ const initDirectories = () => {
       directories: [
         {
           checked: true,
-          directory: "/Users/jonathan/Desktop/test",
+          directory: "//cmgorlpxaaspera/aspera_in",
           id: uuidv1(),
           label: "Send to Aspera"
         },

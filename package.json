@@ -10,7 +10,7 @@
     "build": "npm run main:prod && rimraf build && webpack --config webpack.prod.js",
     "pack": "rimraf dist && electron-builder --dir",
     "buildpack": "npm run build && npm run pack",
-    "dist": "rimraf dist && electron-builder",
+    "dist": "rimraf dist && npm run build && electron-builder -w -m",
     "postinstall": "electron-builder install-app-deps",
     "start": "electron ."
   },
@@ -82,6 +82,8 @@
       "output": "dist"
     },
     "files": [
+      "build/**/*",
+      "main.js",
       "!dist",
       "!src",
       "!webpack.dev.js",
@@ -98,7 +100,19 @@
       "node_modules/youtube-dl-ffmpeg-ffprobe-static/index.js",
       "node_modules/youtube-dl-ffmpeg-ffprobe-static/package.json"
     ],
+    "win": {
+      "target": "portable",
+      "files": [
+        "!node_modules/ffmpeg-static-electron/bin/mac${/*}",
+        "!node_modules/ffmpeg-static-electron/bin/linux${/*}",
+        "!node_modules/ffprobe-static-electron/bin/mac${/*}",
+        "!node_modules/ffprobe-static-electron/bin/linux${/*}",
+        "!node_modules/youtube-dl-ffmpeg-ffprobe-static/bin/darwin${/*}",
+        "!node_modules/youtube-dl-ffmpeg-ffprobe-static/bin/linux${/*}"
+      ]
+    },
     "mac": {
+      "target": "zip",
       "files": [
         "!node_modules/ffmpeg-static-electron/bin/win${/*}",
         "!node_modules/ffmpeg-static-electron/bin/linux${/*}",

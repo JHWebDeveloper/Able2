@@ -51,7 +51,7 @@ const format = (evt, formData, file) => {
 
   if (start.enabled) command.seekInput(start.tc)
   if (end.enabled)   command.duration(start.enabled ? end.tc - start.tc : end.tc)
-  if (status === 'IMG_READY' && path.extname(file) !== '.gif') command.loop(8)
+  if (status === 'IMG_READY' && path.extname(file) !== '.gif') command.loop(7)
 
   if (source) {
     const srcPNG = path.join(tempDir, 'source.png')

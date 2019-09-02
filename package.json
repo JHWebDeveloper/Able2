@@ -102,6 +102,11 @@
     ],
     "win": {
       "target": "portable",
+      "arch": [
+        "x64",
+        "ia32"
+      ],
+      "icon": "./build/assets/icons/icon.ico",
       "files": [
         "!node_modules/ffmpeg-static-electron/bin/mac${/*}",
         "!node_modules/ffmpeg-static-electron/bin/linux${/*}",
@@ -113,6 +118,7 @@
     },
     "mac": {
       "target": "zip",
+      "icon": "./build/assets/icons/icon.icns",
       "files": [
         "!node_modules/ffmpeg-static-electron/bin/win${/*}",
         "!node_modules/ffmpeg-static-electron/bin/linux${/*}",

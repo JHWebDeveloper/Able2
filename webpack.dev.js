@@ -41,7 +41,7 @@ module.exports = {
         use: ['url-loader']
       },
       {
-        test: /\.(json|png|mov)$/,
+        test: /\.(json|png|mov|ico|icns)$/,
         use: [{
           loader: 'file-loader',
           options: {

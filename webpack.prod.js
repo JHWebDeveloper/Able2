@@ -46,7 +46,7 @@ module.exports = {
         use: ['url-loader']
       },
       {
-        test: /\.(json|png|mov)$/,
+        test: /\.(json|png|mov|ico|icns)$/,
         use: [{
           loader: 'file-loader',
           options: {
@@ -67,7 +67,8 @@ module.exports = {
     new CopyWebpackPlugin([
       { from: 'src/renderer/images', to: 'assets/images' },
       { from: 'src/renderer/font', to: 'assets/font' },
-      { from: 'src/renderer/backgrounds/', to: 'assets/backgrounds/'}
+      { from: 'src/renderer/backgrounds', to: 'assets/backgrounds'},
+      { from: 'src/main/icons', to: 'assets/icons'}
     ])
   ],
   node: {

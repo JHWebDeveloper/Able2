@@ -26,13 +26,13 @@ const initDirectories = () => {
         },
         {
           checked: false,
-          directory: "/Users/jonathan/Desktop/test",
+          directory: "K://News_Mugs",
           id: uuidv1(),
           label: "Save to News Mugs"
         },
         {
           checked: false,
-          directory: "/Users/jonathan/Desktop/test",
+          directory: "K://News_Mugs/FINAL MUGS",
           id: uuidv1(),
           label: "Save to Final Mugs"
         }

@@ -25,6 +25,7 @@ td {
   height: 26px;
   padding-right: 2px;
   vertical-align: middle;
+  white-space: nowrap;
 }
 
 td:first-child {

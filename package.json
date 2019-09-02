@@ -6,7 +6,7 @@
   "scripts": {
     "main:dev": "webpack --mode development --config webpack.main.js",
     "main:prod": "webpack --mode production --config webpack.main.js",
-    "dev": "npm run main:dev && NODE_ENV=development webpack-dev-server --config webpack.dev.js",
+    "dev": "npm run main:dev && webpack-dev-server --config webpack.dev.js",
     "build": "npm run main:prod && rimraf build && webpack --config webpack.prod.js",
     "pack": "rimraf dist && electron-builder --dir",
     "buildpack": "npm run build && npm run pack",

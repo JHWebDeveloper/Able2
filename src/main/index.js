@@ -84,7 +84,7 @@ const prefsMenuItem = [
     click() {
       preferences = openWindow({
         parent: win,
-        width: 530,
+        width: mac ? 530 : 562,
         height: 344,
         minimizable: false,
         maximizable: false
@@ -102,6 +102,8 @@ const prefsMenuItem = [
       preferences.on('close', () => {
         preferences = false
       })
+
+      preferences.setMenu(null)
     }
   }
 ]
@@ -172,6 +174,8 @@ const mainMenuTemplate = [
           help.on('close', () => {
             help = false
           })
+
+          help.setMenu(null)
         }
       }
     ]

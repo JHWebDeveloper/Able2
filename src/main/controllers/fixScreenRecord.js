@@ -32,7 +32,7 @@ const fixed = path.join(tempDir, `temp.${fileName}`)
 const fixScreenRecord = evt => {
   ffmpeg(original)
     .outputOptions([
-      '-r 60',
+      '-filter:v fps=fps=60',
       '-preset:v ultrafast'
     ])
     .output(fixed)

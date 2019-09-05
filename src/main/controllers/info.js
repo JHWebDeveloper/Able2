@@ -32,11 +32,6 @@ const info = (evt, { url, renderOutput }) => {
     })
   })
 
-  getVideoInfo.stderr.on('data', () => {
-    getVideoInfo.kill()
-    evt.reply('url-error')
-  })
-
   getVideoInfo.on('error', () => {
     evt.reply('url-error')
   })

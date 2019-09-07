@@ -1,7 +1,7 @@
 import React, { useCallback, useContext } from 'react'
 import fs from 'fs'
 import path from 'path'
-import { remote, desktopCapturer } from 'electron'
+import { remote, desktopCapturer, ipcRenderer } from 'electron'
 import { FormContext } from '../../store/formStore'
 import { getInfo } from '../../actions/form'
 import Timecode from '../elements/Timecode';
@@ -46,6 +46,7 @@ const startRecording = (dispatch, timer, end) => {
 
       timeout = timer.enabled ? setTimeout(() => {
         stopRecording(dispatch, end)
+        remote.getCurrentWindow().show()
       }, timer.tc * 1000) : false
     });
   });

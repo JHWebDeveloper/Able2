@@ -1,14 +1,20 @@
 import React from 'react'
+import { remote } from 'electron'
 
 import { convertMiB } from '../../utilities'
 
+const win = remote.getCurrentWindow()
+
 const ProgressBar = ({ file, prc, size, speed, eta }) => {
   const message = `Downloading${file ? ` ${file}` : '...'}`
+  const percent = parseInt(prc)
+
+  win.setProgressBar(percent / 100)
 
   return (
     <div className="progress">
       <p>{message}</p>
-      <progress value={parseInt(prc)} max="100" />
+      <progress value={percent} max="100" />
       <span>{`${prc} of ${convertMiB(size)} at ${convertMiB(speed)}/s`}</span>
       <span>ETA: <span className="monospace">{eta}</span></span>
     </div>

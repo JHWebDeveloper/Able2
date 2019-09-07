@@ -17,6 +17,6 @@ ipcRenderer.send('load-prefs')
 ipcRenderer.on('prefs-retrieved', (evt, data) => {
   render(
     <App preferences={data} />,
-    document.getElementById('root')
+    document.querySelector('#root')
   )
 })

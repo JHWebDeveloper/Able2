@@ -1,7 +1,7 @@
 {
   "name": "able2",
   "version": "1.0.0",
-  "description": "Able2 is a video downloader and processor designed to help get your links on air as fast and efficiently as possible.",
+  "description": "Able2 is an all-in-one News Editor's toolkit. Able2 is able to download video from the internet, do screen records and convert and process video for air",
   "main": "main.js",
   "scripts": {
     "main:dev": "webpack --mode development --config webpack.main.js",
@@ -16,6 +16,10 @@
   },
   "author": "Jonathan Hamilton",
   "license": "CC-BY-NC-4.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JHWebDeveloper/Able2.git"
+  },
   "dependencies": {
     "electron-util": "^0.12.1",
     "ffmpeg-static-electron": "^2.0.1",
@@ -29,6 +33,7 @@
     "react-router-dom": "^5.0.1",
     "react-transition-group": "^1.2.1",
     "uuid": "^3.3.2",
+    "v8-compile-cache": "^2.1.0",
     "youtube-dl-ffmpeg-ffprobe-static": "^1.2.1"
   },
   "devDependencies": {
@@ -102,7 +107,7 @@
     ],
     "win": {
       "target": {
-        "target": "portable",
+        "target": "NSIS",
         "arch": [
           "x64",
           "ia32"

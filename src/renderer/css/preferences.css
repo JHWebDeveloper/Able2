@@ -1,6 +1,7 @@
 .preferences {
-  width: 100%;
-  padding: 10px 10px 62px 10px;
+  width: 510px;
+  margin: auto;
+  padding: 10px 0 62px;
 }
 
 .preferences > h1  { margin-bottom: 10px }

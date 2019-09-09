@@ -1,3 +1,5 @@
+require('v8-compile-cache');
+
 const electron = require('electron')
 const url = require('url')
 const path = require('path')
@@ -11,6 +13,8 @@ const prefs = require('./controllers/preferences')
 const { initDirectories, clearTempFiles } = require('./controllers/handleExtFiles')
 
 const { app, BrowserWindow, Menu, ipcMain } = electron
+
+// WINDOW CONFIG
 
 const dev = process.env.NODE_ENV === 'development'
 const mac = process.platform === 'darwin'
@@ -56,7 +60,7 @@ const createWindow = () => {
 
   Menu.setApplicationMenu(mainMenu)
 
-  win.once('ready-to-show', () => {
+  win.on('ready-to-show', () => {
     win.show()
     if (dev) win.webContents.openDevTools()
   })
@@ -67,14 +71,27 @@ const createWindow = () => {
   })
 }
 
-app.once('ready', createWindow)
+const lock = app.requestSingleInstanceLock()
+
+if (!lock) {
+  app.quit()
+} else {
+  app.on('second-instance', () => {
+    if (win) {
+      if (win.isMinimized()) win.restore()
+      win.focus()
+    }
+  })
+
+  app.on('ready', createWindow)
+}
 
 app.on('window-all-closed', () => {
   if (!mac) app.quit()
 })
 
 app.on('activate', () => {
-  if (win === false) createWindow()
+  if (!win) createWindow()
 })
 
 const prefsMenuItem = [
@@ -82,12 +99,17 @@ const prefsMenuItem = [
   {
     label: 'Preferences',
     click() {
+      const width = mac ? 530 : 546;
+
       preferences = openWindow({
         parent: win,
-        width: mac ? 530 : 562,
+        width,
         height: 344,
+        minWidth: width,
+        maxWidth: width,
+        minHeight: 344,
         minimizable: false,
-        maximizable: false
+        maximizable: false,
       })
 
       preferences.loadURL(url.format({
@@ -107,6 +129,8 @@ const prefsMenuItem = [
     }
   }
 ]
+
+// MENU CONFIG
 
 const mainMenuTemplate = [
   ...(mac ? [{
@@ -158,6 +182,8 @@ const mainMenuTemplate = [
             parent: win,
             width: 476,
             height: 780,
+            minWidth: 360,
+            minHeight: 460,
             minimizable: false,
             maximizable: false
           })

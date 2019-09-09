@@ -21,7 +21,7 @@ const Reset = () => {
       remote.dialog.showMessageBox({
         buttons: ['OK', 'Cancel'],
         message: 'Clear form and start over?'
-      }, (res) => {
+      }, res => {
         if (!res) location.reload()
       })
     }

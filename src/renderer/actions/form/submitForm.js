@@ -10,10 +10,16 @@ const dirAlert = dir => remote.dialog.showMessageBoxSync({
   message: `Unable to locate the directory "${dir}". This folder may have been deleted, removed or taken offline. Continue without saving to this directory?`
 })
 
+const sourceAlert = isImg => remote.dialog.showMessageBoxSync({
+  type: 'warning',
+  buttons: ['Continue', 'Abort'],
+  message: `Source overlays can only be added to a${isImg ? 'n image' : ' video'} with a 16:9 aspect ratio. The source overlay will instead be exported as a separate .png file. To fix this, select "Fill Frame" or "Fit Inside Frame" from the Advanced Options menu. Continue?`
+})
+
 export const submitForm = (state, e) => dispatch => {
   e.preventDefault()
 
-  let { fileName, source, sourcePrefix, renderOutput, directories } = state
+  let { fileName, source, vidData, arc, status, sourcePrefix, renderOutput, directories } = state
 
   if (directories.every(dir => !dir.checked)) {
     const filePath = remote.dialog.showOpenDialogSync({
@@ -32,6 +38,8 @@ export const submitForm = (state, e) => dispatch => {
       if (dir.checked && !fs.existsSync(dir.directory) && dirAlert(dir.directory)) return
     }
   }
+
+  if (source && !vidData.is16_9 && arc === 'bypass' && sourceAlert(status === 'IMG_READY')) return
 
   if (source) source = cleanSourceName(source)
 

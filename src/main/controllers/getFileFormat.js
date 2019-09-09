@@ -4,7 +4,7 @@ const uuidv1 = require('uuid/v1')
 const ffmpeg = require('./ffmpeg')
 const { tempDir } = require('./handleExtFiles')
 
-const testIsImage = name => /^\.(bmp|gif|jfif|jp(e?g|2)|png|tga|tiff?|webp)$/.test(path.extname(name))
+const testIsImage = name => /^\.(bmp|gif|jfif|jp(e?g|2)|png|tga|tiff?|webp)$/i.test(path.extname(name))
 const base64_encode = file => `data:image/png;base64,${fs.readFileSync(file, 'base64')}`
 const round = (n, dec = 2) => Number(Math.round(n+'e'+dec)+'e-'+dec)
 

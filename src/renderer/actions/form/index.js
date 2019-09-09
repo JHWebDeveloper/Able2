@@ -1,4 +1,4 @@
-import { ipcRenderer, remote } from 'electron'
+import { ipcRenderer } from 'electron'
 import { loadVideoInfo } from './loadVideoInfo'
 import { tcToSeconds } from '../../utilities'
 

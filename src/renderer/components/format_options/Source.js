@@ -13,6 +13,7 @@ const Source = () => {
       .then(res => {
         loadSourceSuggestions(res.data.sort())
       })
+      .catch(err => { throw err })
   }, [])
 
   return (

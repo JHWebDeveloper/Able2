@@ -5,13 +5,13 @@ import { updateState, toggleCheckbox } from '../../actions/form'
 
 const Source = () => {
   const { source, sourcePrefix, dispatch  } = useContext(FormContext)
-  const [sourceSuggestions, loadSourceSuggestions] = useState([])
+  const [ sourceSuggestions, loadSourceSuggestions ] = useState([])
 
   useEffect(() => {
-    axios
-      .get('https://jhwebdeveloper.github.io/Able2-source-name-suggestions/data.json')
+    fetch('https://jhwebdeveloper.github.io/Able2-source-name-suggestions/data.json')
+      .then(res => res.json())
       .then(res => {
-        loadSourceSuggestions(res.data.sort())
+        loadSourceSuggestions(res.sort())
       })
       .catch(err => { throw err })
   }, [])

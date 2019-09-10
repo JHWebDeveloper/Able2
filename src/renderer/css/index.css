@@ -65,9 +65,11 @@ input[type="checkbox"]:disabled::after { transform: translateY(-36px); }
 input[type="checkbox"]:checked:disabled::after{ transform: translateY(-54px) }
 
 input[type="radio"]::after { transform: translateY(-72px); }
-input[type="radio"]:checked::after { transform: translateY(-90px);  }
-input[type="radio"]:disabled::after { transform: translateY(-108px);  }
-input[type="radio"]:checked:disabled::after { transform: translateY(-126px);  }
+input[type="radio"]:checked::after { transform: translateY(-90px); }
+input[type="radio"]:disabled::after { transform: translateY(-108px); }
+input[type="radio"]:checked:disabled::after { transform: translateY(-126px); }
+
+input[list]::-webkit-calendar-picker-indicator { display: none; }
 
 
 /* --- MAIN--- */

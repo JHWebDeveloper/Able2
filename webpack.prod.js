@@ -67,7 +67,7 @@ module.exports = {
     new CopyWebpackPlugin([
       { from: 'src/renderer/images', to: 'assets/images' },
       { from: 'src/renderer/font', to: 'assets/font' },
-      { from: 'src/renderer/backgrounds', to: 'assets/backgrounds'},
+      { from: 'src/main/backgrounds', to: 'assets/backgrounds'},
       { from: 'src/main/icons', to: 'assets/icons'}
     ])
   ],

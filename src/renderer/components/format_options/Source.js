@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react'
-import axios from 'axios'
 import { FormContext } from '../../store/formStore'
 import { updateState, toggleCheckbox } from '../../actions/form'
 

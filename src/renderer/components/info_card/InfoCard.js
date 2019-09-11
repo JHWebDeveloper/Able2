@@ -1,7 +1,7 @@
 import React from 'react'
 
 const InfoCard = ({ thumbnail, title, duration, resolution, fps }) => {
-  const errImg = '/assets/images/thumbnail-unavailable.svg';
+  const errImg = require('../../images/thumbnail-unavailable.svg');
   const onError = ({ target }) => {
     target.src = errImg
     target.onError = ''

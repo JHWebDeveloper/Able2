@@ -1,7 +1,7 @@
 import React, { useCallback, useContext } from 'react'
 import fs from 'fs'
 import path from 'path'
-import { remote, desktopCapturer, ipcRenderer } from 'electron'
+import { remote, desktopCapturer } from 'electron'
 import { FormContext } from '../../store/formStore'
 import { getInfo } from '../../actions/form'
 import Timecode from '../elements/Timecode';

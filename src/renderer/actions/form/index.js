@@ -27,15 +27,13 @@ export const getURLInfo = ({ url, end, renderOutput }) => dispatch => {
   })
 }
 
-export const getInfo = (file, end, message) => dispatch => {
-  const { name, path } = file
-
+export const getInfo = (files, end, message) => dispatch => {
   dispatch({
     type: 'CHANGE_STATUS',
     payload: 'LOADING'
   })
 
-  ipcRenderer.send(message, file ? { name, path } : false)
+  ipcRenderer.send(message, files ? JSON.stringify(files) : false)
 
   ipcRenderer.once('info-retrieved', (evt, info) => {
     ipcRenderer.removeAllListeners(['upload-error'])

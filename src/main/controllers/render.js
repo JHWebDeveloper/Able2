@@ -69,8 +69,10 @@ const render = (formData, command) => {
       command
         .complexFilter(`[0:v]scale=w=${width}:h=${height}[vid];[vid][1:v]overlay`)
         .run()
-    } else {
+    } else if (status !== 'BATCH_READY') {
       copyToDirectories(directories, 'source.png', `${cleanFileName(source)}.png`)
+      command.run()
+    } else {
       command.run()
     }
   }

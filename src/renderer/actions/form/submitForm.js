@@ -39,7 +39,13 @@ export const submitForm = (state, e) => dispatch => {
     }
   }
 
-  if (source && !vidData.is16_9 && arc === 'bypass' && sourceAlert(status === 'IMG_READY')) return
+  if (
+    source &&
+    !vidData.is16_9 &&
+    arc === 'bypass' &&
+    status !== 'BATCH_READY' &&
+    sourceAlert(status === 'IMG_READY')
+    ) return
 
   if (source) source = cleanSourceName(source)
 

@@ -1,7 +1,7 @@
 import React from 'react'
 
-const InfoCard = ({ thumbnail, title, duration, resolution, fps }) => {
-  const errImg = require('../../images/thumbnail-unavailable.svg');
+const InfoCard = ({ thumbnail, title, duration, resolution, fps, fileCount }) => {
+  const errImg = require('../../images/able2-placeholder.svg');
   const onError = ({ target }) => {
     target.src = errImg
     target.onError = ''
@@ -19,6 +19,7 @@ const InfoCard = ({ thumbnail, title, duration, resolution, fps }) => {
           {duration && duration !== '00:00:00' && <li>{duration}</li>}
           {resolution && <li>{resolution}</li>}
           {fps && <li>{`${fps}fps`}</li>}
+          {fileCount && <li>{`${fileCount} Files Queued`}</li>}
         </ul>
       </div>
     </div>

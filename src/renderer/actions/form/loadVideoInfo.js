@@ -9,7 +9,7 @@ export const loadVideoInfo = (info, end, dispatch) => {
     type: 'UPDATE_STATE',
     payload: {
       status: info.readyStatus,
-      fileName: title,
+      fileName: info.readyStatus === 'BATCH_READY' ? '' : title,
       vidData: {
         ...info,
         is16_9,

@@ -14,6 +14,7 @@ export default () => {
     case 'URL_READY':
     case 'VID_READY':
     case 'IMG_READY':
+    case 'BATCH_READY':
         return <DownloadOptions />
     case 'DOWNLOADING':
       return <DownloadProgress {...downloadProgress} />

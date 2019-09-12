@@ -1,6 +1,7 @@
 require('v8-compile-cache');
 
 const electron = require('electron')
+const { autoUpdater } = require('electron-updater')
 const url = require('url')
 const path = require('path')
 
@@ -12,7 +13,7 @@ const format = require('./controllers/format')
 const prefs = require('./controllers/preferences')
 const { initDirectories, clearTempFiles } = require('./controllers/handleExtFiles')
 
-const { app, BrowserWindow, Menu, ipcMain } = electron
+const { app, BrowserWindow, Menu, ipcMain, dialog } = electron
 
 // WINDOW CONFIG
 
@@ -46,6 +47,8 @@ const mainURL = () => dev ? {
 const createWindow = () => {
   initDirectories()
   clearTempFiles()
+
+  if (!dev) autoUpdater.checkForUpdates()
 
   win = openWindow({
     width: dev ? 952 : 476,
@@ -94,6 +97,20 @@ app.on('activate', () => {
   if (!win) createWindow()
 })
 
+// AUTO UPDATE CONFIG
+
+autoUpdater.on('update-downloaded', () => {
+  dialog.showMessageBox({
+    type: 'question',
+    message: 'Update downloaded. It will be installed on restart. Restart now?',
+    buttons: ['Close', 'Restart']
+  }).then(res => {
+    if (res === 1) autoUpdater.quitAndInstall()
+  }).catch(err => { throw err })
+})
+
+// MENU CONFIG
+
 const prefsMenuItem = [
   { type: 'separator' },
   {
@@ -130,8 +147,6 @@ const prefsMenuItem = [
     }
   }
 ]
-
-// MENU CONFIG
 
 const mainMenuTemplate = [
   ...(mac ? [{

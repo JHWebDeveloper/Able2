@@ -9,8 +9,8 @@
     "dev": "npm run main:dev && webpack-dev-server --config webpack.dev.js",
     "build": "npm run main:prod && rimraf build && webpack --config webpack.prod.js",
     "pack": "rimraf dist && electron-builder --dir",
-    "buildpack": "npm run build && npm run pack",
     "dist": "rimraf dist && npm run build && electron-builder -w -m",
+    "publish": "rimraf dist && npm run build && electron-builder -w -m -p always",
     "postinstall": "electron-builder install-app-deps",
     "start": "electron ."
   },
@@ -109,7 +109,7 @@
     ],
     "win": {
       "target": {
-        "target": "portable",
+        "target": "nsis",
         "arch": [
           "x64",
           "ia32"

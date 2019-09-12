@@ -151,6 +151,9 @@ input[name="source"] {
   text-overflow: ellipsis;
 }
 
+input[name="fileName"]:invalid { border-color: #f00; }
+input[name="fileName"]:invalid::placeholder { color: #f00; }
+
 fieldset[name="fetcher"] { margin-bottom: 60px; }
 
 form > div {

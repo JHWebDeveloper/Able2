@@ -25,12 +25,12 @@ const BackgroundOptions = () => {
           {
             label: 'TV',
             value: 'tv',
-            omit: status === 'IMG_READY'
+            omit: status === 'IMG_READY' || status === 'BATCH_READY'
           },
           {
             label: 'Laptop',
             value: 'laptop',
-            omit: status === 'IMG_READY'
+            omit: status === 'IMG_READY' || status === 'BATCH_READY'
           },
           {
             label: 'Transparent',

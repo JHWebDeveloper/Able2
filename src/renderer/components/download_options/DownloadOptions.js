@@ -12,7 +12,7 @@ import Directories from './Directories'
 import Reset from '../elements/Reset'
 
 const DownloadOptions = () => {
-  const { status, fileName, directories, dispatch } = useContext(FormContext);
+  const { status, fileName, dispatch } = useContext(FormContext);
   const buttonTitle = status === 'URL_READY' ? 'Download' : 'Save'
 
   return (
@@ -24,12 +24,16 @@ const DownloadOptions = () => {
           name="fileName"
           id="fileName"
           value={fileName}
-          onChange={e => dispatch(updateState(e))} />
+          onChange={e => dispatch(updateState(e))}
+          placeholder="Required"
+          required />
       </fieldset>
-      {status !== 'IMG_READY' && <fieldset name="timecodes">
-        <Timecode name="start" />
-        <Timecode name="end" />
-      </fieldset>}
+      {(status === 'URL_READY' || status === 'VID_READY') &&
+        <fieldset name="timecodes">
+          <Timecode name="start" />
+          <Timecode name="end" />
+        </fieldset>
+      }
       {status === 'URL_READY' && <Optimizer />}
       <details open={status !== 'URL_READY'}>
         <summary>Advanced Options</summary>

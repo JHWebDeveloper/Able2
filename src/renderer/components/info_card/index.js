@@ -31,6 +31,7 @@ export default () => {
     case 'URL_READY':
     case 'VID_READY':
     case 'IMG_READY':
+    case 'BATCH_READY':
     case 'DOWNLOADING':
     case 'RENDERING':
     case 'DONE':

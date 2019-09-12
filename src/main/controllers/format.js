@@ -2,14 +2,18 @@ const fs = require('fs')
 const path = require('path')
 const ffmpeg = require('./ffmpeg')
 const { tempDir, copyToDirectories } = require('./handleExtFiles')
+const { checkIsImage, checkIsGIF } = require('./checkIsImage')
 const render = require('./render')
+
+let fileCount = 0
+let fileQueue = []
 
 const format = (evt, formData, file) => {
   const { fileName, start, end, arc, bg, source, directories, status } = formData
 
   const formatted = [
     'formatted',
-    fileName,
+    `${fileName}${status === 'BATCH_READY' ? `_${fileCount + 1}` : ''}`,
     bg === 'alpha' ? 'mov' : 'mp4'
   ].join('.')
 
@@ -35,13 +39,22 @@ const format = (evt, formData, file) => {
         formatted.replace(/^formatted\./, '')
       )
 
-      evt.reply('render-complete')
+      if (fileCount === fileQueue.length - 1) {
+        fileCount = 0
+        fileQueue = []
+        evt.reply('render-complete')
+      } else {
+        fileCount += 1
+        format(evt, formData, fileQueue[fileCount])
+      }
     })
     .on('progress', prog => {
       evt.reply('render-progress', {
          prc: prog.percent,
          timemark: prog.timemark,
-         frames: prog.frames
+         frames: prog.frames,
+         fileCount: fileCount + 1,
+         fileTotal: fileQueue.length
       })
     })
     .on('error', () => {
@@ -51,7 +64,7 @@ const format = (evt, formData, file) => {
 
   if (start.enabled) command.seekInput(start.tc)
   if (end.enabled)   command.duration(start.enabled ? end.tc - start.tc : end.tc)
-  if (status === 'IMG_READY' && path.extname(file) !== '.gif') command.loop(7)
+  if (checkIsImage(file) && !checkIsGIF(file)) command.loop(7)
 
   if (source) {
     const srcPNG = path.join(tempDir, 'source.png')
@@ -73,11 +86,11 @@ const format = (evt, formData, file) => {
 const getTempFile = (evt, { formData }) => {
   evt.reply('render-started')
   fs.promises.readdir(tempDir).then(files => {
-    const tempFile = files.filter(file => (
+    fileQueue = files.filter(file => (
       file.startsWith('temp.')
-    ))[0]
+    ))
 
-    format(evt, formData, tempFile)
+    format(evt, formData, fileQueue[fileCount])
   }).catch(err => { throw err })
 }
 

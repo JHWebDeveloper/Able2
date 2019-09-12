@@ -42,7 +42,15 @@ const FileUpload = () => {
   const { end, dispatch } = useContext(FormContext)
 
   const checkFileType = useCallback((e, endData) => {
-    if (!accepted.includes(path.extname(e.target.files[0].name.toLowerCase()))) {
+    const files = Array
+      .from(e.target.files)
+      .map(({ name, path }) => ({ name, path }))
+
+    const validExtensions = files.every(file => (
+      accepted.includes(path.extname(file.name).toLowerCase()))
+    )
+
+    if (!validExtensions) {
       e.preventDefault()
 
       dispatch({
@@ -50,7 +58,7 @@ const FileUpload = () => {
         payload: 'FILE_ERROR'
       })
     } else {
-      dispatch(getInfo(e.target.files[0], endData, 'upload'))
+      dispatch(getInfo(files, endData, 'upload'))
     }
   }, [])
 
@@ -64,14 +72,15 @@ const FileUpload = () => {
 
   return (
     <div ref={ref} className="file-uploader">
-      <p>...or drag and drop file here</p>
+      <p>...or drag and drop file(s) here</p>
       <input
         type="file"
         onChange={e => checkFileType(e, end)}
         onDragEnter={dragOver}
         onDragLeave={dragOut}
         onDrop={dragOut}
-        accept={accepted.join()} />
+        accept={accepted.join()}
+        multiple />
     </div>
   )
 }

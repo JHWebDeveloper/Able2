@@ -8,12 +8,14 @@ const render = require('./render')
 let fileCount = 0
 let fileQueue = []
 
+const zeroize = n => n < 10 ? `0${n}` : n
+
 const format = (evt, formData, file) => {
   const { fileName, start, end, arc, bg, source, directories, status } = formData
 
   const formatted = [
     'formatted',
-    `${fileName}${status === 'BATCH_READY' ? `_${fileCount + 1}` : ''}`,
+    `${fileName}${status === 'BATCH_READY' ? `_${zeroize(fileCount + 1)}` : ''}`,
     bg === 'alpha' ? 'mov' : 'mp4'
   ].join('.')
 

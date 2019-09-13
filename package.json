@@ -10,7 +10,7 @@
     "build": "npm run main:prod && rimraf build && webpack --config webpack.prod.js",
     "pack": "rimraf dist && electron-builder --dir",
     "dist": "rimraf dist && npm run build && electron-builder -w -m",
-    "publish": "rimraf dist && npm run build && electron-builder -w -m -p always",
+    "deploy": "rimraf dist && npm run build && electron-builder build -w -m --publish always",
     "postinstall": "electron-builder install-app-deps",
     "start": "electron ."
   },
@@ -21,6 +21,7 @@
     "url": "https://github.com/JHWebDeveloper/Able2.git"
   },
   "dependencies": {
+    "dotenv": "^8.1.0",
     "electron-updater": "^4.1.2",
     "electron-util": "^0.12.1",
     "ffmpeg-static-electron": "^2.0.1",
@@ -79,66 +80,6 @@
     ],
     "plugins": [
       "@babel/plugin-proposal-object-rest-spread"
-    ]
-  },
-  "build": {
-    "appId": "com.jhwebdeveloper.able2",
-    "productName": "Able2",
-    "directories": {
-      "buildResources": ".",
-      "output": "dist"
-    },
-    "files": [
-      "build/**/*",
-      "main.js",
-      "!dist",
-      "!src",
-      "!webpack.dev.js",
-      "!webpack.main.js",
-      "!webpack.prod.js",
-      "!notes.txt",
-      "node_modules/ffmpeg-static-electron/bin/${os}/${arch}/ffmpeg",
-      "node_modules/ffmpeg-static-electron/index.js",
-      "node_modules/ffmpeg-static-electron/package.json",
-      "node_modules/ffprobe-static-electron/bin/${os}/${arch}/ffmpeg",
-      "node_modules/ffprobe-static-electron/index.js",
-      "node_modules/ffprobe-static-electron/package.json",
-      "node_modules/youtube-dl-ffmpeg-ffprobe-static/bin/${os}/${arch}/ffmpeg",
-      "node_modules/youtube-dl-ffmpeg-ffprobe-static/index.js",
-      "node_modules/youtube-dl-ffmpeg-ffprobe-static/package.json"
-    ],
-    "win": {
-      "target": {
-        "target": "nsis",
-        "arch": [
-          "x64",
-          "ia32"
-        ]
-      },
-      "icon": "./build/assets/icons/icon.ico",
-      "files": [
-        "!node_modules/ffmpeg-static-electron/bin/mac${/*}",
-        "!node_modules/ffmpeg-static-electron/bin/linux${/*}",
-        "!node_modules/ffprobe-static-electron/bin/mac${/*}",
-        "!node_modules/ffprobe-static-electron/bin/linux${/*}",
-        "!node_modules/youtube-dl-ffmpeg-ffprobe-static/bin/darwin${/*}",
-        "!node_modules/youtube-dl-ffmpeg-ffprobe-static/bin/linux${/*}"
-      ]
-    },
-    "mac": {
-      "target": "zip",
-      "icon": "./build/assets/icons/icon.icns",
-      "files": [
-        "!node_modules/ffmpeg-static-electron/bin/win${/*}",
-        "!node_modules/ffmpeg-static-electron/bin/linux${/*}",
-        "!node_modules/ffprobe-static-electron/bin/win${/*}",
-        "!node_modules/ffprobe-static-electron/bin/linux${/*}",
-        "!node_modules/youtube-dl-ffmpeg-ffprobe-static/bin/win${/*}",
-        "!node_modules/youtube-dl-ffmpeg-ffprobe-static/bin/linux${/*}"
-      ]
-    },
-    "asarUnpack": [
-      "build/assets/backgrounds/**/*"
     ]
   }
 }

@@ -1,4 +1,4 @@
-require('v8-compile-cache');
+require('v8-compile-cache')
 
 const electron = require('electron')
 const { autoUpdater } = require('electron-updater')
@@ -48,8 +48,6 @@ const createWindow = () => {
   initDirectories()
   clearTempFiles()
 
-  if (!dev) autoUpdater.checkForUpdates()
-
   win = openWindow({
     width: dev ? 952 : 476,
     height: 780,
@@ -86,7 +84,39 @@ if (!lock) {
     }
   })
 
-  app.on('ready', createWindow)
+  app.on('ready', () => {
+    createWindow()
+    
+    autoUpdater.on('update-downloaded', () => {
+      dialog.showMessageBoxSync({
+        type: 'question',
+        message: 'Update downloaded. It will be installed on restart. Restart now?',
+        buttons: ['Close', 'Restart']
+      }, () => {
+        autoUpdater.quitAndInstall()
+      })
+    })
+
+    autoUpdater.on('update-available', () => {
+      dialog.showMessageBoxSync({
+        type: 'warning',
+        message: 'Update found!',
+        buttons: ['OK']
+      })
+    })
+
+    autoUpdater.on('update-not-available', () => {
+      dialog.showMessageBoxSync({
+        type: 'warning',
+        message: 'Update Not found!',
+        buttons: ['OK']
+      })
+    })
+
+    autoUpdater.autoDownload = true
+
+    autoUpdater.checkForUpdatesAndNotify()
+  })
 }
 
 app.on('window-all-closed', () => {
@@ -97,17 +127,6 @@ app.on('activate', () => {
   if (!win) createWindow()
 })
 
-// AUTO UPDATE CONFIG
-
-autoUpdater.on('update-downloaded', () => {
-  dialog.showMessageBox({
-    type: 'question',
-    message: 'Update downloaded. It will be installed on restart. Restart now?',
-    buttons: ['Close', 'Restart']
-  }).then(res => {
-    if (res === 1) autoUpdater.quitAndInstall()
-  }).catch(err => { throw err })
-})
 
 // MENU CONFIG
 

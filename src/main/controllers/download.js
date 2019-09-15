@@ -42,7 +42,7 @@ const download = (evt, { formData }) => {
 
     if (!/^(\r)?\[download\]/.test(info)) return
 
-    progress.file  = parseYTDL(info, (/(?<=temp\/).*(\n)?$/)) || progress.file
+    progress.file  = parseYTDL(info, (/(?<=temp\.).*(\n)?$/)) || progress.file
     progress.prc   = parseYTDL(info, /[.0-9]+%/) || progress.prc
     progress.size  = parseYTDL(info, /[.0-9]+MiB/) || progress.size
     progress.speed = parseYTDL(info, /[.0-9]+MiB\/s/) || progress.speed

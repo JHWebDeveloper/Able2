@@ -7,7 +7,7 @@ const Source = () => {
   const [ sourceSuggestions, loadSourceSuggestions ] = useState([])
 
   useEffect(() => {
-    fetch('https://jhwebdeveloper.github.io/Able2-source-name-suggestions/data.json')
+    fetch('https://jhwebdeveloper.github.io/Able2-public-resources/data.json')
       .then(res => res.json())
       .then(res => {
         loadSourceSuggestions(res.sort())

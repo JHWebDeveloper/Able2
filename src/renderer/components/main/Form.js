@@ -5,10 +5,11 @@ import { FormContext } from '../../store/formStore'
 import { submitForm, syncPreferences  } from '../../actions/form'
 
 import Fetcher from './Fetcher'
-import Uploader from './Uploader';
+import Uploader from './Uploader'
 import InfoCard from '../info_card'
 import DownloadOptions from '../download_options'
-import ScreenRecord from './ScreenRecord';
+import ScreenRecord from './ScreenRecord'
+import Updater from '../progress/Updater'
 
 const Form = () => {
   const ctx = useContext(FormContext)
@@ -26,6 +27,7 @@ const Form = () => {
 
   return (
     <main>
+      <Updater />
       <form onSubmit={e => dispatch(submitForm(ctx, e))}>
         {status && !status.endsWith('ERROR') ? false : (
           <fieldset disabled={ctx.recording}>

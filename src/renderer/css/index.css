@@ -413,6 +413,25 @@ button[name="record"].recording::after {
 }
 
 
+/* --- UPDATER --- */
+
+.updater {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #7c7c7c;
+}
+
+.loading ~ .updater { display: none; }
+
+.updater > progress {
+  width: 250px;
+  border-color: #7c7c7c;
+}
+
+.updater > ::-webkit-progress-value {
+  background-color: #7c7c7c;
+}
+
 /* --- MISC --- */
 
 .monospace {

@@ -86,35 +86,8 @@ if (!lock) {
 
   app.on('ready', () => {
     createWindow()
-    
-    autoUpdater.on('update-downloaded', () => {
-      dialog.showMessageBoxSync({
-        type: 'question',
-        message: 'Update downloaded. It will be installed on restart. Restart now?',
-        buttons: ['Close', 'Restart']
-      }, () => {
-        autoUpdater.quitAndInstall()
-      })
-    })
-
-    autoUpdater.on('update-available', () => {
-      dialog.showMessageBoxSync({
-        type: 'warning',
-        message: 'Update found!',
-        buttons: ['OK']
-      })
-    })
-
-    autoUpdater.on('update-not-available', () => {
-      dialog.showMessageBoxSync({
-        type: 'warning',
-        message: 'Update Not found!',
-        buttons: ['OK']
-      })
-    })
 
     autoUpdater.autoDownload = true
-
     autoUpdater.checkForUpdatesAndNotify()
   })
 }
@@ -125,6 +98,29 @@ app.on('window-all-closed', () => {
 
 app.on('activate', () => {
   if (!win) createWindow()
+})
+
+
+// AUTO-UPDATE CONFIG
+
+autoUpdater.on('update-downloaded', async ({ version }) => {
+  const quit = await dialog.showMessageBox({
+    type: 'question',
+    message: `Able2 v${version} has finished downloading. For the update to take effect Able2 must restart. Close Able2?`,
+    buttons: ['Close and Install', 'Not Now']
+  })
+
+  if (quit.response === 0) autoUpdater.quitAndInstall()
+
+  win.webContents.send('update-available', false)
+})
+
+autoUpdater.on('update-available', ({ version }) => {
+  win.webContents.send('update-available', version)
+})
+
+autoUpdater.on('download-progress', ({ percent }) => {
+  win.webContents.send('update-progress', percent)
 })
 
 

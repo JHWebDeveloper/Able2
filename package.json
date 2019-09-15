@@ -10,7 +10,7 @@
     "build": "npm run main:prod && rimraf build && webpack --config webpack.prod.js",
     "pack": "rimraf dist && electron-builder --dir",
     "dist": "rimraf dist && npm run build && electron-builder -w -m",
-    "deploy": "rimraf dist && npm run build && electron-builder build -w -m --publish always",
+    "deploy": "rimraf dist && npm run build && electron-builder build -w --publish always",
     "postinstall": "electron-builder install-app-deps",
     "start": "electron ."
   },

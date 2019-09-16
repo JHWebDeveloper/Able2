@@ -19,6 +19,7 @@ const Help = () => {
         <p>To download from the web, Able2 makes use of youtube-dl, an open-source command line interface compatible with numerous online video services including but not limited to YouTube, Twitter, Facebook, Instagram, Vimeo, Twitch, Reddit, Tumblr, Flickr, and Dailymotion.</p>
         <h3>Upload Files from Your Computer</h3>
         <p>In addition to downloading, Able2 offers several video processing options. To use these features on a video or image already on your computer, drag and drop the file on in the indicated area. Alternatively, clicking on this area will display a file browser.</p>
+        <p>You can select multiple videos/images for batch processing. A manually entered filename is required for batch processing.</p>
         <h3>Start a Screen Record</h3>
         <p>If you are unable to downloaded a video, Able2 has a built in screen recorder as a work around. Simply start the record and play the video. You should fullscreen if available.</p>
         <p>To start a screen record simply click the record button. The button will blink to indicate it's recording. To stop, somply click the button again.</p>

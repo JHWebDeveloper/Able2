@@ -48,8 +48,8 @@ const startRecording = (dispatch, timer, end) => {
         stopRecording(dispatch, end)
         remote.getCurrentWindow().show()
       }, timer.tc * 1000) : false
-    });
-  });
+    }).catch(err => { throw err })
+  }).catch(err => { throw err })
 }
 
 const stopRecording = (dispatch, end) => {

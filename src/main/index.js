@@ -87,8 +87,12 @@ if (!lock) {
   app.on('ready', () => {
     createWindow()
 
-    autoUpdater.autoDownload = true
-    autoUpdater.checkForUpdatesAndNotify()
+    try {
+      autoUpdater.autoDownload = true
+      autoUpdater.checkForUpdatesAndNotify()
+    } catch (err) {
+      console.error(err)
+    }
   })
 }
 

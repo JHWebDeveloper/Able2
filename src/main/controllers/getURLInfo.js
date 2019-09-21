@@ -14,6 +14,13 @@ const info = (evt, { url, renderOutput }) => {
 
   getVideoInfo.stdout.on('data', data => infoString += data.toString())
 
+  getVideoInfo.stderr.on('data', data => {
+    if (/^ERROR: (Unsupported URL|No media found)/.test(data.toString())) {
+      getVideoInfo.kill()
+      evt.reply('url-error')
+    }
+  })
+
   getVideoInfo.on('close', code => {
     if (code === null) return
 

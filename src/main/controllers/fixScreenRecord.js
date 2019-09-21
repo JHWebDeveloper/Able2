@@ -1,6 +1,6 @@
 const path = require('path')
 const ffmpeg = require('./ffmpeg')
-const getFileFormat = require('./getFileFormat')
+const getFileFormat = require('./getFileInfo')
 const { tempDir } = require('./handleExtFiles')
 
 const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']

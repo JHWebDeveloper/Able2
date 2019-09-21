@@ -1,28 +1,30 @@
+import * as ACTION from '../actions/types'
+
 export default (state, action) => {
   const { type, payload } = action
 
   switch(type) {
-    case 'UPDATE_STATE':
+    case ACTION.UPDATE_STATE:
       return {
         ...state,
         ...payload
       }
-    case 'CHANGE_STATUS':
+    case ACTION.CHANGE_STATUS:
       return {
         ...state,
         status: payload
       }
-    case 'START_RECORDING':
+    case ACTION.START_RECORDING:
       return {
         ...state,
         recording: true
       }
-    case 'STOP_RECORDING':
+    case ACTION.STOP_RECORDING:
       return {
         ...state,
         recording: false
       }
-    case 'UPDATE_THUMBNAIL':
+    case ACTION.UPDATE_THUMBNAIL:
       return {
         ...state,
         vidData: {
@@ -30,7 +32,7 @@ export default (state, action) => {
           thumbnail: payload
         }
       }
-    case 'ENABLE_TIMECODE':
+    case ACTION.ENABLE_TIMECODE:
       return {
         ...state,
         [payload.name]: {
@@ -38,7 +40,7 @@ export default (state, action) => {
           enabled: payload.enabled
         }
       }
-    case 'UPDATE_TIMECODE':
+    case ACTION.UPDATE_TIMECODE:
       return {
         ...state,
         [payload.name]: {
@@ -47,17 +49,17 @@ export default (state, action) => {
           tc: payload.tc
         }
       }
-    case 'CHANGE_RADIO_VALUE':
+    case ACTION.CHANGE_RADIO_VALUE:
       return {
         ...state,
         [payload.name]: payload.value
       }
-    case 'TOGGLE_CHECKBOX':
+    case ACTION.TOGGLE_CHECKBOX:
       return {
         ...state,
         [payload]: !state[payload]
       }
-    case 'CHECK_DIRECTORY':
+    case ACTION.CHECK_DIRECTORY:
       return {
         ...state,
         directories: state.directories.map(dir => {
@@ -65,7 +67,7 @@ export default (state, action) => {
           return dir;
         })
       }
-    case 'UPDATE_PROGRESS':
+    case ACTION.UPDATE_PROGRESS:
       return {
         ...state,
         [payload.name]: {
@@ -73,19 +75,19 @@ export default (state, action) => {
           ...payload.progress
         }
       }
-    case 'ADD_DIRECTORY':
+    case ACTION.ADD_DIRECTORY:
       state.directories.splice(payload.pos, 0, payload.newDir)
       
       return {
         ...state,
         directories: state.directories
       }
-    case 'DELETE_DIRECTORY':
+    case ACTION.DELETE_DIRECTORY:
       return {
         ...state,
         directories: state.directories.filter(dir => dir.id !== payload)
       }
-    case 'UPDATE_LABEL':
+    case ACTION.UPDATE_LABEL:
       return {
         ...state,
         directories: state.directories.map(dir => (
@@ -95,7 +97,7 @@ export default (state, action) => {
           }
         ))
       }
-    case 'CHOOSE_DIRECTORY':
+    case ACTION.CHOOSE_DIRECTORY:
       return {
         ...state,
         directories: state.directories.map(dir => (
@@ -105,7 +107,7 @@ export default (state, action) => {
           }
         ))
       }
-    case 'MOVE_DIRECTORY':
+    case ACTION.MOVE_DIRECTORY:
       const trgtDir = state.directories.splice(payload.oldPos, 1)[0];
 
       state.directories.splice(payload.newPos, 0, trgtDir);

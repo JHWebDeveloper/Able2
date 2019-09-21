@@ -5,7 +5,7 @@ const { autoUpdater } = require('electron-updater')
 const url = require('url')
 const path = require('path')
 
-const info = require('./controllers/info')
+const info = require('./controllers/getURLInfo')
 const upload = require('./controllers/upload')
 const fixScreenRecord = require('./controllers/fixScreenRecord')
 const download = require('./controllers/download')

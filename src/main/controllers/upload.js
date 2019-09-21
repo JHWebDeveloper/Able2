@@ -1,6 +1,6 @@
 const fs = require('fs').promises
 const path = require('path')
-const getFileFormat = require('./getFileFormat')
+const getFileFormat = require('./getFileInfo')
 const { tempDir } = require('./handleExtFiles')
 
 const tempFileName = ({ name }) => path.join(tempDir, `temp.${name}`)

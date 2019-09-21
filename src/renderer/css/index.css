@@ -276,6 +276,8 @@ fieldset:disabled > div {
   border-color: #ccc;
 }
 
+fieldset:disabled > input { pointer-events: none; }
+
 input[type="checkbox"],
 input[type="radio"] {
   width: 18px;
@@ -308,20 +310,22 @@ details {
 
 summary, legend { font-weight: 600; }
 
-details > fieldset { margin: 10px 0 0 17px }
+details > fieldset { margin-bottom: 10px; }
 
-fieldset[name="aspect-ratio"],
-fieldset[name="background"] {
+details > fieldset:nth-of-type(-n+2) { margin-top: 5px; }
+details > fieldset:nth-of-type(odd)  { margin-left: 17px; }
+details > fieldset:nth-of-type(even) { margin-left: 20px; }
+
+details > fieldset:not([name="source-overlay"]) {
   display: inline-block;
-  width: max-content;
+  width: calc((100% - 57px) / 2);
 }
 
-fieldset[name="background"] { margin-left: 20px; }
-
-fieldset[name="aspect-ratio"] > legend,
-fieldset[name="background"] > legend {
+details > fieldset:not([name="source-overlay"]) > legend {
   margin-bottom: 5px;
 }
+
+fieldset[name="source-overlay"] { margin-right: 17px; }
 
 input[name="source"] { margin-bottom: 5px; }
 

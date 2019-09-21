@@ -18,9 +18,10 @@
   "license": "CC-BY-NC-4.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/JHWebDeveloper/Able2.git"
+    "url": "https://github.com/JHWebDeveloper/Able2-public-resources.git"
   },
   "dependencies": {
+    "animated-gif-detector": "^1.2.0",
     "electron-updater": "^4.1.2",
     "electron-util": "^0.12.1",
     "ffmpeg-static-electron": "^2.0.1",
@@ -49,6 +50,7 @@
     "cssnano": "^4.1.10",
     "electron": "^6.0.5",
     "electron-builder": "^21.2.0",
+    "eslint": "^6.4.0",
     "file-loader": "^4.2.0",
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.8.0",

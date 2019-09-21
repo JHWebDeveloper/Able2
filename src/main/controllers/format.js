@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const ffmpeg = require('./ffmpeg')
-const { tempDir, copyToDirectories } = require('./handleExtFiles')
+const { tempDir, copyToDirectories, clearTempFiles } = require('./handleExtFiles')
 const { checkIsImage, checkIsGIF } = require('./checkIsImage')
 const render = require('./render')
 
@@ -60,6 +60,7 @@ const format = (evt, formData, file) => {
       })
     })
     .on('error', () => {
+      clearTempFiles()
       evt.reply('render-error')
     })
     .output(path.join(tempDir, formatted))
@@ -78,15 +79,12 @@ const format = (evt, formData, file) => {
     command.input(srcPNG).native()
   }
 
-  if (arc !== 'bypass' || source) {
-    render(formData, command, file)
-  } else {
-    command.run()
-  }
+  render(formData, command, file)
 }
 
 const getTempFile = (evt, { formData }) => {
   evt.reply('render-started')
+  
   fs.promises.readdir(tempDir).then(files => {
     fileQueue = files.filter(file => (
       file.startsWith('temp.')

@@ -2,12 +2,15 @@ import { ipcRenderer } from 'electron'
 import { loadVideoInfo } from './loadVideoInfo'
 import { tcToSeconds } from '../../utilities'
 
+import * as ACTION from '../types'
+import { LOADING, FETCH_ERROR, UPLOAD_ERROR } from '../../status/types'
+
 export const { submitForm } = require('./submitForm')
 
 export const getURLInfo = ({ url, end, renderOutput }) => dispatch => {
   dispatch({
-    type: 'CHANGE_STATUS',
-    payload: 'LOADING'
+    type: ACTION.CHANGE_STATUS,
+    payload: LOADING
   })
 
   ipcRenderer.send('get-info', { url, renderOutput })
@@ -21,16 +24,16 @@ export const getURLInfo = ({ url, end, renderOutput }) => dispatch => {
     ipcRenderer.removeAllListeners(['info-retrieved'])
 
     dispatch({
-      type: 'CHANGE_STATUS',
-      payload: 'FETCH_ERROR'
+      type: ACTION.CHANGE_STATUS,
+      payload: FETCH_ERROR
     })
   })
 }
 
 export const getInfo = (files, end, message) => dispatch => {
   dispatch({
-    type: 'CHANGE_STATUS',
-    payload: 'LOADING'
+    type: ACTION.CHANGE_STATUS,
+    payload: LOADING
   })
 
   ipcRenderer.send(message, files ? JSON.stringify(files) : false)
@@ -42,7 +45,7 @@ export const getInfo = (files, end, message) => dispatch => {
   
   ipcRenderer.once('still-created', (evt, { thumbnail }) => {
     dispatch({
-      type: 'UPDATE_THUMBNAIL',
+      type: ACTION.UPDATE_THUMBNAIL,
       payload: thumbnail
     })
   })
@@ -51,21 +54,21 @@ export const getInfo = (files, end, message) => dispatch => {
     ipcRenderer.removeAllListeners(['info-retrieved', 'still-created'])
 
     dispatch({
-      type: 'CHANGE_STATUS',
-      payload: 'UPLOAD_ERROR'
+      type: ACTION.CHANGE_STATUS,
+      payload: UPLOAD_ERROR
     })
   })
 }
 
 export const updateState = e => ({
-  type: 'UPDATE_STATE',
+  type: ACTION.UPDATE_STATE,
   payload: {
     [e.target.name]: e.target.value
   }
 })
 
 export const enableTimecode = (name, enabled) => ({
-  type: 'ENABLE_TIMECODE',
+  type: ACTION.ENABLE_TIMECODE,
   payload: {
     name,
     enabled: !enabled
@@ -73,7 +76,7 @@ export const enableTimecode = (name, enabled) => ({
 })
 
 export const updateTimecode = (name, tc) => ({
-  type: 'UPDATE_TIMECODE',
+  type: ACTION.UPDATE_TIMECODE,
   payload: {
     name,
     display: tc,
@@ -92,7 +95,7 @@ export const pasteTimecode = (name, e) => dispatch => {
 }
 
 export const changeRadioValue = ({ target }) => ({
-  type: 'CHANGE_RADIO_VALUE',
+  type: ACTION.CHANGE_RADIO_VALUE,
   payload: {
     name: target.name,
     value: target.value
@@ -100,17 +103,17 @@ export const changeRadioValue = ({ target }) => ({
 })
 
 export const toggleCheckbox = ({ target }) => ({
-  type: 'TOGGLE_CHECKBOX',
+  type: ACTION.TOGGLE_CHECKBOX,
   payload: target.name
 })
 
 export const checkDirectory = id => ({
-  type: 'CHECK_DIRECTORY',
+  type: ACTION.CHECK_DIRECTORY,
   payload: id
 })
 
 export const updateProgress = (name, progress) => ({
-  type: 'UPDATE_PROGRESS',
+  type: ACTION.UPDATE_PROGRESS,
   payload: {
     name: `${name}Progress`,
     progress
@@ -118,6 +121,6 @@ export const updateProgress = (name, progress) => ({
 })
 
 export const syncPreferences = prefs => ({
-  type: 'UPDATE_STATE',
+  type: ACTION.UPDATE_STATE,
   payload: prefs
 })

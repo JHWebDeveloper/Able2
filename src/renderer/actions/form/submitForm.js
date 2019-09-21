@@ -4,22 +4,19 @@ import { updateProgress } from '../form'
 import buildSource from './buildSource';
 import { cleanSourceName, cleanFileName } from '../../utilities';
 
+import { CHANGE_STATUS } from '../types'
+import { DOWNLOADING, DOWNLOAD_ERROR, RENDERING, RENDER_ERROR, DONE } from '../../status/types'
+
 const dirAlert = dir => remote.dialog.showMessageBoxSync({
   type: 'warning',
   buttons: ['Continue', 'Abort'],
   message: `Unable to locate the directory "${dir}". This folder may have been deleted, removed or taken offline. Continue without saving to this directory?`
 })
 
-const sourceAlert = isImg => remote.dialog.showMessageBoxSync({
-  type: 'warning',
-  buttons: ['Continue', 'Abort'],
-  message: `Source overlays can only be added to a${isImg ? 'n image' : ' video'} with a 16:9 aspect ratio. The source overlay will instead be exported as a separate .png file. To fix this, select "Fill Frame" or "Fit Inside Frame" from the Advanced Options menu. Continue?`
-})
-
 export const submitForm = (state, e) => dispatch => {
   e.preventDefault()
 
-  let { fileName, source, vidData, arc, status, sourcePrefix, renderOutput, directories } = state
+  let { fileName, source, rotate, hflip, vflip, sourcePrefix, renderOutput, directories } = state
 
   if (directories.every(dir => !dir.checked)) {
     const filePath = remote.dialog.showOpenDialogSync({
@@ -39,20 +36,15 @@ export const submitForm = (state, e) => dispatch => {
     }
   }
 
-  if (
-    source &&
-    !vidData.is16_9 &&
-    arc === 'bypass' &&
-    status !== 'BATCH_READY' &&
-    sourceAlert(status === 'IMG_READY')
-    ) return
-
   if (source) source = cleanSourceName(source)
+
+  if (hflip) rotate += 'hflip,'
+  if (vflip) rotate += 'vflip,'
 
   ipcRenderer.once('download-started', () => {
     dispatch({
-      type: 'CHANGE_STATUS',
-      payload: 'DOWNLOADING'
+      type: CHANGE_STATUS,
+      payload: DOWNLOADING
     })
   })
 
@@ -70,8 +62,8 @@ export const submitForm = (state, e) => dispatch => {
     ])
 
     dispatch({
-      type: 'CHANGE_STATUS',
-      payload: 'DOWNLOAD_ERROR'
+      type: CHANGE_STATUS,
+      payload: DOWNLOAD_ERROR
     })
   })
 
@@ -79,8 +71,8 @@ export const submitForm = (state, e) => dispatch => {
     ipcRenderer.removeAllListeners(['download-progress', 'download-error'])
 
     dispatch({
-      type: 'CHANGE_STATUS',
-      payload: 'RENDERING'
+      type: CHANGE_STATUS,
+      payload: RENDERING
     })
   })
 
@@ -92,8 +84,8 @@ export const submitForm = (state, e) => dispatch => {
     ipcRenderer.removeAllListeners(['render-progress', 'render-complete'])
 
     dispatch({
-      type: 'CHANGE_STATUS',
-      payload: 'RENDER_ERROR'
+      type: CHANGE_STATUS,
+      payload: RENDER_ERROR
     })
   })
 
@@ -101,8 +93,8 @@ export const submitForm = (state, e) => dispatch => {
     ipcRenderer.removeAllListeners(['render-progress', 'render-error'])
     
     dispatch({
-      type: 'CHANGE_STATUS',
-      payload: 'DONE'
+      type: CHANGE_STATUS,
+      payload: DONE
     })
   })
 

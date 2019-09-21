@@ -30,3 +30,7 @@ export const UploadError = () => <Error heading="Error Uploading File!" message=
 export const RenderError = () => <Error heading="Render Failed!" message={[
   'Your video was downloaded, but your format settings failed to render.'
 ]}/>
+
+export const RecordingError = () => <Error heading="Render Failed!" message={[
+  'Something went wrong. Please check the audio/video configuration of your computer and try again.'
+]}/>

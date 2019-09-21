@@ -1,10 +1,19 @@
 import React, { useContext } from 'react'
 
 import { FormContext } from '../../store/formStore'
+import * as STATUS from '../../status/types'
 
 import VideoInfo from './InfoCard'
-import { FetchError, DownloadError, FileError, UploadError, RenderError } from './Error'
 import Spinner from '../elements/Spinner'
+
+import {
+  FetchError,
+  DownloadError,
+  FileError,
+  UploadError,
+  RenderError,
+  RecordingError
+} from './Error'
 
 const Loading = () => (
   <div className="loading">
@@ -16,25 +25,27 @@ export default () => {
   const { status, vidData } = useContext(FormContext)
 
   switch (status) {
-    case 'LOADING':
+    case STATUS.LOADING:
       return <Loading />
-    case 'FETCH_ERROR':
+    case STATUS.FETCH_ERROR:
       return <FetchError />
-    case 'DOWNLOAD_ERROR':
+    case STATUS.DOWNLOAD_ERROR:
       return <DownloadError />
-    case 'FILE_ERROR':
+    case STATUS.FILE_ERROR:
       return <FileError />
-    case 'UPLOAD_ERROR':
+    case STATUS.UPLOAD_ERROR:
       return <UploadError />
-    case 'RENDER_ERROR':
+    case STATUS.RENDER_ERROR:
       return <RenderError />
-    case 'URL_READY':
-    case 'VID_READY':
-    case 'IMG_READY':
-    case 'BATCH_READY':
-    case 'DOWNLOADING':
-    case 'RENDERING':
-    case 'DONE':
+    case STATUS.RECORDING_ERROR:
+      return <RecordingError />
+    case STATUS.URL_READY:
+    case STATUS.VID_READY:
+    case STATUS.IMG_READY:
+    case STATUS.BATCH_READY:
+    case STATUS.DOWNLOADING:
+    case STATUS.RENDERING:
+    case STATUS.DONE:
       return <VideoInfo {...vidData} />
     default:
       return false

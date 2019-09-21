@@ -1,12 +1,20 @@
 import { remote } from 'electron'
 import { ipcRenderer } from 'electron'
 import uuidv1 from 'uuid/v1'
-import { checkDirectory, syncPreferences } from '../form';
+import { checkDirectory } from '../form';
+
+import {
+  ADD_DIRECTORY,
+  DELETE_DIRECTORY,
+  UPDATE_LABEL,
+  CHOOSE_DIRECTORY,
+  UPDATE_STATE
+} from '../types'
 
 export const checkDefault = checkDirectory
 
 const addDirectory = dir => ({
-  type: 'ADD_DIRECTORY',
+  type: ADD_DIRECTORY,
   payload: dir
 })
 
@@ -25,7 +33,7 @@ export const addNewDirectory = (index, e) => dispatch => {
 }
 
 const deleteDirectory = id => ({
-  type: 'DELETE_DIRECTORY',
+  type: DELETE_DIRECTORY,
   payload: id
 })
 
@@ -46,7 +54,7 @@ export const moveDirectory = (newDir, pos) => dispatch => {
 }
 
 export const updateLabel = (id, e) => ({
-  type: 'UPDATE_LABEL',
+  type: UPDATE_LABEL,
   payload: {
     id,
     label: e.target.value
@@ -59,7 +67,7 @@ export const chooseDirectory = id => dispatch => {
     properties: ['openDirectory', 'createDirectory']
   }).then(({ filePaths }) => {
     dispatch({
-      type: 'CHOOSE_DIRECTORY',
+      type: CHOOSE_DIRECTORY,
       payload: {
         id,
         directory: filePaths[0]
@@ -79,7 +87,7 @@ export const savePreferences = prefs => dispatch => {
   ipcRenderer.send('save-prefs', prefs)
 
   dispatch({
-    type: 'UPDATE_STATE',
+    type: UPDATE_STATE,
     payload: prefs
   })
 }

@@ -1,3 +1,5 @@
+import { remote } from 'electron'
+
 const urlRegex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
 
 export const isURL = url => urlRegex.test(url)
@@ -28,9 +30,9 @@ const filterBadChars = (str, p1, p2, p3) => {
   if (p3) return '_'
 }
 
-export const cleanFileName = fileName => (
-  fileName.replace(/(&)|(%)|([/\\?*:|"<>])/g, filterBadChars)
-)
+export const cleanFileName = fileName => fileName
+  .slice(0, 286)
+  .replace(/(&)|(%)|([/\\?*:|"<>])/g, filterBadChars)
 
 export const cleanSourceName = srcName => (
   srcName.replace(/(^\s*(source:|courtesy:)\s*)|(\s*$)/ig, '')
@@ -48,3 +50,20 @@ export const convertMiB = size => {
 export const augmentedDispatch = (dispatch, state) => input => (
   input instanceof Function ? input(dispatch, state) : dispatch(input)
 )
+
+const menu = new remote.Menu()
+
+const menuItems = [
+  new remote.MenuItem({ role: 'cut' }),
+  new remote.MenuItem({ role: 'copy' }),
+  new remote.MenuItem({ role: 'paste' }),
+  new remote.MenuItem({ role: 'selectAll' })
+]
+
+menuItems.forEach(item => menu.append(item))
+
+
+export const contextMenu = e => {
+  e.preventDefault()
+  if (!e.target.disabled) menu.popup(remote.getCurrentWindow())
+}

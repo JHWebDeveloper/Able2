@@ -3,6 +3,7 @@ import { ipcRenderer } from 'electron'
 
 import { FormContext } from '../../store/formStore'
 import { submitForm, syncPreferences  } from '../../actions/form'
+import { ERROR } from '../../status/types'
 
 import Fetcher from './Fetcher'
 import Uploader from './Uploader'
@@ -29,7 +30,7 @@ const Form = () => {
     <main>
       <Updater />
       <form onSubmit={e => dispatch(submitForm(ctx, e))}>
-        {status && !status.endsWith('ERROR') ? false : (
+        {status && !status.endsWith(ERROR) ? false : (
           <fieldset disabled={ctx.recording}>
             <Fetcher />
             <Uploader />
@@ -37,7 +38,7 @@ const Form = () => {
         )}
         <InfoCard />
         <DownloadOptions />
-        {status && !status.endsWith('ERROR') ? false : <ScreenRecord />}
+        {status && !status.endsWith(ERROR) ? false : <ScreenRecord />}
       </form>
     </main>
   )

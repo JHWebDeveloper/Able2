@@ -18,29 +18,11 @@ const initDirectories = () => {
     fs.mkdirSync(prefsDir)
     fs.writeFileSync(path.join(prefsDir, 'preferences.json'), JSON.stringify({
       directories: [
-        // {
-        //   checked: true,
-        //   directory: app.getPath('desktop'),
-        //   id: uuidv1(),
-        //   label: "Save to Desktop"
-        // }
         {
           checked: true,
-          directory: "//cmgorlpxaaspera/aspera_in",
+          directory: app.getPath('desktop'),
           id: uuidv1(),
-          label: "Send to Aspera"
-        },
-        {
-          checked: false,
-          directory: "K://News_Mugs",
-          id: uuidv1(),
-          label: "Save to News Mugs"
-        },
-        {
-          checked: false,
-          directory: "K://News_Mugs/FINAL MUGS",
-          id: uuidv1(),
-          label: "Save to Final Mugs"
+          label: "Save to Desktop"
         }
       ],
       renderOutput: "1280x720"

@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { FormContext } from '../../store/formStore'
 import { updateState, toggleCheckbox } from '../../actions/form'
+import { BATCH_READY } from '../../status/types'
+import { contextMenu } from '../../utilities'
 
 const Source = () => {
-  const { source, sourcePrefix, dispatch  } = useContext(FormContext)
+  const { vidData, status, arc, source, sourcePrefix, dispatch  } = useContext(FormContext)
   const [ sourceSuggestions, loadSourceSuggestions ] = useState([])
 
   useEffect(() => {
@@ -16,7 +18,9 @@ const Source = () => {
   }, [])
 
   return (
-    <fieldset name="source-overlay">
+    <fieldset
+      name="source-overlay"
+      disabled={arc === 'bypass' && (!vidData.is16_9 || status === BATCH_READY)}>
       <legend>Source:</legend>
       <input
         type="text"
@@ -24,6 +28,7 @@ const Source = () => {
         list="source-suggestions"
         value={source}
         onChange={e => dispatch(updateState(e))}
+        onContextMenu={contextMenu}
         maxLength="51"
         placeholder="if none, leave blank" />
       <datalist id="source-suggestions">

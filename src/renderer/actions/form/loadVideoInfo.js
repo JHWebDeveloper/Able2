@@ -1,4 +1,6 @@
 import { secondsToTC } from '../../utilities'
+import { UPDATE_STATE } from '../types'
+import { BATCH_READY } from '../../status/types'
 
 export const loadVideoInfo = (info, end, dispatch) => {
   const { duration, title, width, height } = info
@@ -6,10 +8,10 @@ export const loadVideoInfo = (info, end, dispatch) => {
   const is16_9 = height / width === 0.5625
 
   dispatch({
-    type: 'UPDATE_STATE',
+    type: UPDATE_STATE,
     payload: {
       status: info.readyStatus,
-      fileName: info.readyStatus === 'BATCH_READY' ? '' : title,
+      fileName: info.readyStatus === BATCH_READY ? '' : title,
       vidData: {
         ...info,
         is16_9,

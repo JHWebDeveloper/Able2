@@ -416,6 +416,11 @@ button[name="record"].recording::after {
   animation: blink 1000ms infinite;
 }
 
+button[name="record"] ~ p {
+  font-size: 10px;
+  margin-top: 10px;
+}
+
 
 /* --- UPDATER --- */
 

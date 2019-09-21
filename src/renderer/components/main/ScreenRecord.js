@@ -124,6 +124,7 @@ const ScreenRecord = () => {
         className={recording ? 'recording' : ''}
         onClick={toggleRecording}></button>
       <Timecode name="timer" disabled={recording} noLabel />
+      {process.platform === 'darwin' && <p>(Audio not supported on Mac)</p>}
     </div>
   )
 }

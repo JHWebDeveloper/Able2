@@ -4,7 +4,7 @@ import { FormContext } from '../../store/formStore'
 import RadioSet from '../elements/RadioSet'
 
 const AspectRatioOptions = () => {
-  const { arc, status, vidData, dispatch } = useContext(FormContext);
+  const { arc, dispatch } = useContext(FormContext);
 
   return (
     <fieldset name="aspect-ratio">

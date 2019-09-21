@@ -1,7 +1,8 @@
 import React from 'react'
 import Helmet from 'react-helmet'
 import '../../css/help.css'
-import Header from '../main/Header';
+import Header from '../main/Header'
+import { remote } from 'electron'
 
 const Help = () => {
   return (
@@ -11,6 +12,7 @@ const Help = () => {
       </Helmet>
       <Header />
       <div className="help">
+        <p>Version {remote.app.getVersion()}</p>
         <p>Able2 is a video downloader and processor designed to help get your links on air as fast and efficiently as possible.</p>
 
         <h2>Getting Started</h2>

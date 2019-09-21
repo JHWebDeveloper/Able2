@@ -5,7 +5,7 @@ const { autoUpdater } = require('electron-updater')
 const url = require('url')
 const path = require('path')
 
-const info = require('./controllers/getURLInfo')
+const getURLInfo = require('./controllers/getURLInfo')
 const upload = require('./controllers/upload')
 const fixScreenRecord = require('./controllers/fixScreenRecord')
 const download = require('./controllers/download')
@@ -256,7 +256,7 @@ if (dev) {
   })
 }
 
-ipcMain.on('get-info', info)
+ipcMain.on('get-url-info', getURLInfo)
 ipcMain.on('upload', upload)
 ipcMain.on('fix-screen-record', fixScreenRecord)
 ipcMain.on('download', download)

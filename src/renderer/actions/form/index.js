@@ -13,7 +13,7 @@ export const getURLInfo = ({ url, end, renderOutput }) => dispatch => {
     payload: LOADING
   })
 
-  ipcRenderer.send('get-info', { url, renderOutput })
+  ipcRenderer.send('get-url-info', { url, renderOutput })
 
   ipcRenderer.once('info-retrieved', (evt, info) => {
     ipcRenderer.removeAllListeners(['url-error'])

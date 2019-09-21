@@ -1,6 +1,6 @@
 const fs = require('fs').promises
 const path = require('path')
-const getFileFormat = require('./getFileInfo')
+const getFileInfo = require('./getFileInfo')
 const { tempDir } = require('./handleExtFiles')
 
 const tempFileName = ({ name }) => path.join(tempDir, `temp.${name}`)
@@ -22,7 +22,7 @@ const upload = (evt, data) => {
     const tempFile = tempFileName(files[0])
   
     fs.copyFile(files[0].path, tempFile).then(() => {
-      getFileFormat(evt, files[0], tempFile)
+      getFileInfo(evt, files[0], tempFile)
     }).catch(err => { throw err }) 
   }
 }

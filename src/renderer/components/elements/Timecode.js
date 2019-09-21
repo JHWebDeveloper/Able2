@@ -1,4 +1,5 @@
 import React, { useCallback, useContext } from 'react'
+import { string, bool } from 'prop-types'
 import { FormContext } from '../../store/formStore'
 import { enableTimecode, updateTimecode, pasteTimecode } from '../../actions/form'
 import { simplifyTimecode, contextMenu } from '../../utilities'
@@ -42,6 +43,12 @@ const Timecode = ({ name, disabled, noLabel }) => {
         className="monospace" />
     </fieldset>
   )
+}
+
+Timecode.propTypes = {
+  name: string.isRequired,
+  disabled: bool,
+  noLabel: bool
 }
 
 export default Timecode

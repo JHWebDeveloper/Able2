@@ -6,6 +6,7 @@ import { PrefsProvider } from '../../store/prefsStore'
 import Directories from './Directories'
 import OutputResolution from './OutputResolution'
 import SavePreferences from './SavePreferences'
+import PrefsPropType from './PrefsPropType';
 
 const Preferences = ({ preferences }) => (
   <div className="preferences">
@@ -19,5 +20,7 @@ const Preferences = ({ preferences }) => (
     </PrefsProvider>
   </div>
 )
+
+Preferences.propTypes = PrefsPropType
 
 export default Preferences

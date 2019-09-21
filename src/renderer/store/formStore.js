@@ -2,6 +2,8 @@ import React, { createContext, useReducer } from 'react'
 
 import reducer from '../reducers/reducer'
 import { augmentedDispatch } from '../utilities'
+import Form from '../components/main/Form'
+import PrefsPropType from '../components/preferences/PrefsPropType'
 
 export const initState = {
   status: false,
@@ -73,3 +75,5 @@ export const FormProvider = ({ children, preferences }) => {
     </FormContext.Provider>
   )
 }
+
+FormProvider.propTypes = PrefsPropType

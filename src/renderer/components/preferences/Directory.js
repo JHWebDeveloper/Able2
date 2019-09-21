@@ -1,4 +1,5 @@
 import React from 'react'
+import { shape, string, number, bool, func } from 'prop-types'
 
 import {
   checkDefault,
@@ -79,6 +80,17 @@ const Directory = ({ dir, index, dispatch }) => {
       </td>
     </tr>
   )
+}
+
+Directory.propTypes = {
+  dir: shape({
+    checked: bool.isRequired,
+    label: string.isRequired,
+    directory: string.isRequired,
+    id: string.isRequired
+  }).isRequired,
+  index: number.isRequired,
+  dispatch: func.isRequired
 }
 
 export default Directory

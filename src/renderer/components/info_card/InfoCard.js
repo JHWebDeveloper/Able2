@@ -1,4 +1,5 @@
 import React from 'react'
+import { string, number, oneOfType } from 'prop-types'
 
 const InfoCard = ({ thumbnail, title, duration, resolution, fps, fileCount }) => {
   const errImg = require('../../images/able2-placeholder.svg');
@@ -24,6 +25,15 @@ const InfoCard = ({ thumbnail, title, duration, resolution, fps, fileCount }) =>
       </div>
     </div>
   )
+}
+
+InfoCard.propTypes = {
+  thumbnail: string,
+  title: string,
+  duration: string,
+  resolution: string,
+  fps: oneOfType([string, number]),
+  fileCount: oneOfType([string, number])
 }
 
 export default InfoCard

@@ -1,4 +1,5 @@
 import React from 'react'
+import { oneOfType, bool, string } from 'prop-types'
 import { remote } from 'electron'
 
 import { convertMiB } from '../../utilities'
@@ -19,6 +20,14 @@ const ProgressBar = ({ file, prc, size, speed, eta }) => {
       <span>ETA: <span className="monospace">{eta}</span></span>
     </div>
   )
+}
+
+ProgressBar.propTypes = {
+  file: oneOfType([bool, string]),
+  prc: string,
+  size: string,
+  speed: string,
+  eta: string
 }
 
 export default ProgressBar

@@ -7,6 +7,7 @@ if (process.platform !== 'darwin') require('./css/windows.css')
 import Main from './components/main/Main'
 import Preferences from './components/preferences/Preferences'
 import Help from './components/help/Help'
+import PrefsPropType from './components/preferences/PrefsPropType'
 
 const  App = ({ preferences }) => (
   <HashRouter>
@@ -19,5 +20,7 @@ const  App = ({ preferences }) => (
     <Route path="/help" component={Help} />
   </HashRouter>
 )
+
+App.propTypes = PrefsPropType
 
 export default App

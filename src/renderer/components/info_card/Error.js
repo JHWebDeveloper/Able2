@@ -1,4 +1,5 @@
 import React from 'react'
+import { string, arrayOf } from 'prop-types'
 import uuidv1 from 'uuid/v1'
 
 const Error = ({ heading, message }) => (
@@ -7,6 +8,11 @@ const Error = ({ heading, message }) => (
     {message.map(p => <p key={uuidv1()}>{p}</p>)}
   </div>
 )
+
+Error.propTypes = {
+  heading: string.isRequired,
+  message: arrayOf(string).isRequired
+}
 
 export const FetchError = () => <Error heading="Video Not Found!" message={[
   'The URL you submitted may be invalid or no longer available.',

@@ -2,6 +2,7 @@ import React, { createContext, useReducer } from 'react'
 
 import reducer from '../reducers/reducer'
 import { augmentedDispatch } from '../utilities'
+import PrefsPropType from '../components/preferences/PrefsPropType'
 
 export const PrefsContext = createContext()
 
@@ -17,3 +18,5 @@ export const PrefsProvider = ({ children, preferences }) => {
     </PrefsContext.Provider>
   )
 }
+
+PrefsProvider.propTypes = PrefsPropType

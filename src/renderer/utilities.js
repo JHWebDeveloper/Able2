@@ -62,7 +62,6 @@ const menuItems = [
 
 menuItems.forEach(item => menu.append(item))
 
-
 export const contextMenu = e => {
   e.preventDefault()
   if (!e.target.disabled) menu.popup(remote.getCurrentWindow())

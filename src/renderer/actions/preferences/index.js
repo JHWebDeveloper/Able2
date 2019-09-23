@@ -92,10 +92,6 @@ export const savePreferences = prefs => dispatch => {
   })
 }
 
-export const updatePreferences = prefs => ({
-
-})
-
 export const closePreferences = () => {
   remote.getCurrentWindow().close()
 }

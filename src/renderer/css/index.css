@@ -1,17 +1,17 @@
 /* --- FONT --- */
 
 @font-face {
-	font-family: Gotham;
+  font-family: Gotham;
   src: url('../font/Gotham-Book.woff2') format('woff2');
-	font-weight: normal;
-	font-style: none;
+  font-weight: normal;
+  font-style: none;
 }
 
 @font-face {
-	font-family: Gotham;
+  font-family: Gotham;
   src: url('../font/Gotham-Medium.woff2') format('woff2');
-	font-weight: bold;
-	font-style: none;
+  font-weight: bold;
+  font-style: none;
 }
 
 

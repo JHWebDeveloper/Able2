@@ -16,7 +16,7 @@ const Help = () => (
 
       <h2>Getting Started</h2>
       <h3>Download Videos from the Internet</h3>
-      <p>To download a video from an internet video service, simply copy and paste the URL of the video in the text field at the top of the form and click the "Fetch Video" button below. The "Fetch Video" button will only be available when a valid URK is detected.</p>
+      <p>To download a video from an internet video service, simply copy and paste the URL of the video in the text field at the top of the form and click the "Fetch Video" button below. The "Fetch Video" button will only be available when a valid URL is detected.</p>
       <p>To download from the web, Able2 makes use of youtube-dl, an open-source command line interface compatible with numerous online video services including but not limited to YouTube, Twitter, Facebook, Instagram, Vimeo, Twitch, Reddit, Tumblr, Flickr, and Dailymotion.</p>
       <h3>Upload Files from Your Computer</h3>
       <p>In addition to downloading, Able2 offers several video processing options. To use these features on a video or image already on your computer, drag and drop the file on in the indicated area. Alternatively, clicking on this area will display a file browser.</p>
@@ -44,7 +44,8 @@ const Help = () => (
       <p>Unless the video is needed immediately, Optimize Video Quality should always be used.</p>
       <h4>Optimize Download Time</h4>
       <p>This option will download the highest quality video with audio already attached. This will save some processing time.</p>
-      <h2>Advanced Options</h2>
+
+      <h2>Formatting Options</h2>
       <h3>AR Correction</h3>
       <p>ARC correction is used to place a video or image that is not perfectly 16:9 inside a 16:9 frame.</p>
       <h4>Fill Frame</h4>
@@ -65,6 +66,12 @@ const Help = () => (
       <h3>Source</h3>
       <p>Adds a Ch9 source overlay to the video.</p>
       <p>If AR Correction is set to None, the source will only be added to the video if it has a 16:9 aspect ratio. For all other aspect ratios, the source overlay will export as a separate .png file.</p>
+      <h2>Transform Options</h2>
+      <h3>Rotate</h3>
+      <p>For correcting sideways video.</p>
+      <h3>Flip</h3>
+      <p>For correcting inverted and/or upside down video.</p>
+      <p>Selecting Horizontally and Vertically together will have the same effect as rotating the video 180°.</p>
 
       <h2>Save Shortcuts</h2>
       <p>A list of selectable directories where Able2 save the video.</p>

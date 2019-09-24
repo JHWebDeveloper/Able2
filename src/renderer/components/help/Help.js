@@ -60,12 +60,12 @@ const Help = () => (
       <p>Video will be zoomed to fill the dimensions of the TV or Laptop.</p>
       <p>These options are only available for videos, not images.</p>
       <h4>Transparent</h4>
-      <p>Puts the video over an transparent background and exports with an alpha channel. Due to the alpha channel, this option takes the longest to process.</p>
+      <p>Puts the video over a transparent background and exports with an alpha channel. Due to the alpha channel, this option takes the longest to process.</p>
       <h4>Black</h4>
       <p>Simply puts the video over a solid black background.</p>
       <h3>Source</h3>
       <p>Adds a Ch9 source overlay to the video. Simple enter the source in the provided text field.</p>
-      <p>Below the field is an option to automatically write "Source: " before your entry. This is default and should onlt be disabled under very special cases. Should you accidentally type "Source: " with this option selected, Able2 will detect it and avoid writing it twice.</p>
+      <p>Below the field is an option to automatically write "Source: " before your entry. This is selected by default and should only be disabled under very special cases. Should you accidentally type "Source: " with this option selected, Able2 will detect it and avoid writing it twice.</p>
       <h4>While AR Correction is set to "None"</h4>
       <p>The source field will only be enabled if the video has an exactly 16:9 aspect ratio. For all other aspect ratios, the source overlay will be disabled. For multiple Videos/Images, the Source option will always be disabled even if all videos in the have a 16:9 ratio.</p>
       <h2>Transform Options</h2>

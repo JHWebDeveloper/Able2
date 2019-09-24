@@ -24,11 +24,7 @@ const RotationOptions = () => {
           {
             label: '90°ccw',
             value: 'transpose=2,'
-          },
-          {
-            label: '180°',
-            value: 'transpose=2,transpose=2,'
-          },
+          }
         ]} />
     </fieldset>
   )

@@ -65,7 +65,8 @@ const Help = () => (
       <p>Simply puts the video over a solid black background.</p>
       <h3>Source</h3>
       <p>Adds a Ch9 source overlay to the video.</p>
-      <p>If AR Correction is set to None, the source will only be added to the video if it has a 16:9 aspect ratio. For all other aspect ratios, the source overlay will export as a separate .png file.</p>
+      <h4>While AR Correction is set to "None"</h4>
+      <p>The source field will only be enabled if the video has an exactly 16:9 aspect ratio. For all other aspect ratios, the source overlay will be disabled. For multiple Videos/Images, the Source option will always be disabled even if all videos in the have a 16:9 ratio.</p>
       <h2>Transform Options</h2>
       <h3>Rotate</h3>
       <p>For correcting sideways video.</p>

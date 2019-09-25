@@ -18,7 +18,7 @@ const RenderProgress = ({ prc, timemark, frames, fileCount, fileTotal }) => {
 }
 
 RenderProgress.propTypes = {
-  prc: string,
+  prc: number,
   timemark: string,
   frames: oneOfType([number, string]),
   fileCount: oneOfType([number, string]),

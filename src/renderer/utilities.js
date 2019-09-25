@@ -24,15 +24,17 @@ export const tcToSeconds = hms => {
 
 export const simplifyTimecode = tc => secondsToTC(tcToSeconds(tc))
 
-const filterBadChars = (str, p1, p2, p3) => {
+const filterBadChars = (str, p1, p2, p3, p4) => {
   if (p1) return 'and'
   if (p2) return 'prc'
-  if (p3) return '_'
+  if (p3) return '2A'
+  if (p4) return encodeURIComponent(p4).replace(/%/g, '')
 }
 
 export const cleanFileName = fileName => fileName
+  .replace(/(&)|(%)|(\*)|([`\\|;:"<>/?ŒœŠšŸ​]|[^!-ż\s])/g, filterBadChars)
   .slice(0, 286)
-  .replace(/(&)|(%)|([/\\?*:|"<>])/g, filterBadChars)
+  .replace(/^\s*|\s*$/g, '')
 
 export const cleanSourceName = srcName => (
   srcName.replace(/(^\s*(source:|courtesy:)\s*)|(\s*$)/ig, '')

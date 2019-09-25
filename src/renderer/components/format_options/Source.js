@@ -42,7 +42,7 @@ const Source = () => {
           name="sourcePrefix"
           checked={sourcePrefix}
           onChange={e => dispatch(toggleCheckbox(e))} />
-        Add "Source: " to begining
+        Add "Source: " to beginning
       </label>
     </fieldset>
   )

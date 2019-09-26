@@ -32,7 +32,7 @@ const filterBadChars = (str, p1, p2, p3, p4) => {
 }
 
 export const cleanFileName = fileName => fileName
-  .replace(/(&)|(%)|(\*)|([`\\|;:"<>/?ŒœŠšŸ​]|[^!-ż\s])/g, filterBadChars)
+  .replace(/(&)|(%)|(\*)|(["/:;<>?\\`|ŒœŠšŸ​]|[^!-ż\s])/g, filterBadChars)
   .slice(0, 286)
   .replace(/^\s*|\s*$/g, '')
 

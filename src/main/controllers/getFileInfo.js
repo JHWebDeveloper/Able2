@@ -31,7 +31,7 @@ const getFileFormat = (evt, file, tempFile) => {
     filename: screenshot,
     size: '384x?'
   }).ffprobe((err, metadata) => {
-    const { duration, width, height, r_frame_rate } = metadata.streams[0]
+    const { duration, width, height, avg_frame_rate } = metadata.streams[0]
 
     evt.reply('info-retrieved', {
       readyStatus: `${isImage ? 'IMG' : 'VID'}_READY`,
@@ -43,7 +43,7 @@ const getFileFormat = (evt, file, tempFile) => {
       } : {
         duration: Math.round(duration || 0),
         fps: (() => {
-          const arr = r_frame_rate.split('/')
+          const arr = avg_frame_rate.split('/')
           return round(arr[0] / arr[1])
         })()
       })

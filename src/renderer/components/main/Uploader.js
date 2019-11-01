@@ -16,6 +16,7 @@ const accepted = [
   '.mpeg',
   '.mpg',
   '.mp4',
+  '.mts',
   '.mxf',
   '.m2v',
   '.m4v',

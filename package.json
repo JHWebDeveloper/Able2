@@ -1,6 +1,6 @@
 {
   "name": "able2",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Able2 is an all-in-one News Editor's toolkit. Able2 is able to download video from the internet, do screen records and convert and process video for air.",
   "main": "main.js",
   "scripts": {
@@ -18,7 +18,7 @@
   "license": "CC-BY-NC-4.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/JHWebDeveloper/Able2.git"
+    "url": "https://github.com/JHWebDeveloper/Able2-public-resources.git"
   },
   "dependencies": {
     "electron-updater": "^4.1.2",

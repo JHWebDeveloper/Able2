@@ -57,27 +57,11 @@
     "postcss-preset-env": "^6.7.0",
     "regenerator-runtime": "^0.13.3",
     "rimraf": "^2.6.3",
-    "style-loader": "^0.23.1",
     "url-loader": "^2.1.0",
     "webpack": "^4.39.1",
     "webpack-cli": "^3.3.6",
     "webpack-dev-server": "^3.8.0",
     "webpack-node-externals": "^1.7.2"
   },
-  "browserslist": "electron 6.0.1",
-  "babel": {
-    "presets": [
-      "@babel/preset-env",
-      "@babel/preset-react",
-      [
-        "minify",
-        {
-          "builtIns": false
-        }
-      ]
-    ],
-    "plugins": [
-      "@babel/plugin-proposal-object-rest-spread"
-    ]
-  }
+  "browserslist": "electron 6.0.1"
 }

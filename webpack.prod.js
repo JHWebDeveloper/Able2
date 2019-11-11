@@ -1,16 +1,13 @@
-const path = require('path');
-const webpack = require('webpack');
-const HTMLWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const path = require('path')
+const HTMLWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const postcssPresetEnv = require('postcss-preset-env')
+const ccnano = require('cssnano')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   mode: 'production',
-  entry: [
-    'core-js/stable',
-    'regenerator-runtime/runtime',
-    './src/renderer/index.js'
-  ],
+  entry: './src/renderer/index.js',
   output: {
     path: path.join(__dirname, 'build'),
     filename: 'bundle.js',
@@ -34,8 +31,8 @@ module.exports = {
             options: {
               ident: 'postcss',
               plugins: [
-                require('postcss-preset-env')({stage: 0}),
-                require('cssnano')()
+                postcssPresetEnv({ stage: 0 }),
+                cssnano()
               ]
             }
           }

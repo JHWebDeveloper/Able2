@@ -2,7 +2,7 @@ const path = require('path')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const postcssPresetEnv = require('postcss-preset-env')
-const ccnano = require('cssnano')
+const cssnano = require('cssnano')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {

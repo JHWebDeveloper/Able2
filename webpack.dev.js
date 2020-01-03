@@ -8,7 +8,7 @@ const { spawn } = require('child_process')
 
 module.exports = {
   mode: 'development',
-  entry: path.resolve(__dirname, 'src', 'renderer'),
+  entry: path.join(__dirname, 'src', 'renderer'),
   output: {
     path: path.join(__dirname, 'build'),
     filename: 'bundle.js',
@@ -37,7 +37,7 @@ module.exports = {
             options: {
               ident: 'postcss',
               plugins: [
-                postcssPresetEnv({stage: 0}),
+                postcssPresetEnv({ stage: 0 }),
               ]
             }
           }
@@ -46,47 +46,42 @@ module.exports = {
       {
         test: /\.(svg|woff2)$/,
         use: ['url-loader']
-      },
-      {
-        test: /\.(json|png|mov|ico|icns)$/,
-        use: [{
-          loader: 'file-loader',
-          options: {
-            emitFile: false
-          }
-        }]
       }
     ]
   },
   plugins: [
     new webpack.NamedModulesPlugin(),
     new MiniCssExtractPlugin({
-      filename: 'assets/css/main.min.css',
+      filename: path.join('assets', 'css', 'main.min.css'),
     }),
     new HTMLWebpackPlugin({
       filename: 'index.html',
-      template: 'src/renderer/index.html'
+      template: path.join('src', 'renderer', 'index.html')
     }),
     new CopyWebpackPlugin([
-      { from: 'src/renderer/font/', to: 'assets/font/'},
-      { from: 'src/renderer/images/', to: 'assets/images/'},
-      { from: 'src/main/backgrounds/', to: 'assets/backgrounds/'},
+      // { from: 'src/renderer/font/', to: 'assets/font/'},
+      // { from: 'src/renderer/images/', to: 'assets/images/'},
+      {
+        from: path.join('src', 'main', 'backgrounds'),
+        to: path.join('assets', 'backgrounds')
+      }
     ])
   ],
   watchOptions: {
-    ignored: '/src/main/temp/'
+    ignored: path.join('src', 'main', 'temp')
   },
   devServer: {
-    contentBase: path.resolve(__dirname, 'dist'),
+    contentBase: path.join(__dirname, 'dist'),
     port: 3000,
     hot: true,
     before() {
-      spawn(
-        'electron',
-        ['.'],
-        { shell: true, env: process.env, stdio: 'inherit' }
-      )
-      .on('close', code => process.exit(0))
+      spawn('electron', ['babelRegister.js'], {
+        cwd: path.join('src', 'main'),
+        shell: true,
+        env: process.env,
+        stdio: 'inherit'
+      })
+      .on('close', () => process.exit(0))
       .on('error', spawnError => console.error(spawnError))
     }
   }

@@ -6,4 +6,4 @@ const getDownloadFormat = (out, opt = 'quality') => ([
   ].join('')
 ])
 
-module.exports = getDownloadFormat
+export default getDownloadFormat

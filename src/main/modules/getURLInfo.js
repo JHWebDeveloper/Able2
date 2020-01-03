@@ -1,7 +1,7 @@
-const { spawn } = require('child_process')
-const ytdlStatic = require('youtube-dl-ffmpeg-ffprobe-static')
-const { fixPathForAsarUnpack } = require('electron-util')
-const getDownloadFormat = require('./getDownloadFormat')
+import { spawn } from 'child_process'
+import ytdlStatic from 'youtube-dl-ffmpeg-ffprobe-static'
+import { fixPathForAsarUnpack } from 'electron-util'
+import getDownloadFormat from './getDownloadFormat'
 
 const info = (evt, { url, renderOutput }) => {
   const getVideoInfo = spawn(fixPathForAsarUnpack(ytdlStatic.path), [
@@ -44,4 +44,4 @@ const info = (evt, { url, renderOutput }) => {
   })
 }
 
-module.exports = info
+export default info

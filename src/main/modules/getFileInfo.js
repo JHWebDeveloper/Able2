@@ -1,9 +1,9 @@
-const fs = require('fs')
-const path = require('path')
-const uuidv1 = require('uuid/v1')
-const ffmpeg = require('./ffmpeg')
-const { tempDir } = require('./handleExtFiles')
-const { checkIsImage } = require('./checkIsImage')
+import fs from 'fs'
+import path from 'path'
+import uuidv1 from 'uuid/v1'
+import ffmpeg from './ffmpeg'
+import { tempDir } from './handleExtFiles'
+import { checkIsImage } from './checkIsImage'
 
 const base64_encode = file => `data:image/png;base64,${fs.readFileSync(file, 'base64')}`
 const round = (n, dec = 2) => Number(Math.round(n+'e'+dec)+'e-'+dec)
@@ -51,4 +51,4 @@ const getFileFormat = (evt, file, tempFile) => {
   })
 }
 
-module.exports = getFileFormat
+export default getFileFormat

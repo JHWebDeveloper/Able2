@@ -1,5 +1,5 @@
-const path = require('path')
-const { fixPathForAsarUnpack } = require('electron-util')
+import path from 'path'
+import { fixPathForAsarUnpack } from 'electron-util'
 
 const render = (formData, command) => {
   const { arc, bg, rotate, source, renderOutput } = formData
@@ -65,4 +65,4 @@ const render = (formData, command) => {
   }
 }
 
-module.exports = render
+export default render

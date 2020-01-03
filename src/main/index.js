@@ -1,17 +1,15 @@
-require('v8-compile-cache')
+import electron from 'electron'
+import { autoUpdater } from 'electron-updater'
+import url from 'url'
+import path from 'path'
 
-const electron = require('electron')
-const { autoUpdater } = require('electron-updater')
-const url = require('url')
-const path = require('path')
-
-const getURLInfo = require('./modules/getURLInfo')
-const upload = require('./modules/upload')
-const fixScreenRecord = require('./modules/fixScreenRecord')
-const download = require('./modules/download')
-const format = require('./modules/format')
-const prefs = require('./modules/preferences')
-const { initDirectories, clearTempFiles } = require('./modules/handleExtFiles')
+import getURLInfo from './modules/getURLInfo'
+import upload from './modules/upload'
+import fixScreenRecord from './modules/fixScreenRecord'
+import download from './modules/download'
+import format from './modules/format'
+import prefs from './modules/preferences'
+import { initDirectories, clearTempFiles } from './modules/handleExtFiles'
 
 const { app, BrowserWindow, Menu, ipcMain, dialog } = electron
 

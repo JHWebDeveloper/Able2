@@ -1,17 +1,18 @@
-const fs = require('fs').promises
-const path = require('path')
-const { prefsDir } = require('./handleExtFiles')
+import { promises as fsp } from 'fs'
+import path from 'path'
+import { prefsDir } from './handleExtFiles'
+
 const prefs = path.join(prefsDir, 'preferences.json')
 
-const loadPrefs = evt => {
-  fs.readFile(prefs)
+export const loadPrefs = evt => {
+  fsp.readFile(prefs)
     .then(data => {
       evt.reply('prefs-retrieved', JSON.parse(data))
     })
 }
 
-const savePrefs = (evt, newPrefs, mainWin) => {
-  fs.writeFile(
+export const savePrefs = (evt, newPrefs, mainWin) => {
+  fsp.writeFile(
     prefs,
     JSON.stringify(newPrefs),
     err => { if (err) throw err; }
@@ -19,9 +20,4 @@ const savePrefs = (evt, newPrefs, mainWin) => {
     evt.reply('prefs-saved')
     mainWin.webContents.send('sync-prefs', newPrefs)
   })
-}
-
-module.exports = {
-  loadPrefs,
-  savePrefs
 }

@@ -1,7 +1,7 @@
-const fs = require('fs').promises
-const path = require('path')
-const getFileInfo = require('./getFileInfo')
-const { tempDir } = require('./handleExtFiles')
+import { promises as fsp } from 'fs'
+import path from 'path'
+import getFileInfo from './getFileInfo'
+import { tempDir } from './handleExtFiles'
 
 const tempFileName = ({ name }) => path.join(tempDir, `temp.${name}`)
 
@@ -10,7 +10,7 @@ const upload = (evt, data) => {
 
   if (files.length > 1) {
     files.forEach(file => {
-      fs.copyFile(file.path, tempFileName(file)).catch(err => { throw err }) 
+      fsp.copyFile(file.path, tempFileName(file)).catch(err => { throw err }) 
     })
 
     evt.reply('info-retrieved', {
@@ -21,10 +21,10 @@ const upload = (evt, data) => {
   } else {    
     const tempFile = tempFileName(files[0])
   
-    fs.copyFile(files[0].path, tempFile).then(() => {
+    fsp.copyFile(files[0].path, tempFile).then(() => {
       getFileInfo(evt, files[0], tempFile)
     }).catch(err => { throw err }) 
   }
 }
 
-module.exports = upload
+export default upload

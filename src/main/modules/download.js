@@ -1,11 +1,11 @@
-const { spawn } = require('child_process')
-const ytdlStatic = require('youtube-dl-ffmpeg-ffprobe-static')
-const ffmpegStatic = require('ffmpeg-static-electron')
-const { fixPathForAsarUnpack } = require('electron-util')
+import { spawn } from 'child_process'
+import ytdlStatic from 'youtube-dl-ffmpeg-ffprobe-static'
+import ffmpegStatic from 'ffmpeg-static-electron'
+import { fixPathForAsarUnpack } from 'electron-util'
 
-const getDownloadFormat = require('./getDownloadFormat')
-const format = require('./format')
-const { tempDir } = require('./handleExtFiles')
+import getDownloadFormat from './getDownloadFormat'
+import format from './format'
+import { tempDir } from './handleExtFiles'
 
 const parseYTDL = (str, regex) => {
   const result = str.match(regex);
@@ -67,4 +67,4 @@ const download = (evt, { formData }) => {
   evt.reply('download-started')
 }
 
-module.exports = download
+export default download

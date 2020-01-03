@@ -1,19 +1,19 @@
-const fs = require('fs')
-const path = require('path')
-const { app } = require('electron')
-const uuidv1 = require('uuid/v1')
+import fs from 'fs'
+import path from 'path'
+import { app } from 'electron'
+import uuidv1 from 'uuid/v1'
 
 const dev = process.env.NODE_ENV === 'development'
 
-const prefsDir = dev 
+export const prefsDir = dev 
   ? path.join('src', 'main', 'data')
   : path.join(app.getPath('appData'), 'able2', 'prefs')
 
-const tempDir = dev 
+export const tempDir = dev 
   ? path.join('src', 'main', 'temp')
   : path.join(app.getPath('temp'), 'able2')
 
-const initDirectories = () => {
+export const initDirectories = () => {
   if (!fs.existsSync(prefsDir)) {
     fs.mkdirSync(prefsDir)
     fs.writeFileSync(path.join(prefsDir, 'preferences.json'), JSON.stringify({
@@ -32,7 +32,7 @@ const initDirectories = () => {
   if (!fs.existsSync(tempDir)) fs.mkdirSync(tempDir)
 }
 
-const clearTempFiles = () => (
+export const clearTempFiles = () => (
   fs.promises.readdir(tempDir).then(files => (
     files.forEach(file => (
       fs.promises.unlink(path.join(tempDir, file)).catch(err => { throw err })
@@ -40,7 +40,7 @@ const clearTempFiles = () => (
   )).catch(err => { throw err })
 )
 
-const copyToDirectories = (dirs, tempFile, newFile) => {
+export const copyToDirectories = (dirs, tempFile, newFile) => {
   dirs
     .filter(dir => dir.checked)
     .forEach(dir => {
@@ -49,12 +49,4 @@ const copyToDirectories = (dirs, tempFile, newFile) => {
         path.join(dir.directory, newFile || tempFile),
       ).catch(err => { throw err })
     })
-}
-
-module.exports = {
-  prefsDir,
-  tempDir,
-  initDirectories,
-  clearTempFiles,
-  copyToDirectories
 }

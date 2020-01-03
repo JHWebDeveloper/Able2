@@ -1,7 +1,7 @@
-const path = require('path')
-const ffmpeg = require('./ffmpeg')
-const getFileFormat = require('./getFileInfo')
-const { tempDir } = require('./handleExtFiles')
+import path from 'path'
+import ffmpeg from './ffmpeg'
+import getFileFormat from './getFileInfo'
+import { tempDir } from './handleExtFiles'
 
 const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
@@ -42,4 +42,4 @@ const fixScreenRecord = evt => {
     .run()
 }
 
-module.exports = fixScreenRecord
+export default fixScreenRecord

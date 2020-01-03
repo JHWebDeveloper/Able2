@@ -1,9 +1,9 @@
-const ffmpeg = require('fluent-ffmpeg')
-const ffmpegStatic = require('ffmpeg-static-electron')
-const ffprobeStatic = require('ffprobe-static-electron')
-const { fixPathForAsarUnpack } = require('electron-util')
+import ffmpeg from 'fluent-ffmpeg'
+import ffmpegStatic from 'ffmpeg-static-electron'
+import ffprobeStatic from 'ffprobe-static-electron'
+import { fixPathForAsarUnpack } from 'electron-util'
 
 ffmpeg.setFfmpegPath(fixPathForAsarUnpack(ffmpegStatic.path))
 ffmpeg.setFfprobePath(fixPathForAsarUnpack(ffprobeStatic.path))
 
-module.exports = ffmpeg
+export default ffmpeg

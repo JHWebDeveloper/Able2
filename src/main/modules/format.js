@@ -1,9 +1,9 @@
-const fs = require('fs')
-const path = require('path')
-const ffmpeg = require('./ffmpeg')
-const { tempDir, copyToDirectories, clearTempFiles } = require('./handleExtFiles')
-const { checkIsImage, checkIsGIF } = require('./checkIsImage')
-const render = require('./render')
+import fs from 'fs'
+import path from 'path'
+import ffmpeg from './ffmpeg'
+import { tempDir, copyToDirectories, clearTempFiles } from './handleExtFiles'
+import { checkIsImage, checkIsGIF } from './checkIsImage'
+import render from './render'
 
 let fileCount = 0
 let fileQueue = []
@@ -94,4 +94,4 @@ const getTempFile = (evt, { formData }) => {
   }).catch(err => { throw err })
 }
 
-module.exports = getTempFile
+export default getTempFile

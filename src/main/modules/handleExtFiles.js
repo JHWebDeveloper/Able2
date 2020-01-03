@@ -6,11 +6,11 @@ import uuidv1 from 'uuid/v1'
 const dev = process.env.NODE_ENV === 'development'
 
 export const prefsDir = dev 
-  ? path.join('src', 'main', 'data')
+  ? path.join('.', 'data')
   : path.join(app.getPath('appData'), 'able2', 'prefs')
 
 export const tempDir = dev 
-  ? path.join('src', 'main', 'temp')
+  ? path.join('.', 'temp')
   : path.join(app.getPath('temp'), 'able2')
 
 export const initDirectories = () => {

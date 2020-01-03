@@ -5,13 +5,13 @@ const { autoUpdater } = require('electron-updater')
 const url = require('url')
 const path = require('path')
 
-const getURLInfo = require('./controllers/getURLInfo')
-const upload = require('./controllers/upload')
-const fixScreenRecord = require('./controllers/fixScreenRecord')
-const download = require('./controllers/download')
-const format = require('./controllers/format')
-const prefs = require('./controllers/preferences')
-const { initDirectories, clearTempFiles } = require('./controllers/handleExtFiles')
+const getURLInfo = require('./modules/getURLInfo')
+const upload = require('./modules/upload')
+const fixScreenRecord = require('./modules/fixScreenRecord')
+const download = require('./modules/download')
+const format = require('./modules/format')
+const prefs = require('./modules/preferences')
+const { initDirectories, clearTempFiles } = require('./modules/handleExtFiles')
 
 const { app, BrowserWindow, Menu, ipcMain, dialog } = electron
 

@@ -8,7 +8,7 @@ import upload from './modules/upload'
 import fixScreenRecord from './modules/fixScreenRecord'
 import download from './modules/download'
 import format from './modules/format'
-import prefs from './modules/preferences'
+import { loadPrefs, savePrefs } from './modules/preferences'
 import { initDirectories, clearTempFiles } from './modules/handleExtFiles'
 
 const { app, BrowserWindow, Menu, ipcMain, dialog } = electron
@@ -263,8 +263,8 @@ ipcMain.on('upload', upload)
 ipcMain.on('fix-screen-record', fixScreenRecord)
 ipcMain.on('download', download)
 ipcMain.on('format', format)
-ipcMain.on('load-prefs', prefs.loadPrefs)
-ipcMain.on('save-prefs', (evt, data) => prefs.savePrefs(evt, data, win))
+ipcMain.on('load-prefs', loadPrefs)
+ipcMain.on('save-prefs', (evt, data) => savePrefs(evt, data, win))
 
 ipcMain.on('clear', (evt) => {
   clearTempFiles().then(() => {

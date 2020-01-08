@@ -1,4 +1,4 @@
-const { ipcRenderer } = require('electron')
+import { ipcRenderer } from 'electron'
 
 const sendMessage = ({ sendMsg, recieveMsg, errMsg, data }) => new Promise((resolve, reject) => {
   ipcRenderer.once(recieveMsg, (evt, res) => {
@@ -14,4 +14,4 @@ const sendMessage = ({ sendMsg, recieveMsg, errMsg, data }) => new Promise((reso
   ipcRenderer.send(sendMsg, data)
 })
 
-module.exports = sendMessage
+export default sendMessage

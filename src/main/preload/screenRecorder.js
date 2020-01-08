@@ -1,5 +1,5 @@
-const { desktopCapturer, remote } = require('electron')
-const sendMessage = require('./sendMessage')
+import { desktopCapturer, remote } from 'electron'
+import sendMessage from './sendMessage'
 
 let recorder = false
 let timeout = false
@@ -38,7 +38,7 @@ const handleStream = (stream, timer, end, isRecording) => new Promise((resolve, 
   })
 })
 
-const startRecording = async (timer, end, isRecording) => {
+export const startRecording = async (timer, end, isRecording) => {
   await desktopCapturer.getSources({
     types: ['screen']
   })
@@ -61,7 +61,7 @@ const startRecording = async (timer, end, isRecording) => {
   await handleStream(media, timer, end, isRecording)
 }
 
-const stopRecording = end => new Promise((resolve, reject) => {
+export const stopRecording = end => new Promise((resolve, reject) => {
   clearTimeout(timeout)
 
   recorder.addEventListener('stop', () => {
@@ -108,9 +108,4 @@ const toBuffer = ab => {
   }
 
   return buffer
-}
-
-module.exports = {
-  startRecording,
-  stopRecording
 }

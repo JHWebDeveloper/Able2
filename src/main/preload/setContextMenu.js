@@ -1,4 +1,4 @@
-const { remote } = require('electron')
+import { remote } from 'electron'
 const textElements = 'input[type="text"]'
 
 const setContextMenu = () => {
@@ -40,4 +40,4 @@ const setContextMenu = () => {
   }
 }
 
-module.exports = setContextMenu
+export default setContextMenu

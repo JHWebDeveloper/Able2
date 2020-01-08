@@ -1,8 +1,11 @@
-const { ipcRenderer, remote } = require('electron')
-const sendMessage = require('./sendMessage')
-const { startRecording, stopRecording } = require('./screenRecorder')
+import { ipcRenderer, remote } from 'electron'
+import setContextMenu from './setContextMenu'
+import sendMessage from './sendMessage'
+import { startRecording, stopRecording } from './screenRecorder'
 
 const interop = {}
+
+interop.setContextMenu = setContextMenu
 
 // ------ IPC ROUTES ------
 
@@ -149,8 +152,6 @@ interop.dialog = Object.freeze({
     }
   }
 })
-
-interop.setContextMenu = require('./setContextMenu')
 
 interop.getVersion = () => remote.app.getVersion()
 

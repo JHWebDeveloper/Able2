@@ -113,11 +113,11 @@ const prefsMenuItem = [
         parent: win,
         width,
         height,
-        // minWidth: width,
-        // maxWidth: width,
-        // minHeight: height,
+        minWidth: width,
+        maxWidth: dev ? false : width,
+        minHeight: height,
         minimizable: false,
-        maximizable: false,
+        maximizable: false
       })
 
       preferences.loadURL(getURL('preferences'))

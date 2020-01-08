@@ -105,6 +105,7 @@ const prefsMenuItem = [
   { type: 'separator' },
   {
     label: 'Preferences',
+    accelerator: 'CmdOrCtrl+,',
     click() {
       const width = mac ? 530 : 558
       const height = mac ? 339 : 356

@@ -1,6 +1,7 @@
 node_modules/
 build/
 dist/
+src/main/data/
 src/main/temp/
 /.env
 /electron-builder.yml

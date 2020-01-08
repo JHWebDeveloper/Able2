@@ -25,7 +25,7 @@ export const loadPrefs = async () => {
 
   if (!prefsDirExists) await fsp.mkdir(prefsDir)
 
-  if (await fileExistsPromise(prefsFile)) {
+  if (await fileExistsPromise(prefsJSON)) {
     return JSON.parse(await fsp.readFile(prefsJSON))
   } else {
     await fsp.writeFile(prefsJSON, JSON.stringify(initPrefs))
@@ -34,4 +34,4 @@ export const loadPrefs = async () => {
   }
 }
 
-export const savePrefs = async newPrefs => fsp.writeFile(prefs, JSON.stringify(newPrefs))
+export const savePrefs = async newPrefs => fsp.writeFile(prefsJSON, JSON.stringify(newPrefs))

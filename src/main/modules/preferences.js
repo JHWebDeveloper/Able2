@@ -5,7 +5,7 @@ import uuidv1 from 'uuid/v1'
 import { prefsDir } from './handleExtFiles'
 import fileExistsPromise from './fileExistsPromise'
 
-const prefs = path.join(prefsDir, 'preferences.json')
+const prefsJSON = path.join(prefsDir, 'preferences.json')
 
 const initPrefs = {
   renderOutput: '1280x720',
@@ -21,14 +21,14 @@ const initPrefs = {
 }
 
 export const loadPrefs = async () => {
-  const prefsDirExsts = await fileExistsPromise(prefsDir)
+  const prefsDirExists = await fileExistsPromise(prefsDir)
 
-  if (!prefsDirExsts) await fsp.mkdir(prefsDir)
+  if (!prefsDirExists) await fsp.mkdir(prefsDir)
 
-  if (await fileExistsPromise(prefs)) {
-    return JSON.parse(await fsp.readFile(prefs))
+  if (await fileExistsPromise(prefsFile)) {
+    return JSON.parse(await fsp.readFile(prefsJSON))
   } else {
-    await fsp.writeFile(prefs, JSON.stringify(initPrefs))
+    await fsp.writeFile(prefsJSON, JSON.stringify(initPrefs))
     
     return initPrefs
   }

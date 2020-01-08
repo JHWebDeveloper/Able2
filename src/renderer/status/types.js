@@ -1,3 +1,4 @@
+export const INIT = 'INIT'
 export const LOADING = 'LOADING'
 export const FETCH_ERROR = 'FETCH_ERROR'
 export const DOWNLOAD_ERROR = 'DOWNLOAD_ERROR'

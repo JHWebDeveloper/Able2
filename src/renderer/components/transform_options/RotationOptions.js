@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { FormContext } from '../../store/formStore'
-import RadioSet from '../elements/RadioSet'
+import RadioSet from '../form_elements/RadioSet'
 
 const RotationOptions = () => {
   const { rotate, dispatch } = useContext(FormContext)
@@ -24,6 +24,10 @@ const RotationOptions = () => {
           {
             label: '90°ccw',
             value: 'transpose=2,'
+          },
+          {
+            label: '180°',
+            value: 'transpose=2,transpose=2,'
           }
         ]} />
     </fieldset>

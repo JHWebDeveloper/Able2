@@ -26,18 +26,12 @@ const Directory = ({ dir, index, dispatch }) => {
           name="add"
           title="Add directory"
           onClick={e => dispatch(addNewDirectory(index, e))}>
-          <svg>
-            <use href="assets/images/buttons.svg#add"></use>
-          </svg>
-        </button>
+          add</button>
         <button
           name="delete"
           title="Delete directory"
           onClick={() => dispatch(deleteDirectoryWarn(id, label))}>
-          <svg>
-            <use href="assets/images/buttons.svg#delete"></use>
-          </svg>
-        </button>
+          remove</button>
       </td>
       <td>
         <input
@@ -50,10 +44,7 @@ const Directory = ({ dir, index, dispatch }) => {
         <button
           title="Choose directory"
           onClick={() => dispatch(chooseDirectory(id))}>
-          <svg>
-            <use href="assets/images/buttons.svg#folder"></use>
-          </svg>
-        </button>
+          folder</button>
         <input
           type="text"
           name="directory"
@@ -65,18 +56,12 @@ const Directory = ({ dir, index, dispatch }) => {
           name="up"
           title="Move directory up"
           onClick={() => dispatch(moveDirectory(dir, index - 1))}>
-          <svg>
-            <use href="assets/images/buttons.svg#up"></use>
-          </svg>
-        </button>
+          keyboard_arrow_up</button>
         <button
           name="down"
           title="Move directory down"
           onClick={() => dispatch(moveDirectory(dir, index + 1))}>
-          <svg>
-            <use href="assets/images/buttons.svg#down"></use>
-          </svg>
-        </button>
+          keyboard_arrow_down</button>
       </td>
     </tr>
   )

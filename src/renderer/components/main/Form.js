@@ -1,44 +1,34 @@
-import React, { useContext, useEffect } from 'react'
-import { ipcRenderer } from 'electron'
+import React, { useContext } from 'react'
 
 import { FormContext } from '../../store/formStore'
-import { submitForm, syncPreferences  } from '../../actions/form'
-import { ERROR } from '../../status/types'
+import { submitForm } from '../../actions/form'
+import { INIT, ERROR } from '../../status/types'
 
+import Update from '../update/Update'
 import Fetcher from './Fetcher'
 import Uploader from './Uploader'
 import InfoCard from '../info_card'
 import DownloadOptions from '../download_options'
 import ScreenRecord from './ScreenRecord'
-import Updater from '../progress/Updater'
 
 const Form = () => {
   const ctx = useContext(FormContext)
-  const { dispatch, status } = ctx
-
-  useEffect(() => {
-    ipcRenderer.once('sync-prefs', (evt, data) => {
-      dispatch(syncPreferences(data))
-    })
-    
-    return () => (
-      ipcRenderer.removeAllListeners(['sync-prefs'])
-    )
-  })
+  const { status, recording, dispatch } = ctx
+  const init = status === INIT || status.endsWith(ERROR)
 
   return (
     <main>
-      <Updater />
+      <Update />
       <form onSubmit={e => dispatch(submitForm(ctx, e))}>
-        {status && !status.endsWith(ERROR) ? false : (
-          <fieldset disabled={ctx.recording}>
+        {init ? (
+          <fieldset disabled={recording}>
             <Fetcher />
             <Uploader />
           </fieldset>
-        )}
+        ) : false}
         <InfoCard />
         <DownloadOptions />
-        {status && !status.endsWith(ERROR) ? false : <ScreenRecord />}
+        {init ? <ScreenRecord /> : false}
       </form>
     </main>
   )

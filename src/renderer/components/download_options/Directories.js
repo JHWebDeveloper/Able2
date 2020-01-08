@@ -8,7 +8,7 @@ const Directories = () => {
   
   return (
     <fieldset name="save-options">
-      {directories.map(({ id, checked, label }) => (
+      {directories && directories.map(({ id, checked, label }) => (
         <label key={id}>
           <input
             type="checkbox"

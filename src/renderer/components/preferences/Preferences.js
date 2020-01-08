@@ -1,26 +1,20 @@
 import React from 'react'
-import Helmet from 'react-helmet';
+import '../../css/index.css'
 import '../../css/preferences.css'
 
 import { PrefsProvider } from '../../store/prefsStore'
 import Directories from './Directories'
-import OutputResolution from './OutputResolution'
+import Options from './Options'
 import SavePreferences from './SavePreferences'
-import PrefsPropType from './PrefsPropType';
 
-const Preferences = ({ preferences }) => (
+const Preferences = () => (
   <div className="preferences">
-    <Helmet>
-      <title>Preferences</title>
-    </Helmet>
-    <PrefsProvider preferences={preferences}>
-      <OutputResolution />
+    <PrefsProvider>
+      <Options />
       <Directories />
       <SavePreferences/>
     </PrefsProvider>
   </div>
 )
-
-Preferences.propTypes = PrefsPropType
 
 export default Preferences

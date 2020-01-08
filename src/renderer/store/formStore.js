@@ -1,12 +1,12 @@
-import React, { createContext, useReducer } from 'react'
+import React, { createContext, useEffect, useReducer } from 'react'
 
 import reducer from '../reducers/reducer'
+import { mergePreferences } from '../actions/form'
 import { augmentedDispatch } from '../utilities'
-import Form from '../components/main/Form'
 import PrefsPropType from '../components/preferences/PrefsPropType'
 
 export const initState = {
-  status: false,
+  status: 'INIT',
   url: '',
   recording: false,
   vidData: {
@@ -41,6 +41,7 @@ export const initState = {
   vflip: false,
   source: '',
   sourcePrefix: true,
+  sourceOnTop: false,
   optimize: 'quality',
   downloadProgress: {
     file: null,
@@ -53,19 +54,18 @@ export const initState = {
     prc: 0,
     timemark: '00:00:00',
     frames: 0
-  },
-  renderOutput: '1280x720',
-  directories: []
+  }
 }
 
 export const FormContext = createContext()
 
 export const FormProvider = ({ children, preferences }) => {
-  const [state, dispatch] = useReducer(reducer, {
-    ...initState,
-    ...preferences
-  })
+  const [state, dispatch] = useReducer(reducer, initState)
 
+  useEffect(() => {
+   dispatch(mergePreferences(preferences))
+  }, [preferences])
+  
   return (
     <FormContext.Provider value={{
       ...state,

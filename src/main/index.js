@@ -1,15 +1,16 @@
 import electron from 'electron'
-import { autoUpdater } from 'electron-updater'
 import url from 'url'
 import path from 'path'
 
 import getURLInfo from './modules/getURLInfo'
 import upload from './modules/upload'
-import fixScreenRecord from './modules/fixScreenRecord'
+import saveScreenRecord from './modules/saveScreenRecord'
+import fileExistsPromise from './modules/fileExistsPromise'
 import download from './modules/download'
 import format from './modules/format'
 import { loadPrefs, savePrefs } from './modules/preferences'
-import { initDirectories, clearTempFiles } from './modules/handleExtFiles'
+import { initTempDirectory, clearTempFiles } from './modules/handleExtFiles'
+import update from './modules/update'
 
 const { app, BrowserWindow, Menu, ipcMain, dialog } = electron
 
@@ -22,28 +23,32 @@ let win = false
 let preferences = false
 let help = false
 
-const openWindow = prefs => new BrowserWindow({
-  ...prefs,
+const openWindow = opts => new BrowserWindow({
+  ...opts,
   show: false,
   backgroundColor: '#eee',
   webPreferences: {
-    nodeIntegration: true
+    nodeIntegration: dev,
+    enableEval: false,
+    preload: dev
+      ? path.join(__dirname, 'preload', 'preload.js')
+      : path.join(__dirname, 'preload.js')
   }
 })
 
-const mainURL = () => dev ? {
+const getURL = view => url.format(dev ? {
   protocol: 'http:',
   host: 'localhost:3000',
-  pathname: 'index.html',
+  pathname: `${view}.html`,
   slashes: true
 } : {
   protocol: 'file:',
-  pathname: path.join(__dirname, 'build', 'index.html'),
+  pathname: path.join(__dirname, 'renderer', `${view}.html`),
   slashes: true
-}
+})
 
 const createWindow = () => {
-  initDirectories()
+  initTempDirectory()
   clearTempFiles()
 
   win = openWindow({
@@ -53,7 +58,7 @@ const createWindow = () => {
     minHeight: 460
   })
 
-  win.loadURL(url.format(mainURL()))
+  win.loadURL(getURL('index'))
 
   const mainMenu = Menu.buildFromTemplate(mainMenuTemplate)
 
@@ -82,16 +87,7 @@ if (!lock) {
     }
   })
 
-  app.on('ready', () => {
-    createWindow()
-
-    try {
-      autoUpdater.autoDownload = true
-      autoUpdater.checkForUpdatesAndNotify()
-    } catch (err) {
-      console.error(err)
-    }
-  })
+  app.on('ready', createWindow)
 }
 
 app.on('window-all-closed', () => {
@@ -100,29 +96,6 @@ app.on('window-all-closed', () => {
 
 app.on('activate', () => {
   if (!win) createWindow()
-})
-
-
-// AUTO-UPDATE CONFIG
-
-autoUpdater.on('update-downloaded', async ({ version }) => {
-  const quit = await dialog.showMessageBox({
-    type: 'question',
-    message: `Able2 v${version} has finished downloading. For the update to take effect Able2 must restart. Close Able2?`,
-    buttons: ['Close and Install', 'Not Now']
-  })
-
-  if (quit.response === 0) autoUpdater.quitAndInstall()
-
-  win.webContents.send('update-available', false)
-})
-
-autoUpdater.on('update-available', ({ version }) => {
-  win.webContents.send('update-available', version)
-})
-
-autoUpdater.on('download-progress', ({ percent }) => {
-  win.webContents.send('update-progress', percent)
 })
 
 
@@ -140,17 +113,14 @@ const prefsMenuItem = [
         parent: win,
         width,
         height,
-        minWidth: width,
-        maxWidth: width,
-        minHeight: height,
+        // minWidth: width,
+        // maxWidth: width,
+        // minHeight: height,
         minimizable: false,
         maximizable: false,
       })
 
-      preferences.loadURL(url.format({
-        ...mainURL(),
-        hash: 'preferences'
-      }))
+      preferences.loadURL(getURL('preferences'))
 
       preferences.once('ready-to-show', () => {
         preferences.show()
@@ -167,7 +137,7 @@ const prefsMenuItem = [
 
 const mainMenuTemplate = [
   ...(mac ? [{
-    label: app.getName(),
+    label: app.name,
     submenu: [
       {
         label: 'About Able2',
@@ -221,10 +191,7 @@ const mainMenuTemplate = [
             maximizable: false
           })
 
-          help.loadURL(url.format({
-            ...mainURL(),
-            hash: 'help',
-          }))
+          help.loadURL(getURL('help'))
 
           help.once('ready-to-show', () => {
             help.show()
@@ -258,16 +225,95 @@ if (dev) {
   })
 }
 
-ipcMain.on('get-url-info', getURLInfo)
-ipcMain.on('upload', upload)
-ipcMain.on('fix-screen-record', fixScreenRecord)
-ipcMain.on('download', download)
-ipcMain.on('format', format)
-ipcMain.on('load-prefs', loadPrefs)
-ipcMain.on('save-prefs', (evt, data) => savePrefs(evt, data, win))
+// ---- IPC ROUTES ----
 
-ipcMain.on('clear', (evt) => {
-  clearTempFiles().then(() => {
-    evt.reply('cleared')
-  })
+ipcMain.on('getURLInfo', async (evt, urlData) => {
+  try {
+    evt.reply('urlInfoRetrieved', await getURLInfo(urlData))
+  } catch (err) {
+    evt.reply('urlInfoErr', err)
+  }
+})
+
+ipcMain.on('uploadFile', async (evt, files) => {
+  try {
+    const info = await upload(files)
+    evt.reply('fileUploaded', info)
+  } catch (err) {
+    evt.reply('fileUploadErr', err)
+    clearTempFiles()
+  }
+})
+
+ipcMain.on('saveScreenRecord', async (evt, buffer) => {
+  try {
+    const fileInfo = await saveScreenRecord(buffer)
+    evt.reply('screenRecordSaved', fileInfo)
+  } catch (err) {
+    evt.reply('saveScreenRecordErr', err)
+    clearTempFiles()
+  }
+})
+
+ipcMain.handle('checkIfDirectoryExists', async (evt, dir) => {
+  try {
+    return fileExistsPromise(dir)
+  } catch (err) {
+    return false
+  }
+})
+
+ipcMain.on('download', async (evt, formData) => {
+  try {
+    await download(formData, win)
+    evt.reply('downloadComplete')
+  } catch (err) {
+    evt.reply('downloadErr', err === 'canceled' ? 'INIT' : 'DOWNLOAD_ERROR')
+    clearTempFiles()
+  }
+})
+
+ipcMain.on('render', async (evt, formData) => {
+  try {
+    await format(formData, win)
+    evt.reply('renderComplete')
+  } catch (err) {
+    evt.reply('renderErr', err === 'canceled' ? 'INIT' : 'RENDER_ERROR')
+    clearTempFiles()
+  }
+})
+
+ipcMain.on('requestPrefs', async evt => {
+  try {
+    evt.reply('prefsRecieved', await loadPrefs())
+  } catch (err) {
+    evt.reply('prefsErr', err)
+  }
+})
+
+ipcMain.on('savePrefs', async (evt, newPrefs) => {
+  try {
+    await savePrefs(newPrefs)
+    evt.reply('prefsSaved')
+    win.webContents.send('syncPrefs', newPrefs)
+  } catch (err) {
+    evt.reply('savePrefsError')
+  }
+})
+
+ipcMain.handle('clear', async () => {
+  try {
+    return clearTempFiles()
+  } catch (err) {
+    console.error(err)
+  }
+})
+
+ipcMain.on('checkForUpdates', async evt => {
+  try {
+    await update()
+    evt.reply('updateComplete')
+  } catch (err) {
+    evt.reply('updateErr', err)
+  }
 })

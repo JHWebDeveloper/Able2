@@ -1,6 +1,8 @@
 import React from 'react'
 import uuidv1 from 'uuid/v1'
 
+import Logos from '../svg/Logos'
+
 const services = [
   'YouTube',
   'Twitter',
@@ -17,12 +19,13 @@ const services = [
 const Header = () => (
   <header>
     <h1>Able2</h1>
-    {services.map(service => (
+    {/* {services.map(service => (
       <svg key={uuidv1()}>
         <title>{service}</title>
         <use href={`assets/images/logos.svg#${service.toLowerCase()}`}></use>
       </svg>
-    ))}    
+    ))}     */}
+    <Logos />
     <p>Developed by Jonathan Hamilton</p>
   </header>
 )

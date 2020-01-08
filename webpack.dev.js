@@ -8,10 +8,14 @@ const { spawn } = require('child_process')
 
 module.exports = {
   mode: 'development',
-  entry: path.join(__dirname, 'src', 'renderer'),
+  entry: {
+    index: path.join(__dirname, 'src', 'renderer'),
+    preferences: path.join(__dirname, 'src', 'renderer', 'preferences.js'),
+    help: path.join(__dirname, 'src', 'renderer', 'help.js')
+  },
   output: {
     path: path.join(__dirname, 'build'),
-    filename: 'bundle.js',
+    filename: '[name].bundle.js',
     publicPath: '/'
   },
   target: 'electron-renderer',
@@ -52,26 +56,28 @@ module.exports = {
   plugins: [
     new webpack.NamedModulesPlugin(),
     new MiniCssExtractPlugin({
-      filename: path.join('assets', 'css', 'main.min.css'),
+      filename: path.join('assets', 'css', '[name].min.css'),
     }),
     new HTMLWebpackPlugin({
+      inject: false,
       filename: 'index.html',
       template: path.join('src', 'renderer', 'index.html')
     }),
-    new CopyWebpackPlugin([
-      // { from: 'src/renderer/font/', to: 'assets/font/'},
-      // { from: 'src/renderer/images/', to: 'assets/images/'},
-      {
-        from: path.join('src', 'main', 'backgrounds'),
-        to: path.join('assets', 'backgrounds')
-      }
-    ])
+    new HTMLWebpackPlugin({
+      inject: false,
+      filename: 'preferences.html',
+      template: path.join('src', 'renderer', 'preferences.html')
+    }),
+    new HTMLWebpackPlugin({
+      inject: false,
+      filename: 'help.html',
+      template: path.join('src', 'renderer', 'help.html')
+    })
   ],
   watchOptions: {
     ignored: path.join('src', 'main', 'temp')
   },
   devServer: {
-    contentBase: path.join(__dirname, 'dist'),
     port: 3000,
     hot: true,
     before() {

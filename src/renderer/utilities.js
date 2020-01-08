@@ -52,19 +52,3 @@ export const convertMiB = size => {
 export const augmentedDispatch = (dispatch, state) => input => (
   input instanceof Function ? input(dispatch, state) : dispatch(input)
 )
-
-const menu = new remote.Menu()
-
-const menuItems = [
-  new remote.MenuItem({ role: 'cut' }),
-  new remote.MenuItem({ role: 'copy' }),
-  new remote.MenuItem({ role: 'paste' }),
-  new remote.MenuItem({ role: 'selectAll' })
-]
-
-menuItems.forEach(item => menu.append(item))
-
-export const contextMenu = e => {
-  e.preventDefault()
-  if (!e.target.disabled) menu.popup(remote.getCurrentWindow())
-}

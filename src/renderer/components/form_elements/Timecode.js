@@ -2,7 +2,7 @@ import React, { useCallback, useContext } from 'react'
 import { string, bool } from 'prop-types'
 import { FormContext } from '../../store/formStore'
 import { enableTimecode, updateTimecode, pasteTimecode } from '../../actions/form'
-import { simplifyTimecode, contextMenu } from '../../utilities'
+import { simplifyTimecode } from '../../utilities'
 
 const Timecode = ({ name, disabled, noLabel }) => {
   const ctx = useContext(FormContext)
@@ -38,7 +38,7 @@ const Timecode = ({ name, disabled, noLabel }) => {
         onPaste={e => dispatch(pasteTimecode(name, e))}
         onChange={e => dispatch(updateTimecode(name, e.target.value))}
         onBlur={e => dispatch(updateTimecode(name, simplifyTimecode(e.target.value)))}
-        onContextMenu={contextMenu}
+
         disabled={!enabled}
         className="monospace" />
     </fieldset>

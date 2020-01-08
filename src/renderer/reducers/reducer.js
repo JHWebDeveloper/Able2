@@ -1,4 +1,6 @@
 import * as ACTION from '../actions/types'
+import { DOWNLOADING, RENDERING } from '../status/types'
+import { initState } from '../store/formStore'
 
 export default (state, action) => {
   const { type, payload } = action
@@ -14,15 +16,10 @@ export default (state, action) => {
         ...state,
         status: payload
       }
-    case ACTION.START_RECORDING:
+    case ACTION.SET_RECORDING:
       return {
         ...state,
-        recording: true
-      }
-    case ACTION.STOP_RECORDING:
-      return {
-        ...state,
-        recording: false
+        recording: payload
       }
     case ACTION.UPDATE_THUMBNAIL:
       return {
@@ -63,9 +60,21 @@ export default (state, action) => {
       return {
         ...state,
         directories: state.directories.map(dir => {
-          if (dir.id === payload) dir.checked = !dir.checked;
-          return dir;
+          if (dir.id === payload) dir.checked = !dir.checked
+          return dir
         })
+      }
+    case ACTION.DOWNLOAD_STARTED:
+      return {
+        ...state,
+        status: DOWNLOADING,
+        downloadProgress: initState.downloadProgress
+      }
+    case ACTION.RENDER_STARTED:
+      return {
+        ...state,
+        status: RENDERING,
+        renderProgress: initState.renderProgress
       }
     case ACTION.UPDATE_PROGRESS:
       return {
@@ -75,46 +84,10 @@ export default (state, action) => {
           ...payload.progress
         }
       }
-    case ACTION.ADD_DIRECTORY:
-      state.directories.splice(payload.pos, 0, payload.newDir)
-      
+    case ACTION.RESET_FORM:
       return {
         ...state,
-        directories: state.directories
-      }
-    case ACTION.DELETE_DIRECTORY:
-      return {
-        ...state,
-        directories: state.directories.filter(dir => dir.id !== payload)
-      }
-    case ACTION.UPDATE_LABEL:
-      return {
-        ...state,
-        directories: state.directories.map(dir => (
-          payload.id !== dir.id ? dir : {
-            ...dir,
-            label: payload.label
-          }
-        ))
-      }
-    case ACTION.CHOOSE_DIRECTORY:
-      return {
-        ...state,
-        directories: state.directories.map(dir => (
-          payload.id !== dir.id ? dir : {
-            ...dir,
-            directory: payload.directory
-          }
-        ))
-      }
-    case ACTION.MOVE_DIRECTORY:
-      const trgtDir = state.directories.splice(payload.oldPos, 1)[0];
-
-      state.directories.splice(payload.newPos, 0, trgtDir);
-
-      return {
-        ...state,
-        directories: state.directories
+        ...initState
       }
     default:
       return state;

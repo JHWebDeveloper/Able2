@@ -1,54 +1,41 @@
 import fs from 'fs'
 import path from 'path'
-import uuidv1 from 'uuid/v1'
 import ffmpeg from './ffmpeg'
-import { tempDir } from './handleExtFiles'
-import { checkIsImage } from './checkIsImage'
+import { checkIsImage } from './handleImages'
+import { placeholder } from './createThumbnail'
 
-const base64_encode = file => `data:image/png;base64,${fs.readFileSync(file, 'base64')}`
+const base64Encode = file => `data:image/png;base64,${fs.readFileSync(file, 'base64')}`
 const round = (n, dec = 2) => Number(Math.round(n+'e'+dec)+'e-'+dec)
 
-const getFileFormat = (evt, file, tempFile) => {
-  const isImage = checkIsImage(tempFile)
-  const screenshot = `screenshot.${uuidv1()}.jpg`
+const getFileFormat = (file, tempFilePath, thumbnail) => new Promise((resolve, reject) => {
+  const isImage = checkIsImage(tempFilePath)
 
-  const watcher = fs.watch(tempDir)
+  ffmpeg(tempFilePath).ffprobe((err1, metadata) => {
+    if (err1) reject(err1) 
+
+    try {
+      const { duration, width, height, avg_frame_rate } = metadata.streams[0]
   
-  watcher.on('change', (eventType, eventFile) => {
-    if (eventFile === screenshot) {
-      if (!isImage) evt.reply('still-created', {
-        thumbnail: base64_encode(path.join(tempDir, eventFile))
+      resolve({
+        readyStatus: `${isImage ? 'IMG' : 'VID'}_READY`,
+        title: path.parse(file.name).name,
+        width,
+        height,
+        ...(isImage ? {
+          thumbnail: base64Encode(file.path),
+        } : {
+          thumbnail: thumbnail ? base64Encode(thumbnail) : placeholder,
+          duration: Math.round(duration || 0),
+          fps: (() => {
+            const arr = avg_frame_rate.split('/')
+            return round(arr[0] / arr[1])
+          })()
+        })
       })
-      watcher.close()
+    } catch (err2) {
+      reject(err2)
     }
   })
-
-  watcher.on('error', () => watcher.close())
-
-  ffmpeg(tempFile).screenshots({
-    timemarks: [0],
-    folder: tempDir,
-    filename: screenshot,
-    size: '384x?'
-  }).ffprobe((err, metadata) => {
-    const { duration, width, height, avg_frame_rate } = metadata.streams[0]
-
-    evt.reply('info-retrieved', {
-      readyStatus: `${isImage ? 'IMG' : 'VID'}_READY`,
-      title: path.parse(file.name).name,
-      width,
-      height,
-      ...(isImage ? {
-        thumbnail: base64_encode(file.path),
-      } : {
-        duration: Math.round(duration || 0),
-        fps: (() => {
-          const arr = avg_frame_rate.split('/')
-          return round(arr[0] / arr[1])
-        })()
-      })
-    })
-  })
-}
+})
 
 export default getFileFormat

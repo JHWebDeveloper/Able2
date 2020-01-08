@@ -1,8 +1,9 @@
-import fs from 'fs'
+import { ipcMain } from 'electron'
+import fs, { promises as fsp } from 'fs'
 import path from 'path'
 import ffmpeg from './ffmpeg'
-import { tempDir, copyToDirectories, clearTempFiles } from './handleExtFiles'
-import { checkIsImage, checkIsGIF } from './checkIsImage'
+import { tempDir, copyToDirectories } from './handleExtFiles'
+import { checkIsImage, checkIsGIF } from './handleImages'
 import render from './render'
 
 let fileCount = 0
@@ -10,7 +11,7 @@ let fileQueue = []
 
 const zeroize = n => n < 10 ? `0${n}` : n
 
-const format = (evt, formData, file) => {
+const format = (formData, file, win) => new Promise((resolve, reject) => {
   const { fileName, start, end, arc, bg, source, directories, status } = formData
 
   const formatted = [
@@ -44,24 +45,28 @@ const format = (evt, formData, file) => {
       if (fileCount === fileQueue.length - 1) {
         fileCount = 0
         fileQueue = []
-        evt.reply('render-complete')
+        resolve()
       } else {
         fileCount += 1
-        format(evt, formData, fileQueue[fileCount])
+        format(formData, fileQueue[fileCount], win).then(resolve)
       }
+
+      win.setProgressBar(-1)
     })
     .on('progress', prog => {
-      evt.reply('render-progress', {
+      win.webContents.send('renderProgress', {
          prc: prog.percent,
          timemark: prog.timemark,
          frames: prog.frames,
          fileCount: fileCount + 1,
          fileTotal: fileQueue.length
       })
+
+      win.setProgressBar(prog.percent / 100)
     })
-    .on('error', () => {
-      clearTempFiles()
-      evt.reply('render-error')
+    .on('error', err => {
+      win.setProgressBar(-1)
+      reject(err)
     })
     .output(path.join(tempDir, formatted))
 
@@ -79,19 +84,24 @@ const format = (evt, formData, file) => {
     command.input(srcPNG).native()
   }
 
-  render(formData, command, file)
-}
+  ipcMain.on('cancelProcess', () => {
+    command.kill()
+    win.setProgressBar(-1)
+    reject('canceled')
+  })
 
-const getTempFile = (evt, { formData }) => {
-  evt.reply('render-started')
+  render(formData, command)
+})
+
+const getTempFile = async (formData, win) => {
+  win.webContents.send('renderStarted')
+  win.setProgressBar(0)
   
-  fs.promises.readdir(tempDir).then(files => {
-    fileQueue = files.filter(file => (
-      file.startsWith('temp.')
-    ))
+  const files = await fsp.readdir(tempDir)
 
-    format(evt, formData, fileQueue[fileCount])
-  }).catch(err => { throw err })
+  fileQueue = files.filter(file => file.startsWith('temp.'))
+
+  return format(formData, fileQueue[fileCount], win)
 }
 
 export default getTempFile

@@ -1,11 +1,14 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
+
 import { FormContext } from '../../store/formStore'
 import { updateState, toggleCheckbox } from '../../actions/form'
 import { BATCH_READY } from '../../status/types'
-import { contextMenu } from '../../utilities'
+
+const { interop } = window.ABLE2
 
 const Source = () => {
-  const { vidData, status, arc, source, sourcePrefix, dispatch  } = useContext(FormContext)
+  const ctx = useContext(FormContext)
+  const { sourceOnTop, sourceOnTopWarning, dispatch  } = ctx
   const [ sourceSuggestions, loadSourceSuggestions ] = useState([])
 
   useEffect(() => {
@@ -17,18 +20,30 @@ const Source = () => {
       .catch(err => { throw err })
   }, [])
 
+  const toggleSourceOnTop = useCallback(async e => {
+    e.persist()
+
+    let response = 0
+
+    if (sourceOnTopWarning && !sourceOnTop) {
+      response = await interop.dialog.sourceOnTopAlert()
+    }
+  
+    if (response === 0) dispatch(toggleCheckbox(e))
+  }, [sourceOnTop, sourceOnTopWarning])
+  
+
   return (
     <fieldset
       name="source-overlay"
-      disabled={arc === 'bypass' && (!vidData.is16_9 || status === BATCH_READY)}>
+      disabled={ctx.arc === 'bypass' && (!ctx.vidData.is16_9 || ctx.status === BATCH_READY)}>
       <legend>Source:</legend>
       <input
         type="text"
         name="source"
         list="source-suggestions"
-        value={source}
+        value={ctx.source}
         onChange={e => dispatch(updateState(e))}
-        onContextMenu={contextMenu}
         maxLength="51"
         placeholder="if none, leave blank" />
       <datalist id="source-suggestions">
@@ -40,9 +55,17 @@ const Source = () => {
         <input
           type="checkbox"
           name="sourcePrefix"
-          checked={sourcePrefix}
+          checked={ctx.sourcePrefix}
           onChange={e => dispatch(toggleCheckbox(e))} />
         Add "Source: " to beginning
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          name="sourceOnTop"
+          checked={sourceOnTop}
+          onChange={e => toggleSourceOnTop(e)} />
+        Place source at top of video
       </label>
     </fieldset>
   )

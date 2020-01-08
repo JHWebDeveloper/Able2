@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { FormContext } from '../../store/formStore'
 import { IMG_READY, BATCH_READY } from '../../status/types'
 
-import RadioSet from '../elements/RadioSet'
+import RadioSet from '../form_elements/RadioSet'
 
 const BackgroundOptions = () => {
   const { arc, bg, status, dispatch } = useContext(FormContext)

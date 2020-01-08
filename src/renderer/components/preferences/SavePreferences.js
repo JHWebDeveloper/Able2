@@ -1,22 +1,20 @@
 import React, { useCallback, useContext, useState } from 'react'
-import { ipcRenderer } from 'electron'
 
 import { PrefsContext } from '../../store/prefsStore'
-import { savePreferences, closePreferences } from '../../actions/preferences'
+import { savePreferences } from '../../actions/preferences'
 
-import Spinner from '../elements/Spinner'
+import Spinner from '../form_elements/Spinner'
+
+const { interop } = window.ABLE2
 
 const SavePreferences = () => {
-  const ctx = useContext(PrefsContext)
+  const { preferences, dispatch } = useContext(PrefsContext)
   const [saving, toggleSaving] = useState(false)
 
-  const save = useCallback(() => {
-    ipcRenderer.once('prefs-saved', () => {
-      toggleSaving(false)
-    })
+  const save = useCallback(async () => {
     toggleSaving(true)
-    ctx.dispatch(savePreferences(ctx))
-  }, [ctx])
+    dispatch(savePreferences(preferences, toggleSaving))
+  }, [preferences])
 
   return (
     <div>
@@ -29,7 +27,7 @@ const SavePreferences = () => {
       </button>
       <button
         name="close-prefs"
-        onClick={closePreferences}
+        onClick={interop.closeCurrentWindow}
         title="Close preferences">
         Close
       </button>

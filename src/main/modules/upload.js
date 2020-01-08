@@ -2,28 +2,31 @@ import { promises as fsp } from 'fs'
 import path from 'path'
 import getFileInfo from './getFileInfo'
 import { tempDir } from './handleExtFiles'
+import { createThumbnail, placeholder } from './createThumbnail'
 
 const tempFileName = ({ name }) => path.join(tempDir, `temp.${name}`)
 
-const upload = (evt, data) => {
-  const files = JSON.parse(data)
-
+const upload = async files => {
   if (files.length > 1) {
-    files.forEach(file => {
-      fsp.copyFile(file.path, tempFileName(file)).catch(err => { throw err }) 
-    })
+    await Promise.all(files.map(file => fsp.copyFile(file.path, tempFileName(file))))
 
-    evt.reply('info-retrieved', {
+    return {
       readyStatus: 'BATCH_READY',
       title: 'Batch Process',
-      fileCount: files.length
-    })
-  } else {    
-    const tempFile = tempFileName(files[0])
-  
-    fsp.copyFile(files[0].path, tempFile).then(() => {
-      getFileInfo(evt, files[0], tempFile)
-    }).catch(err => { throw err }) 
+      fileCount: files.length,
+      thumbnail: placeholder
+    }
+  } else {
+    const file = files[0]
+    const tempFilePath = tempFileName(file)
+
+    if (tempFilePath !== file.path) {
+      await fsp.copyFile(file.path, tempFilePath)
+    }
+
+    const thumbnail = await createThumbnail(tempFilePath)
+
+    return getFileInfo(file, tempFilePath, thumbnail)
   }
 }
 

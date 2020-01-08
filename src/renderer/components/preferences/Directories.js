@@ -6,13 +6,14 @@ import { addNewDirectory } from '../../actions/preferences'
 import Directory from './Directory'
 
 const Directories = () => {
-  const { directories, dispatch } = useContext(PrefsContext)
+  const { preferences, dispatch } = useContext(PrefsContext)
+  const { directories } = preferences
 
   if (directories.length === 0) dispatch(addNewDirectory(0, false))
 
   return (
-      <>
-        <h1>Save Shortcuts</h1>
+      <fieldset>
+        <legend>Save Shortcuts</legend>
         <table>
           <thead>
             <tr>
@@ -40,7 +41,7 @@ const Directories = () => {
             ))}
           </CSSTransitionGroup>
         </table>
-      </>
+      </fieldset>
     )
 }
 

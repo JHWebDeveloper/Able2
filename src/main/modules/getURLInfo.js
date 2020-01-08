@@ -3,7 +3,7 @@ import ytdlStatic from 'youtube-dl-ffmpeg-ffprobe-static'
 import { fixPathForAsarUnpack } from 'electron-util'
 import getDownloadFormat from './getDownloadFormat'
 
-const info = (evt, { url, renderOutput }) => {
+const info = ({ url, renderOutput }) => new Promise((resolve, reject) => {
   const getVideoInfo = spawn(fixPathForAsarUnpack(ytdlStatic.path), [
     url,
     ...getDownloadFormat(renderOutput.split('x')[1]),
@@ -12,12 +12,14 @@ const info = (evt, { url, renderOutput }) => {
 
   let infoString = ''
 
-  getVideoInfo.stdout.on('data', data => infoString += data.toString())
+  getVideoInfo.stdout.on('data', data => {
+    infoString += data.toString()
+  })
 
-  getVideoInfo.stderr.on('data', data => {
-    if (/^ERROR: (Unsupported URL|No media found)/.test(data.toString())) {
+  getVideoInfo.stderr.on('data', err => {
+    if (/^ERROR: (Unsupported URL|No media found)/.test(err.toString())) {
       getVideoInfo.kill()
-      evt.reply('url-error')
+      reject(err)
     }
   })
 
@@ -27,7 +29,7 @@ const info = (evt, { url, renderOutput }) => {
     const info = JSON.parse(infoString)
     let { title, thumbnail, width, height, fps } = info
 
-    evt.reply('info-retrieved', {
+    resolve({
       readyStatus: 'URL_READY',
       duration: Math.round(info.duration),
       isImage: false,
@@ -39,9 +41,9 @@ const info = (evt, { url, renderOutput }) => {
     })
   })
 
-  getVideoInfo.on('error', () => {
-    evt.reply('url-error')
+  getVideoInfo.on('error', err => {
+    reject(err)
   })
-}
+})
 
 export default info

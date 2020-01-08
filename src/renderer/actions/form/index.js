@@ -1,63 +1,49 @@
-import { ipcRenderer } from 'electron'
 import { loadVideoInfo } from './loadVideoInfo'
 import { tcToSeconds } from '../../utilities'
 
 import * as ACTION from '../types'
-import { LOADING, FETCH_ERROR, UPLOAD_ERROR } from '../../status/types'
+import { LOADING, FETCH_ERROR, UPLOAD_ERROR, RECORDING_ERROR } from '../../status/types'
+
+const { interop } = window.ABLE2
 
 export const { submitForm } = require('./submitForm')
 
-export const getURLInfo = ({ url, end, renderOutput }) => dispatch => {
-  dispatch({
-    type: ACTION.CHANGE_STATUS,
-    payload: LOADING
-  })
+export const mergePreferences = prefs => ({
+  type: ACTION.UPDATE_STATE,
+  payload: prefs
+})
 
-  ipcRenderer.send('get-url-info', { url, renderOutput })
+export const loading = () => ({
+  type: ACTION.CHANGE_STATUS,
+  payload: LOADING
+})
 
-  ipcRenderer.once('info-retrieved', (evt, info) => {
-    ipcRenderer.removeAllListeners(['url-error'])
+export const getURLInfo = ({ url, end, renderOutput }) => async dispatch => {
+  dispatch(loading())
+
+  try {
+    const info = await interop.getURLInfo({ url, renderOutput })
     loadVideoInfo(info, end, dispatch)
-  })
-
-  ipcRenderer.once('url-error', () => {
-    ipcRenderer.removeAllListeners(['info-retrieved'])
-
+  } catch (err) {
     dispatch({
       type: ACTION.CHANGE_STATUS,
       payload: FETCH_ERROR
     })
-  })
+  }
 }
 
-export const getInfo = (files, end, message) => dispatch => {
-  dispatch({
-    type: ACTION.CHANGE_STATUS,
-    payload: LOADING
-  })
+export const uploadFile = (files, end) => async dispatch => {
+  dispatch(loading())
 
-  ipcRenderer.send(message, files ? JSON.stringify(files) : false)
-
-  ipcRenderer.once('info-retrieved', (evt, info) => {
-    ipcRenderer.removeAllListeners(['upload-error'])
+  try {
+    const info = await interop.uploadFile(files)
     loadVideoInfo(info, end, dispatch)
-  })
-  
-  ipcRenderer.once('still-created', (evt, { thumbnail }) => {
-    dispatch({
-      type: ACTION.UPDATE_THUMBNAIL,
-      payload: thumbnail
-    })
-  })
-
-  ipcRenderer.once('upload-error', () => {
-    ipcRenderer.removeAllListeners(['info-retrieved', 'still-created'])
-
+  } catch (err) {
     dispatch({
       type: ACTION.CHANGE_STATUS,
       payload: UPLOAD_ERROR
     })
-  })
+  }
 }
 
 export const updateState = e => ({
@@ -94,17 +80,17 @@ export const pasteTimecode = (name, e) => dispatch => {
     })
 }
 
-export const changeRadioValue = ({ target }) => ({
+export const changeRadioValue = e => ({
   type: ACTION.CHANGE_RADIO_VALUE,
   payload: {
-    name: target.name,
-    value: target.value
+    name: e.target.name,
+    value: e.target.value
   }
 })
 
-export const toggleCheckbox = ({ target }) => ({
+export const toggleCheckbox = e => ({
   type: ACTION.TOGGLE_CHECKBOX,
-  payload: target.name
+  payload: e.target.name
 })
 
 export const checkDirectory = id => ({
@@ -120,7 +106,26 @@ export const updateProgress = (name, progress) => ({
   }
 })
 
-export const syncPreferences = prefs => ({
-  type: ACTION.UPDATE_STATE,
-  payload: prefs
+export const resetForm = (warn) => async dispatch => {
+  const response = warn
+    ? await interop.dialog.startOverAlert()
+    : 0
+
+  if (response !== 0) return false
+
+  await interop.clearTempFiles()
+
+  dispatch({
+    type: ACTION.RESET_FORM
+  })
+}
+
+export const setRecording = recording => ({
+  type: ACTION.SET_RECORDING,
+  payload: recording
+})
+
+export const setRecordingError = () => ({
+  type: ACTION.CHANGE_STATUS,
+  payload: RECORDING_ERROR
 })

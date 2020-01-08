@@ -4,10 +4,10 @@
   padding: 10px 0 62px;
 }
 
-.preferences > h1  { margin-bottom: 10px }
-.preferences > h1:nth-of-type(2) { margin-top: 20px; }
+.preferences legend  { margin-bottom: 10px }
+.preferences legend:nth-of-type(2) { margin-top: 20px; }
 
-.preferences > h1 + label {
+.preferences legend + label {
   margin-right: 10px;
 }
 
@@ -45,6 +45,7 @@ td > label {
 td > button {
   width: 24px;
   height: 24px;
+  font: 400 1.125rem/15px 'Material Icons';
 }
 
 td > button {

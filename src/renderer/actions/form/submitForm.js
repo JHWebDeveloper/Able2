@@ -1,38 +1,78 @@
-import fs from 'fs'
-import { ipcRenderer, remote } from 'electron'
-import { updateProgress } from '../form' 
+import { CHANGE_STATUS, DOWNLOAD_STARTED, RENDER_STARTED } from '../types'
+import { DONE, URL_READY } from '../../status/types'
+import { updateProgress, checkDirectory } from '../form' 
 import buildSource from './buildSource';
 import { cleanSourceName, cleanFileName } from '../../utilities';
 
-import { CHANGE_STATUS } from '../types'
-import { DOWNLOADING, DOWNLOAD_ERROR, RENDERING, RENDER_ERROR, DONE } from '../../status/types'
+const { interop } = window.ABLE2
 
-const dirAlert = dir => remote.dialog.showMessageBoxSync({
-  type: 'warning',
-  buttons: ['Continue', 'Abort'],
-  message: `Unable to locate the directory "${dir}". This folder may have been deleted, removed or taken offline. Continue without saving to this directory?`
-})
+const download = async (formData, dispatch) => {
+  const onDownloadStarted = () => {
+    dispatch({ type: DOWNLOAD_STARTED })
+  }
 
-export const submitForm = (state, e) => dispatch => {
+  const onDownloadProgress = progress => {
+    dispatch(updateProgress('download', progress))
+  }
+
+  await interop.download(onDownloadStarted, onDownloadProgress, formData)
+
+  return render(formData, dispatch)
+}
+
+const render = async (formData, dispatch) => {
+  const onRenderStarted = () => {
+    dispatch({ type: RENDER_STARTED })
+  }
+
+  const onRenderProgress = progress => {
+    dispatch(updateProgress('render', progress))
+  }
+
+  return interop.render(onRenderStarted, onRenderProgress, formData)
+}
+
+export const submitForm = (state, e) => async dispatch => {
   e.preventDefault()
 
-  let { fileName, source, rotate, hflip, vflip, sourcePrefix, renderOutput, directories } = state
+  let {
+    fileName,
+    source,
+    rotate,
+    hflip,
+    vflip,
+    sourcePrefix,
+    sourceOnTop,
+    renderOutput,
+    directories
+  } = state
+
+  let tempDir = false
 
   if (directories.every(dir => !dir.checked)) {
-    const filePath = remote.dialog.showOpenDialogSync({
-      buttonLabel: 'Choose',
-      properties: ['openDirectory', 'createDirectory']
-    })
+    const { filePaths, canceled } = await interop.dialog.chooseDirectory()
 
-    if (!filePath) return
+    if (canceled) return
 
-    state.directories.push({
+    tempDir = {
       checked: true,
-      directory: filePath[0]
-    })
+      directory: filePaths[0]
+    }
+
+    state.directories.push(tempDir)
   } else {
     for (let dir of directories) {
-      if (dir.checked && !fs.existsSync(dir.directory) && dirAlert(dir.directory)) return
+      if (!dir.checked) continue
+
+      const exists = await interop.checkIfDirectoryExists(dir.directory)
+
+      if (exists) continue
+
+      const res = await interop.dialog.directoryNotFoundAlert(dir.directory)
+
+      dispatch(checkDirectory(dir.id))
+
+      if (res === 1) return false
     }
   }
 
@@ -41,70 +81,28 @@ export const submitForm = (state, e) => dispatch => {
   if (hflip) rotate += 'hflip,'
   if (vflip) rotate += 'vflip,'
 
-  ipcRenderer.once('download-started', () => {
-    dispatch({
-      type: CHANGE_STATUS,
-      payload: DOWNLOADING
-    })
-  })
+  const formData = {
+    ...state,
+    fileName: cleanFileName(fileName),
+    sourceDataURL: source
+      ? buildSource(sourcePrefix ? `Source: ${source}` : source, renderOutput, sourceOnTop)
+      : false
+  }
 
-  ipcRenderer.on('download-progress', (evt, progress) => {
-    dispatch(updateProgress('download', progress))
-  })
+  try {
+    await (state.status === URL_READY ? download : render)(formData, dispatch)
 
-  ipcRenderer.once('download-error', () => {
-    ipcRenderer.removeAllListeners([
-      'download-progress',
-      'render-started',
-      'render-progress',
-      'render-error',
-      'render-complete'
-    ])
-
-    dispatch({
-      type: CHANGE_STATUS,
-      payload: DOWNLOAD_ERROR
-    })
-  })
-
-  ipcRenderer.once('render-started', () => {
-    ipcRenderer.removeAllListeners(['download-progress', 'download-error'])
-
-    dispatch({
-      type: CHANGE_STATUS,
-      payload: RENDERING
-    })
-  })
-
-  ipcRenderer.on('render-progress', (evt, progress) => {
-    dispatch(updateProgress('render', progress))
-  })
-
-  ipcRenderer.once('render-error', () => {
-    ipcRenderer.removeAllListeners(['render-progress', 'render-complete'])
-
-    dispatch({
-      type: CHANGE_STATUS,
-      payload: RENDER_ERROR
-    })
-  })
-
-  ipcRenderer.once('render-complete', () => {
-    ipcRenderer.removeAllListeners(['render-progress', 'render-error'])
-    
     dispatch({
       type: CHANGE_STATUS,
       payload: DONE
     })
-  })
-
-  ipcRenderer.send(state.status === 'URL_READY' ? 'download' : 'format', {
-    formData: {
-      ...state,
-      fileName: cleanFileName(fileName),
-      sourceDataURL: source
-        ? buildSource(sourcePrefix ? `Source: ${source}` : source, renderOutput)
-        : false
-    }
-  })
+  } catch (err) {
+    dispatch({
+      type: CHANGE_STATUS,
+      payload: err
+    })
+  } finally {
+    interop.removeDownloadRenderListeners()
+    if (tempDir) state.directories.pop(tempDir)
+  }
 }

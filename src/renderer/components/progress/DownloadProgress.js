@@ -1,26 +1,18 @@
 import React from 'react'
 import { oneOfType, bool, string } from 'prop-types'
-import { remote } from 'electron'
 
+import CancelButton from './CancelButton'
 import { convertMiB } from '../../utilities'
 
-const win = remote.getCurrentWindow()
-
-const ProgressBar = ({ file, prc, size, speed, eta }) => {
-  const message = `Downloading${file ? ` ${file}` : '...'}`
-  const percent = parseInt(prc)
-
-  win.setProgressBar(percent / 100)
-
-  return (
-    <div className="progress">
-      <p>{message}</p>
-      <progress value={percent} max="100" />
-      <span>{`${prc} of ${convertMiB(size)} at ${convertMiB(speed)}/s`}</span>
-      <span>ETA: <span className="monospace">{eta}</span></span>
-    </div>
-  )
-}
+const ProgressBar = ({ file, prc, size, speed, eta }) => (
+  <div className="progress">
+    <p>Downloading{file ? ` ${file}` : '...'}</p>
+    <progress value={parseInt(prc)} max="100" />
+    <span>{`${prc} of ${convertMiB(size)} at ${convertMiB(speed)}/s`}</span>
+    <span>ETA: <span className="monospace">{eta}</span></span>
+    <CancelButton />
+  </div>
+)
 
 ProgressBar.propTypes = {
   file: oneOfType([bool, string]),

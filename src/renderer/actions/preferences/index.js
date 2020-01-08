@@ -1,15 +1,26 @@
-import { remote } from 'electron'
-import { ipcRenderer } from 'electron'
 import uuidv1 from 'uuid/v1'
 import { checkDirectory } from '../form';
 
 import {
+  LOAD_PREFS,
   ADD_DIRECTORY,
   DELETE_DIRECTORY,
   UPDATE_LABEL,
   CHOOSE_DIRECTORY,
-  UPDATE_STATE
 } from '../types'
+
+const { interop } = window.ABLE2
+
+export const loadPrefs = async () => {
+  try {    
+    return ({
+      type: LOAD_PREFS,
+      payload: await interop.requestPrefs()
+    })
+  } catch (err) {
+    console.error(err)
+  }
+}
 
 export const checkDefault = checkDirectory
 
@@ -37,13 +48,10 @@ const deleteDirectory = id => ({
   payload: id
 })
 
-export const deleteDirectoryWarn = (id, label) => dispatch => {
-  remote.dialog.showMessageBox({
-    buttons: ['OK', 'Cancel'],
-    message: `Delete ${label ? `"${label}"` : 'directory'}?`
-  }, res => {
-    if (!res) dispatch(deleteDirectory(id))
-  })
+export const deleteDirectoryWarn = (id, label) => async dispatch => {
+  const response = await interop.dialog.deleteDirectoryAlert(label)
+
+  if (response === 0) dispatch(deleteDirectory(id))
 }
 
 export const moveDirectory = (newDir, pos) => dispatch => {
@@ -61,22 +69,21 @@ export const updateLabel = (id, e) => ({
   }
 })
 
-export const chooseDirectory = id => dispatch => {
-  remote.dialog.showOpenDialog(remote.getCurrentWindow(), {
-    buttonLabel: 'Choose',
-    properties: ['openDirectory', 'createDirectory']
-  }).then(({ filePaths }) => {
-    dispatch({
-      type: CHOOSE_DIRECTORY,
-      payload: {
-        id,
-        directory: filePaths[0]
-      }
-    })
+export const chooseDirectory = id => async dispatch => {
+  const { filePaths, canceled } = await interop.dialog.chooseDirectory()
+
+  if (canceled) return false
+
+  dispatch({
+    type: CHOOSE_DIRECTORY,
+    payload: {
+      id,
+      directory: filePaths[0]
+    }
   })
 }
 
-export const savePreferences = prefs => dispatch => {
+export const savePreferences = (prefs, callback) => async dispatch => {
   prefs.directories = prefs.directories
     .filter(dir => dir.directory)
     .map(dir => dir.label ? dir : {
@@ -84,14 +91,22 @@ export const savePreferences = prefs => dispatch => {
       label: dir.directory.split('/').pop()
     })
 
-  ipcRenderer.send('save-prefs', prefs)
+  try {
+    await interop.savePrefs(prefs)
 
-  dispatch({
-    type: UPDATE_STATE,
-    payload: prefs
-  })
+    dispatch({
+      type: LOAD_PREFS,
+      payload: prefs
+    })
+
+    callback(false)
+  } catch (err) {
+    console.error(err)
+  }
+
 }
 
-export const closePreferences = () => {
-  remote.getCurrentWindow().close()
-}
+export const syncPreferences = newPrefs => ({
+  type: LOAD_PREFS,
+  payload: newPrefs
+})

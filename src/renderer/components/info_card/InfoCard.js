@@ -1,19 +1,14 @@
 import React from 'react'
-import { string, number, oneOfType } from 'prop-types'
+import { bool, number, oneOfType, string } from 'prop-types'
 
-const InfoCard = ({ thumbnail, title, duration, resolution, fps, fileCount }) => {
-  const errImg = require('../../images/able2-placeholder.svg');
-  const onError = e => {
-    e.target.src = errImg
-    e.target.onError = ''
-  }
+const InfoCard = (props) => {
+  const { thumbnail, title, duration, resolution, fps, fileCount } = props
 
   return (
     <div className="video-info">
       <img
-        src={thumbnail || errImg}
-        alt={title}
-        onError={onError} />
+        src={thumbnail}
+        alt={title} />
       <div>
         <h2>{title}</h2>
         <ul>
@@ -31,9 +26,9 @@ InfoCard.propTypes = {
   thumbnail: string,
   title: string,
   duration: string,
-  resolution: string,
+  resolution: oneOfType([bool, string]),
   fps: oneOfType([string, number]),
-  fileCount: oneOfType([string, number])
+  fileCount: number
 }
 
 export default InfoCard

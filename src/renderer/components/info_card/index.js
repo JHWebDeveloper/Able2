@@ -4,7 +4,7 @@ import { FormContext } from '../../store/formStore'
 import * as STATUS from '../../status/types'
 
 import VideoInfo from './InfoCard'
-import Spinner from '../elements/Spinner'
+import Spinner from '../form_elements/Spinner'
 
 import {
   FetchError,

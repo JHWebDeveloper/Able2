@@ -14,6 +14,12 @@
   font-style: none;
 }
 
+@font-face {
+  font-family: 'Material Icons';
+  src: url('../font/materialicons-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
 
 /* --- RESETS --- */
 
@@ -37,37 +43,37 @@ h1, h2, h3, h4, p, ul, li, button, a, span, img {
 div[hidden] { display: none }
 
 a { text-decoration: none; }
-a:link, a:visited { color: inherit; }
+
+a:matches(:link, :visited) { color: currentColor; }
 
 input[type="text"] { user-select: text }
 
-input[type="checkbox"],
-input[type="radio"],
+input:matches([type="checkbox"], [type="radio"]),
 progress {
   appearance: none;
 }
 
-input[type="checkbox"],
-input[type="radio"] {
+input:matches([type="checkbox"], [type="radio"]) {
   overflow: hidden;
   width: 18px;
   height: 18px;
+  margin-right: 5px;
 }
 
-input[type="checkbox"]::after,
-input[type="radio"]::after {
-  display: block;
-  content: url('../images/form-sprite.svg');
+input:matches([type="checkbox"], [type="radio"])::after {
+  display: inline-block;
+  font: 400 1.125rem 'Material Icons';
 }
 
-input[type="checkbox"]:checked::after { transform: translateY(-18px); }
-input[type="checkbox"]:disabled::after { transform: translateY(-36px); }
-input[type="checkbox"]:checked:disabled::after{ transform: translateY(-54px) }
+input:matches([type="checkbox"], [type="radio"]):disabled::after {
+  color: #ccc;
+}
 
-input[type="radio"]::after { transform: translateY(-72px); }
-input[type="radio"]:checked::after { transform: translateY(-90px); }
-input[type="radio"]:disabled::after { transform: translateY(-108px); }
-input[type="radio"]:checked:disabled::after { transform: translateY(-126px); }
+input[type="checkbox"]::after { content: 'check_box_outline_blank'; } 
+input[type="checkbox"]:checked::after { content: 'check_box' }
+
+input[type="radio"]::after { content: 'radio_button_unchecked'; } 
+input[type="radio"]:checked::after { content: 'radio_button_checked'; }
 
 input[list]::-webkit-calendar-picker-indicator { display: none; }
 
@@ -127,8 +133,7 @@ header {
 }
 
 header > svg {
-  width: 22px;
-  height: 22px;
+  width: 20px;
   margin-right: 2px;
 }
 
@@ -141,9 +146,7 @@ form { padding: 0 18px; }
 
 label[for="fileName"] { font-weight: 600; }
 
-input[name="url"],
-input[name="fileName"],
-input[name="source"] {
+input:matches([name="url"], [name="fileName"], [name="source"]) {
   display: block;
   width: 100%;
   padding: 3px 2px;
@@ -184,8 +187,7 @@ form > div {
   transition: background-color 150ms;
 }
 
-.file-uploader::before,
-.file-uploader::after {
+.file-uploader:matches(::before, ::after) {
   content: '';
   pointer-events: none;
   display: block;
@@ -203,8 +205,7 @@ form > div {
   height: calc(100% + 4px);
 }
 
-fieldset:not(:disabled) > .drag-enter,
-fieldset:not(:disabled) > .file-uploader:active {
+fieldset:not(:disabled) > :matches(.drag-enter, .file-uploader:active) {
   background: #444;
   color: #eee;
 }
@@ -265,25 +266,12 @@ ul {
 }
 
 fieldset:disabled,
-fieldset:disabled > input,
-fieldset:disabled > input::placeholder,
-fieldset:disabled > div {
+fieldset:disabled > :matches(input, input::placeholder, div) {
   color: #ccc;
 }
 
-fieldset:disabled > input,
-fieldset:disabled > div {
+fieldset:disabled > :matches(input, div) {
   border-color: #ccc;
-}
-
-fieldset:disabled > input { pointer-events: none; }
-
-input[type="checkbox"],
-input[type="radio"] {
-  width: 18px;
-  height: 18px;
-  margin-right: 5px;
-  font: 400 1.125rem/15px 'Material Icons';
 }
 
 .timecode {
@@ -359,7 +347,7 @@ button[type="submit"] { margin-right: 5px; }
   max-width: 50%;
 }
 
-.progress > span:last-child { float: right; }
+.progress > span:last-of-type { float: right; }
 
 progress {
   width: 100%;
@@ -377,6 +365,10 @@ progress {
 .completed > p:first-of-type { margin-bottom: 5px; }
 .completed > p:last-of-type { margin-bottom: 20px; }
 
+button[name="cancel"] {
+  display: block;
+  margin-top: 10px;
+}
 
 /* --- SCREEN RECORDER--- */
 
@@ -437,9 +429,9 @@ button[name="record"] ~ p {
   border-color: #7c7c7c;
 }
 
-.updater > ::-webkit-progress-value {
-  background-color: #7c7c7c;
-}
+.updater > ::-webkit-progress-value { background-color: #7c7c7c; }
+
+.updater > button { margin-top: 10px; }
 
 /* --- MISC --- */
 

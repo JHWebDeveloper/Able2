@@ -1,7 +1,7 @@
 import React, { createRef, useCallback, useContext } from 'react'
 import path from 'path'
 import { FormContext } from '../../store/formStore'
-import { getInfo } from '../../actions/form'
+import { uploadFile } from '../../actions/form'
 import { CHANGE_STATUS } from '../../actions/types'
 import { FILE_ERROR } from '../../status/types'
 
@@ -62,7 +62,7 @@ const FileUpload = () => {
         payload: FILE_ERROR
       })
     } else {
-      dispatch(getInfo(files, endData, 'upload'))
+      dispatch(uploadFile(files, endData, 'upload'))
     }
   }, [])
 

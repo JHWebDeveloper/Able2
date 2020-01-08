@@ -21,6 +21,10 @@ const initPrefs = {
 }
 
 export const loadPrefs = async () => {
+  const prefsDirExsts = await fileExistsPromise(prefsDir)
+
+  if (!prefsDirExsts) await fsp.mkdir(prefsDir)
+
   if (await fileExistsPromise(prefs)) {
     return JSON.parse(await fsp.readFile(prefs))
   } else {

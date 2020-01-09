@@ -13,14 +13,14 @@ const Help = () => (
 
       <h2>Getting Started</h2>
       <h3>Download Videos from the Internet</h3>
-      <p>To download a video from an internet video service, simply copy and paste the URL of the video in the text field at the top of the form and click the "Fetch Video" button below. The "Fetch Video" button will only be available when a valid URL is detected.</p>
+      <p>To download a video from an internet video service, simply copy and paste the URL of the video in the text field at the top of the form and click the &quot;Fetch Video&quot; button below. The &quot;Fetch Video&quot; button will only be available when a valid URL is detected.</p>
       <p>To download from the web, Able2 makes use of youtube-dl, an open-source command line interface compatible with numerous online video services including but not limited to YouTube, Twitter, Facebook, Instagram, Vimeo, Twitch, Reddit, Tumblr, Flickr, and Dailymotion.</p>
       <h3>Upload Files from Your Computer</h3>
       <p>In addition to downloading, Able2 offers several video processing options. To use these features on a video or image already on your computer, drag and drop the file on in the indicated area. Alternatively, clicking on this area will display a file browser.</p>
       <p>You can select multiple videos/images for batch processing. A manually entered filename is required for batch processing.</p>
       <h3>Start a Screen Record</h3>
       <p>If you are unable to downloaded a video, Able2 has a built in screen recorder as a work around. Simply start the record and play the video. You should fullscreen if available.</p>
-      <p>To start a screen record simply click the record button. The button will blink to indicate it's recording. To stop, somply click the button again.</p>
+      <p>To start a screen record simply click the record button. The button will blink to indicate it is recording. To stop, somply click the button again.</p>
       <p>You can also record for a set ammount of time. Check the timecode selector below the record button and enter the desired duration. The Screen Recorder will automatically stop once the set duration has passed</p>
       <p>The Screen Recorder should only be used as a last resort. Always attempt to download the video first.</p>
       {interop.isMac ? <p>Unfortunately screen records with audio are only available for Windows.</p> : false}
@@ -29,7 +29,7 @@ const Help = () => (
       <p>Once a valid video has been loaded, a thumbnail and info card will display. The info displayed will vary between video services.</p>
 
       <h2>Download Options</h2>
-      <p>Under the Info Card you will see several options. Let's walk through each of them.</p>
+      <p>Under the Info Card you will see several options. Let&apos;s walk through each of them.</p>
       <h3>File Name</h3>
       <p>Here you can specify the name for the exported file. This is the only option required for export.</p>
       <h3>Start and End Times</h3>
@@ -63,11 +63,11 @@ const Help = () => (
       <p>Simply puts the video over a solid black background.</p>
       <h3>Source</h3>
       <p>Adds a Ch9 source overlay to the video. Simple enter the source in the provided text field.</p>
-      <p>While AR Correction is set to "None", the source field will only be enabled if the video has an exactly 16:9 aspect ratio. For all other aspect ratios, the source overlay will be disabled. For multiple Videos/Images, the Source option will always be disabled even if all videos in the have a 16:9 aspect ratio.</p>
-      <h4>Add "Source: " to begining</h4>
-      <p>Below the field is an option to automatically write "Source: " before your entry. This is selected by default and should only be disabled under very special cases. Should you accidentally type "Source: " with this option selected, Able2 will detect it and avoid writing it twice.</p>
+      <p>While AR Correction is set to &quot;None&quot;, the source field will only be enabled if the video has an exactly 16:9 aspect ratio. For all other aspect ratios, the source overlay will be disabled. For multiple Videos/Images, the Source option will always be disabled even if all videos in the have a 16:9 aspect ratio.</p>
+      <h4>Add &quot;Source: &quot; to begining</h4>
+      <p>Below the field is an option to automatically write &quot;Source: &quot; before your entry. This is selected by default and should only be disabled under very special cases. Should you accidentally type &quot;Source: &quot; with this option selected, Able2 will detect it and avoid writing it twice.</p>
       <h4>Place source at top of video</h4>
-      <p>This will embed the source at the top of the video instead of the default bottom. This should only be used for cases where the source is obscuring important details or appearing illegable at the bottom of the video. A warning message will appear to remind you of this. If you know what you're doing and would like the warning to go away, you can disable it in the Preferences menu.</p>
+      <p>This will embed the source at the top of the video instead of the default bottom. This should only be used for cases where the source is obscuring important details or appearing illegable at the bottom of the video. A warning message will appear to remind you of this. If you know what you are doing and would like the warning to go away, you can disable it in the Preferences menu.</p>
       <h2>Transform Options</h2>
       <h3>Rotate</h3>
       <p>For correcting sideways video.</p>
@@ -81,11 +81,11 @@ const Help = () => (
       <p>If no shortcuts are selected or present, you will be prompted to choose a location upon clicking the Download/Save button.</p>
 
       <h2>Download/Save Video</h2>
-      <p>Click "Download" (for URLs) or "Save" (for files) to begin processing the video. A progress bar will display Able2's current status in the download and render process.</p>
+      <p>Click &quot;Download&quot; (for URLs) or &quot;Save&quot; (for files) to begin processing the video. A progress bar will display Able2&apos;s current status in the download and render process.</p>
       <p>The video will be exported as an h.264 encoded .mp4 unless the transparent background option is selected. In that case the video will export as an Apple ProRes 4444 encoded .mov.</p>
 
       <h2>Preferences</h2>
-      <p>To access the Preferences window select {interop.isMac ? 'Able2' : 'Edit'}  > Preferences</p>
+      <p>To access the Preferences window select {interop.isMac ? 'Able2' : 'Edit'} &gt; Preferences</p>
       <h3>Render Output Resolution</h3>
       <p>This allows you to set whether Able2 renders in 1080 or 720.</p>
       <p>This only effects processed videos. Simply downloading the video as is will retain the original resolution</p>

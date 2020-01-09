@@ -57,7 +57,7 @@ const Source = () => {
           name="sourcePrefix"
           checked={ctx.sourcePrefix}
           onChange={e => dispatch(toggleCheckbox(e))} />
-        Add "Source: " to beginning
+        Add &quot;Source: &quot; to beginning
       </label>
       <label>
         <input

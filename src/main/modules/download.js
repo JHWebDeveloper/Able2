@@ -8,12 +8,12 @@ import getDownloadFormat from './getDownloadFormat'
 import { tempDir } from './handleExtFiles'
 
 const parseYTDL = (str, regex) => {
-  const result = str.match(regex);
+  const result = str.match(regex)
   return result ? result[0] : false
 }
 
 const download = (formData, win) => new Promise((resolve, reject) => {
-  let { url, fileName, optimize, renderOutput } = formData
+  const { url, fileName, optimize, renderOutput } = formData
 
   const options = [
     url,

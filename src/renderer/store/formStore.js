@@ -63,7 +63,7 @@ export const FormProvider = ({ children, preferences }) => {
   const [state, dispatch] = useReducer(reducer, initState)
 
   useEffect(() => {
-   dispatch(mergePreferences(preferences))
+    dispatch(mergePreferences(preferences))
   }, [preferences])
   
   return (

@@ -2,7 +2,7 @@ import React, { useCallback, useContext } from 'react'
 import { FormContext } from '../../store/formStore'
 import { loading, setRecording, setRecordingError, uploadFile } from '../../actions/form'
 
-import Timecode from '../form_elements/Timecode';
+import Timecode from '../form_elements/Timecode'
 
 const { interop } = window.ABLE2
 

@@ -39,8 +39,8 @@ const BackgroundOptions = () => {
           },
           {
             label: 'Black',
-            value: 'black',
-          },
+            value: 'black'
+          }
         ]} />
     </fieldset>
   )

@@ -6,7 +6,7 @@ import * as STATUS from '../../status/types'
 import DownloadOptions from './DownloadOptions'
 import DownloadProgress from '../progress/DownloadProgress'
 import RenderProgress from '../progress/RenderProgress'
-import Completed from '../progress/Completed';
+import Completed from '../progress/Completed'
 
 
 export default () => {
@@ -17,7 +17,7 @@ export default () => {
     case STATUS.VID_READY:
     case STATUS.IMG_READY:
     case STATUS.BATCH_READY:
-        return <DownloadOptions />
+      return <DownloadOptions />
     case STATUS.DOWNLOADING:
       return <DownloadProgress {...downloadProgress} />
     case STATUS.RENDERING: 

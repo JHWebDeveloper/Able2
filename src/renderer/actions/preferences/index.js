@@ -1,12 +1,12 @@
 import uuidv1 from 'uuid/v1'
-import { checkDirectory } from '../form';
+import { checkDirectory } from '../form'
 
 import {
   LOAD_PREFS,
   ADD_DIRECTORY,
   DELETE_DIRECTORY,
   UPDATE_LABEL,
-  CHOOSE_DIRECTORY,
+  CHOOSE_DIRECTORY
 } from '../types'
 
 const { interop } = window.ABLE2

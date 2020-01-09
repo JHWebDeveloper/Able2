@@ -2,6 +2,7 @@ import * as ACTION from '../actions/types'
 
 export default (state, action) => {
   const { type, payload } = action
+  let trgtDir = false
 
   switch (type) {
     case ACTION.LOAD_PREFS:
@@ -23,8 +24,8 @@ export default (state, action) => {
       return {
         ...state,
         directories: state.directories.map(dir => {
-          if (dir.id === payload) dir.checked = !dir.checked;
-          return dir;
+          if (dir.id === payload) dir.checked = !dir.checked
+          return dir
         })
       }
     case ACTION.ADD_DIRECTORY:
@@ -60,9 +61,9 @@ export default (state, action) => {
         ))
       }
     case ACTION.MOVE_DIRECTORY:
-      const trgtDir = state.directories.splice(payload.oldPos, 1)[0];
+      trgtDir = state.directories.splice(payload.oldPos, 1)[0]
 
-      state.directories.splice(payload.newPos, 0, trgtDir);
+      state.directories.splice(payload.newPos, 0, trgtDir)
 
       return {
         ...state,

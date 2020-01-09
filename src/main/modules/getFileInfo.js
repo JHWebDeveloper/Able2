@@ -5,7 +5,7 @@ import { checkIsImage } from './handleImages'
 import { placeholder } from './createThumbnail'
 
 const base64Encode = file => `data:image/png;base64,${fs.readFileSync(file, 'base64')}`
-const round = (n, dec = 2) => Number(Math.round(n+'e'+dec)+'e-'+dec)
+const round = (n, dec = 2) => Number(`${Math.round(`${n}e${dec}`)}e-${dec}`)
 
 const getFileFormat = (file, tempFilePath, thumbnail) => new Promise((resolve, reject) => {
   const isImage = checkIsImage(tempFilePath)
@@ -22,7 +22,7 @@ const getFileFormat = (file, tempFilePath, thumbnail) => new Promise((resolve, r
         width,
         height,
         ...(isImage ? {
-          thumbnail: base64Encode(file.path),
+          thumbnail: base64Encode(file.path)
         } : {
           thumbnail: thumbnail ? base64Encode(thumbnail) : placeholder,
           duration: Math.round(duration || 0),

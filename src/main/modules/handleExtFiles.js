@@ -29,7 +29,7 @@ export const copyToDirectories = (dirs, tempFile, newFile) => {
     .forEach(dir => {
       fsp.copyFile(
         path.join(tempDir, tempFile),
-        path.join(dir.directory, newFile || tempFile),
+        path.join(dir.directory, newFile || tempFile)
       ).catch(err => { throw err })
     })
 }

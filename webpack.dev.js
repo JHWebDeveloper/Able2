@@ -3,7 +3,6 @@ const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const postcssPresetEnv = require('postcss-preset-env')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
 const { spawn } = require('child_process')
 
 module.exports = {
@@ -33,7 +32,7 @@ module.exports = {
             loader: MiniCssExtractPlugin.loader,
             options: {
               hmr: true
-            },
+            }
           },
           'css-loader',
           {
@@ -41,7 +40,7 @@ module.exports = {
             options: {
               ident: 'postcss',
               plugins: [
-                postcssPresetEnv({ stage: 0 }),
+                postcssPresetEnv({ stage: 0 })
               ]
             }
           }
@@ -56,7 +55,7 @@ module.exports = {
   plugins: [
     new webpack.NamedModulesPlugin(),
     new MiniCssExtractPlugin({
-      filename: path.join('assets', 'css', '[name].min.css'),
+      filename: path.join('assets', 'css', '[name].min.css')
     }),
     new HTMLWebpackPlugin({
       inject: false,
@@ -86,9 +85,8 @@ module.exports = {
         shell: true,
         env: process.env,
         stdio: 'inherit'
-      })
-      .on('close', () => process.exit(0))
-      .on('error', spawnError => console.error(spawnError))
+      }).on('close', () => process.exit(0))
+        .on('error', spawnError => console.error(spawnError))
     }
   }
 }

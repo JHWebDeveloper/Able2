@@ -27,7 +27,7 @@ const OutputResolution = () => {
             {
               label: _1080,
               value: _1080
-            },
+            }
           ]}/>
       </fieldset>
       <fieldset>

@@ -15,7 +15,7 @@ import RotationOptions from '../transform_options/RotationOptions'
 import FlipOptions from '../transform_options/FlipOptions'
 
 const DownloadOptions = () => {
-  const { status, fileName, dispatch } = useContext(FormContext);
+  const { status, fileName, dispatch } = useContext(FormContext)
   const buttonTitle = status === URL_READY ? 'Download' : 'Save'
 
   return (

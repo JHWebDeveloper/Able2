@@ -55,11 +55,11 @@ const format = (formData, file, win) => new Promise((resolve, reject) => {
     })
     .on('progress', prog => {
       win.webContents.send('renderProgress', {
-         prc: prog.percent,
-         timemark: prog.timemark,
-         frames: prog.frames,
-         fileCount: fileCount + 1,
-         fileTotal: fileQueue.length
+        prc: prog.percent,
+        timemark: prog.timemark,
+        frames: prog.frames,
+        fileCount: fileCount + 1,
+        fileTotal: fileQueue.length
       })
 
       win.setProgressBar(prog.percent / 100)

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 
-import { FormContext } from '../../store/formStore';
+import { FormContext } from '../../store/formStore'
 import { checkDirectory } from '../../actions/form'
 
 const Directories = () => {

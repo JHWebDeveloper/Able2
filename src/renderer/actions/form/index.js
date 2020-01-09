@@ -71,7 +71,7 @@ export const updateTimecode = (name, tc) => ({
 })
 
 export const pasteTimecode = (name, e) => dispatch => {
-  e.preventDefault();
+  e.preventDefault()
 
   navigator.clipboard
     .readText()
@@ -106,7 +106,7 @@ export const updateProgress = (name, progress) => ({
   }
 })
 
-export const resetForm = (warn) => async dispatch => {
+export const resetForm = warn => async dispatch => {
   const response = warn
     ? await interop.dialog.startOverAlert()
     : 0

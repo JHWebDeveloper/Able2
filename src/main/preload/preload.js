@@ -56,7 +56,7 @@ interop.removeDownloadRenderListeners = async () => {
     'renderStarted',
     'renderProgress',
     'renderErr',
-    'renderComplete',
+    'renderComplete'
   ])
 }
 
@@ -135,7 +135,7 @@ interop.dialog = Object.freeze({
     buttons: ['OK', 'Cancel'],
     message: 'Clear form and start over?'
   })).response,
-  deleteDirectoryAlert: async (label) => (await remote.dialog.showMessageBox({
+  deleteDirectoryAlert: async label => (await remote.dialog.showMessageBox({
     type: 'warning',
     buttons: ['OK', 'Cancel'],
     message: `Delete ${label ? `"${label}"` : 'directory'}?`

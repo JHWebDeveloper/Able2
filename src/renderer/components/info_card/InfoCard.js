@@ -1,7 +1,7 @@
 import React from 'react'
 import { bool, number, oneOfType, string } from 'prop-types'
 
-const InfoCard = (props) => {
+const InfoCard = props => {
   const { thumbnail, title, duration, resolution, fps, fileCount } = props
 
   return (

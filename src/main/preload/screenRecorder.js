@@ -61,7 +61,7 @@ export const startRecording = async (timer, end, isRecording) => {
   await handleStream(media, timer, end, isRecording)
 }
 
-export const stopRecording = end => new Promise((resolve, reject) => {
+export const stopRecording = () => new Promise((resolve, reject) => {
   clearTimeout(timeout)
 
   recorder.addEventListener('stop', () => {
@@ -88,7 +88,7 @@ export const stopRecording = end => new Promise((resolve, reject) => {
 })
 
 const toArrayBuffer = (blob, callback) => new Promise((resolve, reject) => {
-  let fileReader = new FileReader();
+  const fileReader = new FileReader()
 
   fileReader.onload = () => {
     callback(fileReader.result)
@@ -100,8 +100,8 @@ const toArrayBuffer = (blob, callback) => new Promise((resolve, reject) => {
 })
 
 const toBuffer = ab => {
-  let buffer = Buffer.alloc(ab.byteLength)
-  let arr = new Uint8Array(ab)
+  const buffer = Buffer.alloc(ab.byteLength)
+  const arr = new Uint8Array(ab)
 
   for (let i = 0, len = arr.byteLength; i < len; i++) {
     buffer[i] = arr[i]

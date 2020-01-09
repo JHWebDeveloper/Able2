@@ -1,8 +1,8 @@
 import { CHANGE_STATUS, DOWNLOAD_STARTED, RENDER_STARTED } from '../types'
 import { DONE, URL_READY } from '../../status/types'
 import { updateProgress, checkDirectory } from '../form' 
-import buildSource from './buildSource';
-import { cleanSourceName, cleanFileName } from '../../utilities';
+import buildSource from './buildSource'
+import { cleanSourceName, cleanFileName } from '../../utilities'
 
 const { interop } = window.ABLE2
 
@@ -61,7 +61,7 @@ export const submitForm = (state, e) => async dispatch => {
 
     state.directories.push(tempDir)
   } else {
-    for (let dir of directories) {
+    for (const dir of directories) {
       if (!dir.checked) continue
 
       const exists = await interop.checkIfDirectoryExists(dir.directory)

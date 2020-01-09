@@ -27,7 +27,7 @@ const info = ({ url, renderOutput }) => new Promise((resolve, reject) => {
     if (code === null) return
 
     const info = JSON.parse(infoString)
-    let { title, thumbnail, width, height, fps } = info
+    const { title, thumbnail, width, height, fps } = info
 
     resolve({
       readyStatus: 'URL_READY',

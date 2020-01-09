@@ -1,6 +1,4 @@
-import { remote } from 'electron'
-
-const urlRegex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
+const urlRegex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/
 
 export const isURL = url => urlRegex.test(url)
 
@@ -40,10 +38,10 @@ export const cleanSourceName = srcName => (
   srcName.replace(/(^\s*(source:|courtesy:)\s*)|(\s*$)/ig, '')
 )
 
-const round = (n, dec = 2) => Number(Math.round(n+'e'+dec)+'e-'+dec)
+const round = (n, dec = 2) => Number(`${Math.round(`${n}e${dec}`)}e${dec}`)
 
 export const convertMiB = size => {
-  const n = parseInt(size);
+  const n = parseInt(size)
   return n >= 953.67431640625
     ? `${round(n * 0.001048576)}GB`
     : `${round(n * 1.048576)}MB`

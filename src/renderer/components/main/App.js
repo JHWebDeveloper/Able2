@@ -3,7 +3,7 @@ import '../../css/index.css'
 
 import Header from './Header'
 import Form from './Form'
-import { PrefsProvider, PrefsContext } from '../../store/prefsStore';
+import { PrefsProvider, PrefsContext } from '../../store/prefsStore'
 import { FormProvider } from '../../store/formStore'
 
 const Main = () => {

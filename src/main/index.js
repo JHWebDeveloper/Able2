@@ -12,7 +12,7 @@ import { loadPrefs, savePrefs } from './modules/preferences'
 import { initTempDirectory, clearTempFiles } from './modules/handleExtFiles'
 import update from './modules/update'
 
-const { app, BrowserWindow, Menu, ipcMain, dialog } = electron
+const { app, BrowserWindow, Menu, ipcMain } = electron
 
 // WINDOW CONFIG
 

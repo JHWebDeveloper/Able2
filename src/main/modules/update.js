@@ -1,3 +1,4 @@
+import { dialog } from 'electron'
 import { autoUpdater } from 'electron-updater'
 
 const update = evt => new Promise((resolve, reject) => {

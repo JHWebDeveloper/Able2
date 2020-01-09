@@ -5,7 +5,7 @@ import { initState } from '../store/formStore'
 export default (state, action) => {
   const { type, payload } = action
 
-  switch(type) {
+  switch (type) {
     case ACTION.UPDATE_STATE:
       return {
         ...state,
@@ -90,6 +90,6 @@ export default (state, action) => {
         ...initState
       }
     default:
-      return state;
+      return state
   }
 }

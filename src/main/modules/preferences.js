@@ -2,8 +2,8 @@ import { app } from 'electron'
 import { promises as fsp } from 'fs'
 import path from 'path'
 import uuidv1 from 'uuid/v1'
-import { prefsDir } from './handleExtFiles'
-import fileExistsPromise from './fileExistsPromise'
+import { prefsDir } from './utilities/handleExtFiles'
+import fileExistsPromise from './utilities/fileExistsPromise'
 
 const prefsJSON = path.join(prefsDir, 'preferences.json')
 

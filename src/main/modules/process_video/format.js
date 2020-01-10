@@ -1,9 +1,9 @@
 import { ipcMain } from 'electron'
 import fs, { promises as fsp } from 'fs'
 import path from 'path'
-import ffmpeg from './ffmpeg'
-import { tempDir, copyToDirectories } from './handleExtFiles'
-import { checkIsImage, checkIsGIF } from './handleImages'
+import ffmpeg from '../utilities/ffmpeg'
+import { tempDir, copyToDirectories } from '../utilities/handleExtFiles'
+import { checkIsImage, checkIsGIF } from '../utilities/handleImages'
 import render from './render'
 
 let fileCount = 0

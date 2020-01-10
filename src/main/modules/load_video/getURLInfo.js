@@ -1,7 +1,7 @@
 import { spawn } from 'child_process'
 import ytdlStatic from 'youtube-dl-ffmpeg-ffprobe-static'
 import { fixPathForAsarUnpack } from 'electron-util'
-import getDownloadFormat from './getDownloadFormat'
+import getDownloadFormat from '../utilities/getDownloadFormat'
 
 const info = ({ url, renderOutput }) => new Promise((resolve, reject) => {
   const getVideoInfo = spawn(fixPathForAsarUnpack(ytdlStatic.path), [

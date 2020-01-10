@@ -1,7 +1,7 @@
 import { promises as fsp } from 'fs'
 import path from 'path'
-import ffmpeg from './ffmpeg'
-import { tempDir } from './handleExtFiles'
+import ffmpeg from '../utilities/ffmpeg'
+import { tempDir } from '../utilities/handleExtFiles'
 
 const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 

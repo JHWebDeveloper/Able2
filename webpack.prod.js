@@ -6,13 +6,10 @@ const postcssPresetEnv = require('postcss-preset-env')
 const cssnano = require('cssnano')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
-const mainPath = path.join(__dirname, 'src', 'main')
-const rendererPath = path.join(__dirname, 'src', 'renderer')
-
 const mainConfig = {
   entry: {
-    main: mainPath,
-    preload: path.join(mainPath, 'preload', 'preload.js'),
+    main: path.join(__dirname, 'src', 'main'),
+    preload: path.join(__dirname, 'src', 'main', 'preload', 'preload.js'),
   },
   output: {
     path: path.join(__dirname, 'build'),
@@ -32,11 +29,11 @@ const mainConfig = {
   plugins: [
     new CopyWebpackPlugin([
       {
-        from: path.join(mainPath, 'backgrounds'),
+        from: path.join('src', 'main', 'backgrounds'),
         to: path.join('assets', 'backgrounds')
       },
       {
-        from: path.join(mainPath, 'icons'),
+        from: path.join('src', 'main', 'icons'),
         to: path.join('assets', 'icons')
       }
     ])
@@ -45,6 +42,8 @@ const mainConfig = {
     __dirname: false
   }
 }
+
+const rendererPath = path.join(__dirname, 'src', 'renderer')
 
 const rendererConfig = {
   mode: 'production',

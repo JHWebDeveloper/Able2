@@ -4,6 +4,7 @@ import { uploadFile } from '../../actions/form'
 import { CHANGE_STATUS } from '../../actions/types'
 import { FILE_ERROR } from '../../status/types'
 
+const { interop } = window.ABLE2
 const ref = createRef()
 
 const accepted = [

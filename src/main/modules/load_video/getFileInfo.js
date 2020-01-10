@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
-import ffmpeg from './ffmpeg'
-import { checkIsImage } from './handleImages'
+import ffmpeg from '../utilities/ffmpeg'
+import { checkIsImage } from '../utilities/handleImages'
 import { placeholder } from './createThumbnail'
 
 const base64Encode = file => `data:image/png;base64,${fs.readFileSync(file, 'base64')}`

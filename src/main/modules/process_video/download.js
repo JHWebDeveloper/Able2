@@ -4,8 +4,8 @@ import ytdlStatic from 'youtube-dl-ffmpeg-ffprobe-static'
 import ffmpegStatic from 'ffmpeg-static-electron'
 import { fixPathForAsarUnpack } from 'electron-util'
 
-import getDownloadFormat from './getDownloadFormat'
-import { tempDir } from './handleExtFiles'
+import getDownloadFormat from '../utilities/getDownloadFormat'
+import { tempDir } from '../utilities/handleExtFiles'
 
 const parseYTDL = (str, regex) => {
   const result = str.match(regex)

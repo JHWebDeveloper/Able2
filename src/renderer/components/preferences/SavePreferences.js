@@ -3,7 +3,7 @@ import React, { useCallback, useContext, useState } from 'react'
 import { PrefsContext } from '../../store/prefsStore'
 import { savePreferences } from '../../actions/preferences'
 
-import Spinner from '../form_elements/Spinner'
+import Spinner from '../svg/Spinner'
 
 const { interop } = window.ABLE2
 

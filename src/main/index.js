@@ -11,6 +11,7 @@ import format from './modules/format'
 import { loadPrefs, savePrefs } from './modules/preferences'
 import { initTempDirectory, clearTempFiles } from './modules/handleExtFiles'
 import update from './modules/update'
+import insertPCStyles from './modules/getPCStyles'
 
 const { app, BrowserWindow, Menu, ipcMain } = electron
 
@@ -64,9 +65,11 @@ const createWindow = () => {
 
   Menu.setApplicationMenu(mainMenu)
 
+  if (!mac) insertPCStyles(win)
+
   win.on('ready-to-show', () => {
-    win.show()
     if (dev) win.webContents.openDevTools()
+    win.show()
   })
 
   win.on('close', () => {
@@ -122,6 +125,8 @@ const prefsMenuItem = [
       })
 
       preferences.loadURL(getURL('preferences'))
+
+      if (!mac) insertPCStyles(preferences)
 
       preferences.once('ready-to-show', () => {
         preferences.show()
@@ -193,6 +198,8 @@ const mainMenuTemplate = [
           })
 
           help.loadURL(getURL('help'))
+
+          if (!mac) insertPCStyles(help)
 
           help.once('ready-to-show', () => {
             help.show()

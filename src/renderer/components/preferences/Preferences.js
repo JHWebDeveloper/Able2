@@ -1,5 +1,4 @@
 import React from 'react'
-import '../../css/index.css'
 import '../../css/preferences.css'
 
 import { PrefsProvider } from '../../store/prefsStore'

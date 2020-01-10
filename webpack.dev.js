@@ -5,12 +5,15 @@ const postcssPresetEnv = require('postcss-preset-env')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 const { spawn } = require('child_process')
 
+const rendererPath = path.join(__dirname, 'src', 'renderer')
+
 module.exports = {
   mode: 'development',
   entry: {
-    index: path.join(__dirname, 'src', 'renderer'),
-    preferences: path.join(__dirname, 'src', 'renderer', 'preferences.js'),
-    help: path.join(__dirname, 'src', 'renderer', 'help.js')
+    index: rendererPath,
+    preferences: path.join(rendererPath, 'preferences.js'),
+    help: path.join(rendererPath, 'help.js'),
+    global: path.join(rendererPath, 'css', 'global.css')
   },
   output: {
     path: path.join(__dirname, 'build'),
@@ -60,17 +63,17 @@ module.exports = {
     new HTMLWebpackPlugin({
       inject: false,
       filename: 'index.html',
-      template: path.join('src', 'renderer', 'index.html')
+      template: path.join(rendererPath, 'index.html')
     }),
     new HTMLWebpackPlugin({
       inject: false,
       filename: 'preferences.html',
-      template: path.join('src', 'renderer', 'preferences.html')
+      template: path.join(rendererPath, 'preferences.html')
     }),
     new HTMLWebpackPlugin({
       inject: false,
       filename: 'help.html',
-      template: path.join('src', 'renderer', 'help.html')
+      template: path.join(rendererPath, 'help.html')
     })
   ],
   watchOptions: {

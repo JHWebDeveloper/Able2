@@ -1,11 +1,10 @@
 import { ipcRenderer, remote } from 'electron'
+import path from 'path'
 import setContextMenu from './setContextMenu'
 import sendMessage from './sendMessage'
 import { startRecording, stopRecording } from './screenRecorder'
 
 const interop = {}
-
-interop.setContextMenu = setContextMenu
 
 // ------ IPC ROUTES ------
 
@@ -152,6 +151,12 @@ interop.dialog = Object.freeze({
     }
   }
 })
+
+// ------ MISC ------
+
+interop.setContextMenu = setContextMenu
+
+interop.getExtName = file => path.extname(file).toLowerCase()
 
 interop.getVersion = () => remote.app.getVersion()
 

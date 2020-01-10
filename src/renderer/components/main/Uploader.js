@@ -1,5 +1,4 @@
 import React, { createRef, useCallback, useContext } from 'react'
-import path from 'path'
 import { FormContext } from '../../store/formStore'
 import { uploadFile } from '../../actions/form'
 import { CHANGE_STATUS } from '../../actions/types'
@@ -51,7 +50,7 @@ const FileUpload = () => {
       .map(({ name, path }) => ({ name, path }))
 
     const validExtensions = files.every(file => (
-      accepted.includes(path.extname(file.name).toLowerCase()))
+      accepted.includes(interop.getExtName(file.name)))
     )
 
     if (!validExtensions) {

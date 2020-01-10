@@ -1,0 +1,175 @@
+/* --- FONT --- */
+
+@font-face {
+  font-family: Gotham;
+  src: url('../font/Gotham-Book.woff2') format('woff2');
+  font-weight: normal;
+  font-style: none;
+}
+
+@font-face {
+  font-family: Gotham;
+  src: url('../font/Gotham-Medium.woff2') format('woff2');
+  font-weight: bold;
+  font-style: none;
+}
+
+@font-face {
+  font-family: 'Material Icons';
+  src: url('../font/materialicons-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* --- RESET --- */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  user-select: none;
+}
+
+html, body, div, header, main, form,
+fieldset, legend, details, summary, label, input,
+table, thead, tbody, tr, th, td,
+h1, h2, h3, h4, p, ul, li, button, span, img {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: top;
+}
+
+div[hidden] { display: none }
+
+input[type="text"] {
+  user-select: text;
+  text-overflow: ellipsis;
+}
+
+
+/* --- GLOBAL STYLES --- */
+
+body {
+  background: #eee;
+  color: #4c4c4c;
+  font: 300 16px Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+  font: 600 1rem Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+header > h1 {
+  font-size: 4.45rem;
+  line-height: 3.8rem;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-size: 0.875rem;
+  word-break: break-word;
+}
+
+#root, header, main { width: 100%; }
+
+header, main {
+  max-width: 436px;
+  min-width: 360px;
+  margin: 20px auto;
+}
+
+header,
+fieldset,
+details,
+form > div,
+input[name="url"] {
+  margin-bottom: 20px;
+}
+
+header {
+  padding-left: 8px;
+  border-left: 12px solid #4c4c4c;
+}
+
+header > svg {
+  width: 20px;
+  margin-right: 2px;
+}
+
+header > p { font-size: 0.9rem; }
+
+fieldset:disabled,
+fieldset:disabled > :matches(input, input::placeholder, div) {
+  color: #ccc;
+}
+
+fieldset:disabled > :matches(input, div) {
+  border-color: #ccc;
+}
+
+legend, summary { font-weight: 600; }
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input {
+  background-color: transparent;
+  color: #4c4c4c;
+}
+
+input:matches([type="checkbox"], [type="radio"]),
+progress {
+  appearance: none;
+}
+
+input:matches([type="checkbox"], [type="radio"]) {
+  overflow: hidden;
+  width: 18px;
+  height: 18px;
+  margin-right: 5px;
+}
+
+input:matches([type="checkbox"], [type="radio"])::after {
+  display: inline-block;
+  font: 400 1.125rem 'Material Icons';
+}
+
+input:matches([type="checkbox"], [type="radio"]):disabled::after {
+  color: #ccc;
+}
+
+input[type="checkbox"]::after { content: 'check_box_outline_blank'; } 
+input[type="checkbox"]:checked::after { content: 'check_box' }
+
+input[type="radio"]::after { content: 'radio_button_unchecked'; } 
+input[type="radio"]:checked::after { content: 'radio_button_checked'; }
+
+button {
+  display: inline-block;
+  background-color: #4c4c4c;
+  color: #eee;
+  padding: 6px 20px;
+  border-radius: 5px;
+  transition: background-color 250ms;
+}
+
+button:not(:disabled):hover { background-color: #7c7c7c; }
+
+button:disabled { background-color: #ccc; }
+
+body:not(.accessable) :focus { outline: none; }
+
+.monospace {
+  font: 600 1em 'Courier New', Courier, monospace;
+  vertical-align: middle;
+}
+
+::selection {
+  background: hsl(17, 100%, 50%);
+  color: #fff;
+}

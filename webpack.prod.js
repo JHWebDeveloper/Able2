@@ -6,10 +6,13 @@ const postcssPresetEnv = require('postcss-preset-env')
 const cssnano = require('cssnano')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
+const mainPath = path.join(__dirname, 'src', 'main')
+const rendererPath = path.join(__dirname, 'src', 'renderer')
+
 const mainConfig = {
   entry: {
-    main: path.join(__dirname, 'src', 'main'),
-    preload: path.join(__dirname, 'src', 'main', 'preload', 'preload.js')
+    main: mainPath,
+    preload: path.join(mainPath, 'preload', 'preload.js'),
   },
   output: {
     path: path.join(__dirname, 'build'),
@@ -29,11 +32,11 @@ const mainConfig = {
   plugins: [
     new CopyWebpackPlugin([
       {
-        from: path.join('src', 'main', 'backgrounds'),
+        from: path.join(mainPath, 'backgrounds'),
         to: path.join('assets', 'backgrounds')
       },
       {
-        from: path.join('src', 'main', 'icons'),
+        from: path.join(mainPath, 'icons'),
         to: path.join('assets', 'icons')
       }
     ])
@@ -46,9 +49,10 @@ const mainConfig = {
 const rendererConfig = {
   mode: 'production',
   entry: {
-    index: path.join(__dirname, 'src', 'renderer'),
-    preferences: path.join(__dirname, 'src', 'renderer', 'preferences.js'),
-    help: path.join(__dirname, 'src', 'renderer', 'help.js')
+    index: rendererPath,
+    preferences: path.join(rendererPath, 'preferences.js'),
+    help: path.join(rendererPath, 'help.js'),
+    global: path.join(rendererPath, 'css', 'global.css')
   },
   output: {
     path: path.join(__dirname, 'build', 'renderer'),
@@ -93,17 +97,17 @@ const rendererConfig = {
     new HTMLWebpackPlugin({
       inject: false,
       filename: 'index.html',
-      template: path.join('src', 'renderer', 'index.html')
+      template: path.join(rendererPath, 'index.html')
     }),
     new HTMLWebpackPlugin({
       inject: false,
       filename: 'preferences.html',
-      template: path.join('src', 'renderer', 'preferences.html')
+      template: path.join(rendererPath, 'preferences.html')
     }),
     new HTMLWebpackPlugin({
       inject: false,
       filename: 'help.html',
-      template: path.join('src', 'renderer', 'help.html')
+      template: path.join(rendererPath, 'help.html')
     })
   ],
   node: {

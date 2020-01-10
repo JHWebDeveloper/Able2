@@ -5,8 +5,9 @@
   "main": "build/main.js",
   "scripts": {
     "lint": "eslint . --ext .js",
+    "cleanup": "cd build/renderer && rimraf global.bundle.js",
     "dev": "webpack-dev-server --config webpack.dev.js",
-    "build": "rimraf build && webpack --config webpack.prod.js",
+    "build": "rimraf build && webpack --config webpack.prod.js && npm run cleanup",
     "pack": "rimraf dist && electron-builder --dir",
     "dist": "rimraf dist && npm run build && electron-builder -w -m",
     "deploy": "rimraf dist && npm run build && electron-builder build -w -m --publish always",
@@ -28,6 +29,7 @@
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-transition-group": "^1.2.1",
+    "to-css": "^1.2.1",
     "uuid": "^3.3.2",
     "youtube-dl-ffmpeg-ffprobe-static": "^1.2.1"
   },

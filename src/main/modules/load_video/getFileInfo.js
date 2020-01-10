@@ -1,6 +1,5 @@
 import path from 'path'
 import ffmpeg from '../utilities/ffmpeg'
-
 import { checkIsImage, base64Encode, placeholder } from '../utilities/handleImages'
 
 const round = (n, dec = 2) => Number(`${Math.round(`${n}e${dec}`)}e-${dec}`)

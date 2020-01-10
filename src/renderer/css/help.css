@@ -1,6 +1,6 @@
 .help { padding: 20px; }
 
-.help > h2, .help > h3, .help > h4 {
+.help > :matches(h2, h3, h4) {
   margin-bottom: 8px;
 }
 

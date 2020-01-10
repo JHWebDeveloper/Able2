@@ -7,7 +7,7 @@ const round = (n, dec = 2) => Number(`${Math.round(`${n}e${dec}`)}e-${dec}`)
 const getFileFormat = (file, tempFilePath, thumbnail) => new Promise((resolve, reject) => {
   const isImage = checkIsImage(tempFilePath)
 
-  ffmpeg(tempFilePath).ffprobe((err1, metadata) => {
+  ffmpeg(tempFilePath).ffprobe(async (err1, metadata) => {
     if (err1) reject(err1) 
 
     try {
@@ -19,9 +19,9 @@ const getFileFormat = (file, tempFilePath, thumbnail) => new Promise((resolve, r
         width,
         height,
         ...(isImage ? {
-          thumbnail: base64Encode(file.path)
+          thumbnail: await base64Encode(file.path)
         } : {
-          thumbnail: thumbnail ? base64Encode(thumbnail) : placeholder,
+          thumbnail: thumbnail ? await base64Encode(thumbnail) : placeholder,
           duration: Math.round(duration || 0),
           fps: (() => {
             const arr = avg_frame_rate.split('/')

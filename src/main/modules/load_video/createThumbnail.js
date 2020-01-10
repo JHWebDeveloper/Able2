@@ -13,7 +13,7 @@ export const createThumbnail = async tempFile => new Promise(resolve => {
   }).on('error', () => {
     resolve(false) // ignore error for thumbnails
   }).screenshots({
-    timemarks: [0],
+    timemarks: ['50%'],
     folder: tempDir,
     filename: screenshot,
     size: '384x?'

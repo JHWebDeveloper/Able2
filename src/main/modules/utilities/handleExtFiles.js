@@ -10,7 +10,7 @@ export const prefsDir = dev
   : path.join(app.getPath('appData'), 'able2', 'prefs')
 
 export const tempDir = dev 
-  ? path.resolve(__dirname, '..', 'temp')
+  ? path.resolve(__dirname, '..', '..', 'temp')
   : path.join(app.getPath('temp'), 'able2')
 
 export const initTempDirectory = async () => {

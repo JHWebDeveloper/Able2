@@ -1,10 +1,8 @@
-import fs from 'fs'
 import path from 'path'
 import ffmpeg from '../utilities/ffmpeg'
-import { checkIsImage } from '../utilities/handleImages'
-import { placeholder } from './createThumbnail'
 
-const base64Encode = file => `data:image/png;base64,${fs.readFileSync(file, 'base64')}`
+import { checkIsImage, base64Encode, placeholder } from '../utilities/handleImages'
+
 const round = (n, dec = 2) => Number(`${Math.round(`${n}e${dec}`)}e-${dec}`)
 
 const getFileFormat = (file, tempFilePath, thumbnail) => new Promise((resolve, reject) => {

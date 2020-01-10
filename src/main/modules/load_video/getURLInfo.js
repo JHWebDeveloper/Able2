@@ -2,6 +2,7 @@ import { spawn } from 'child_process'
 import ytdlStatic from 'youtube-dl-ffmpeg-ffprobe-static'
 import { fixPathForAsarUnpack } from 'electron-util'
 import getDownloadFormat from '../utilities/getDownloadFormat'
+import { placeholder } from '../utilities/handleImages'
 
 const info = ({ url, renderOutput }) => new Promise((resolve, reject) => {
   const getVideoInfo = spawn(fixPathForAsarUnpack(ytdlStatic.path), [
@@ -33,10 +34,10 @@ const info = ({ url, renderOutput }) => new Promise((resolve, reject) => {
       readyStatus: 'URL_READY',
       duration: Math.round(info.duration),
       isImage: false,
+      thumbnail: thumbnail || placeholder,
       title,
       width,
       height,
-      thumbnail,
       fps
     })
   })

@@ -2,7 +2,8 @@ import { promises as fsp } from 'fs'
 import path from 'path'
 import getFileInfo from './getFileInfo'
 import { tempDir } from '../utilities/handleExtFiles'
-import { createThumbnail, placeholder } from './createThumbnail'
+import { placeholder } from '../utilities/handleImages'
+import { createThumbnail } from './createThumbnail'
 
 const tempFileName = ({ name }) => path.join(tempDir, `temp.${name}`)
 

@@ -1,8 +1,9 @@
 
 import path from 'path'
 import uuidv1 from 'uuid/v1'
-import ffmpeg from './ffmpeg'
-import { tempDir } from './handleExtFiles'
+
+import ffmpeg from '../utilities/ffmpeg'
+import { tempDir } from '../utilities/handleExtFiles'
 
 export const createThumbnail = async tempFile => new Promise(resolve => {
   const screenshot = `screenshot.${uuidv1()}.jpg`

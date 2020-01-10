@@ -4,7 +4,7 @@ import path from 'path'
 
 import getURLInfo from './modules/load_video/getURLInfo'
 import upload from './modules/load_video/upload'
-import saveScreenRecord from './modules/load_video/saveScreenRecord'
+import saveScreenRecord from './modules/load_video/createScreenRecord'
 import fileExistsPromise from './modules/utilities/fileExistsPromise'
 import download from './modules/process_video/download'
 import format from './modules/process_video/format'

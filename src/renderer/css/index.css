@@ -1,6 +1,6 @@
 form { padding: 0 18px; }
 
-label[for="fileName"] { font-weight: 600; }
+fieldset[name="fetcher"] { margin-bottom: 60px; }
 
 input:matches([name="url"], [name="fileName"], [name="source"]) {
   display: block;
@@ -9,11 +9,10 @@ input:matches([name="url"], [name="fileName"], [name="source"]) {
   border-bottom: 2px solid #4c4c4c;
 }
 
+label[for="fileName"] { font-weight: 600; }
+
 input[name="fileName"]:invalid { border-color: #f00; }
 input[name="fileName"]:invalid::placeholder { color: #f00; }
-
-fieldset[name="fetcher"] { margin-bottom: 60px; }
-
 
 /* --- FILE UPLOADER AND INFO CARD --- */
 
@@ -40,7 +39,7 @@ form > div {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #eee;
+  background-color: #eee;
   color: #7c7c7c;
   transition: background-color 150ms;
 }
@@ -50,7 +49,7 @@ form > div {
   pointer-events: none;
   display: block;
   position: absolute;
-  background: inherit;
+  background-color: inherit;
 }
 
 .file-uploader::before {
@@ -64,7 +63,7 @@ form > div {
 }
 
 fieldset:not(:disabled) > :matches(.drag-enter, .file-uploader:active) {
-  background: #444;
+  background-color: #444;
   color: #eee;
 }
 

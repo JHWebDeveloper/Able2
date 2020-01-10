@@ -53,7 +53,7 @@ svg:not([fill]) { fill: currentColor; }
 /* --- GLOBAL STYLES --- */
 
 body {
-  background: #eee;
+  background-color: #eee;
   color: #4c4c4c;
   font: 300 16px Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -172,6 +172,6 @@ body:not(.accessable) :focus { outline: none; }
 }
 
 ::selection {
-  background: hsl(17, 100%, 50%);
+  background-color: #ff4800;
   color: #fff;
 }

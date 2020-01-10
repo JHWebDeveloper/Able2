@@ -54,6 +54,7 @@ const download = (formData, win) => new Promise((resolve, reject) => {
 
   video.on('close', code => {
     if (code === null) return
+    ipcMain.removeAllListeners(['cancelProcess'])
     win.setProgressBar(-1)
     resolve()
   })
@@ -73,7 +74,7 @@ const download = (formData, win) => new Promise((resolve, reject) => {
     reject(err)
   })
 
-  ipcMain.on('cancelProcess', () => {
+  ipcMain.once('cancelProcess', () => {
     video.kill()
     win.setProgressBar(-1)
     reject('canceled')

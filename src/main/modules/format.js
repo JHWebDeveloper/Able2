@@ -50,7 +50,8 @@ const format = (formData, file, win) => new Promise((resolve, reject) => {
         fileCount += 1
         format(formData, fileQueue[fileCount], win).then(resolve)
       }
-
+      
+      ipcMain.removeAllListeners(['cancelProcess'])
       win.setProgressBar(-1)
     })
     .on('progress', prog => {
@@ -84,7 +85,7 @@ const format = (formData, file, win) => new Promise((resolve, reject) => {
     command.input(srcPNG).native()
   }
 
-  ipcMain.on('cancelProcess', () => {
+  ipcMain.once('cancelProcess', () => {
     command.kill()
     win.setProgressBar(-1)
     reject('canceled')

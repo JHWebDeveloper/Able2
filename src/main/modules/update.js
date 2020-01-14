@@ -1,14 +1,20 @@
 import { dialog } from 'electron'
 import { autoUpdater } from 'electron-updater'
+import log from 'electron-log'
+
+autoUpdater.logger = log
+autoUpdater.logger.transports.file.level = 'info'
+
+log.catchErrors({
+  showDialog: false
+})
 
 const update = evt => new Promise((resolve, reject) => {
   autoUpdater.on('update-available', ({ version }) => {
     evt.reply('updateFound', version)
   })
 
-  autoUpdater.on('update-not-available', () => {
-    resolve()
-  })
+  autoUpdater.on('update-not-available', resolve)
 
   autoUpdater.on('download-progress', ({ percent }) => {
     evt.reply('updateProgress', percent)
@@ -28,7 +34,7 @@ const update = evt => new Promise((resolve, reject) => {
   
   autoUpdater.on('error', reject)
 
-  return autoUpdater.checkForUpdatesAndNotify()
+  autoUpdater.checkForUpdatesAndNotify()
 })
 
 export default update

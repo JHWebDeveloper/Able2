@@ -1,4 +1,5 @@
 import electron from 'electron'
+import log from 'electron-log'
 import url from 'url'
 import path from 'path'
 
@@ -239,7 +240,7 @@ ipcMain.on('getURLInfo', async (evt, urlData) => {
   try {
     evt.reply('urlInfoRetrieved', await getURLInfo(urlData))
   } catch (err) {
-    evt.reply('urlInfoErr', err)
+    evt.reply('urlInfoErr')
   }
 })
 
@@ -248,7 +249,7 @@ ipcMain.on('uploadFile', async (evt, files) => {
     const info = await upload(files)
     evt.reply('fileUploaded', info)
   } catch (err) {
-    evt.reply('fileUploadErr', err)
+    evt.reply('fileUploadErr')
     clearTempFiles()
   }
 })
@@ -258,7 +259,7 @@ ipcMain.on('saveScreenRecord', async (evt, buffer) => {
     const fileInfo = await saveScreenRecord(buffer)
     evt.reply('screenRecordSaved', fileInfo)
   } catch (err) {
-    evt.reply('saveScreenRecordErr', err)
+    evt.reply('saveScreenRecordErr')
     clearTempFiles()
   }
 })
@@ -295,7 +296,7 @@ ipcMain.on('requestPrefs', async evt => {
   try {
     evt.reply('prefsRecieved', await loadPrefs())
   } catch (err) {
-    evt.reply('prefsErr', err)
+    evt.reply('prefsErr')
   }
 })
 
@@ -319,9 +320,9 @@ ipcMain.handle('clear', async () => {
 
 ipcMain.on('checkForUpdates', async evt => {
   try {
-    await update()
+    await update(evt)
     evt.reply('updateComplete')
   } catch (err) {
-    evt.reply('updateErr', err)
+    evt.reply('updateErr')
   }
 })

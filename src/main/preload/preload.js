@@ -61,7 +61,6 @@ interop.removeDownloadRenderListeners = async () => {
 
 interop.cancelProcess = async () => {
   ipcRenderer.send('cancelProcess')
-  ipcRenderer.invoke('clear')
 }
 
 interop.clearTempFiles = async () => ipcRenderer.invoke('clear')

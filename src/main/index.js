@@ -276,8 +276,12 @@ ipcMain.on('download', async (evt, formData) => {
     await download(formData, win)
     evt.reply('downloadComplete')
   } catch (err) {
-    evt.reply('downloadErr', err === 'canceled' ? 'INIT' : 'DOWNLOAD_ERROR')
-    clearTempFiles()
+    if (err === 'canceled') {
+      evt.reply('downloadErr', 'INIT')
+    } else {
+      evt.reply('downloadErr', 'DOWNLOAD_ERROR')
+      clearTempFiles()
+    }
   }
 })
 
@@ -286,8 +290,12 @@ ipcMain.on('render', async (evt, formData) => {
     await format(formData, win)
     evt.reply('renderComplete')
   } catch (err) {
-    evt.reply('renderErr', err === 'canceled' ? 'INIT' : 'RENDER_ERROR')
-    clearTempFiles()
+    if (err === 'canceled') {
+      evt.reply('renderErr', 'INIT')
+    } else {
+      evt.reply('renderErr', 'RENDER_ERROR')
+      clearTempFiles()
+    }
   }
 })
 

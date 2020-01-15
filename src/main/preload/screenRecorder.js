@@ -5,7 +5,7 @@ let recorder = false
 let timeout = false
 
 const handleStream = (stream, timer, isRecording, startLoading) => new Promise((resolve, reject) => {
-  let blobs = []
+  const blobs = []
 
   recorder = new MediaRecorder(stream)
 
@@ -81,7 +81,6 @@ export const saveRecordingToFile = async (blobs) => {
   })
 
   recorder = false
-  blobs = []
 
   return file
 }

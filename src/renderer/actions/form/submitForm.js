@@ -38,7 +38,6 @@ export const submitForm = (state, e) => async dispatch => {
   let {
     fileName,
     source,
-    rotate,
     hflip,
     vflip,
     sourcePrefix,
@@ -78,8 +77,8 @@ export const submitForm = (state, e) => async dispatch => {
 
   if (source) source = cleanSourceName(source)
 
-  if (hflip) rotate += 'hflip,'
-  if (vflip) rotate += 'vflip,'
+  if (hflip) state.rotate += 'hflip,'
+  if (vflip) state.rotate += 'vflip,'
 
   const formData = {
     ...state,

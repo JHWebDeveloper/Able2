@@ -25,8 +25,9 @@ const handleStream = (stream, timer, isRecording, startLoading) => new Promise((
   }
 
   recorder.onerror = err => {
-    reject(err)
+    clearTimeout(timeout)
     recorder = false
+    reject(err)
   }
 
   recorder.onstop = () => {

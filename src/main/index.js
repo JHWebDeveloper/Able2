@@ -1,5 +1,4 @@
 import electron from 'electron'
-import log from 'electron-log'
 import url from 'url'
 import path from 'path'
 
@@ -323,6 +322,6 @@ ipcMain.on('checkForUpdates', async evt => {
     await update(evt)
     evt.reply('updateComplete')
   } catch (err) {
-    evt.reply('updateErr')
+    evt.reply('updateErr', err)
   }
 })

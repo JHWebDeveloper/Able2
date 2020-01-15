@@ -14,7 +14,9 @@ const Updater = () => {
       await interop.checkForUpdates(setUpdateStatus, setPercent)
       setUpdateStatus({ status: false })
     } catch (err) {
-      setUpdateStatus({ status: 'error' })
+      if (err.code !== 'ERR_UPDATER_LATEST_VERSION_NOT_FOUND') {
+        setUpdateStatus({ status: 'error' })
+      }
     } finally {
       interop.removeUpdateListeners()
     }

@@ -71,7 +71,7 @@ export const stopRecording = () => {
   recorder.stop()
 }
 
-export const saveRecordingToFile = async (blobs) => {
+export const saveRecordingToFile = async blobs => {
   const result = await getBuffer(new Blob(blobs, { type: 'video/mp4' }))
 
   const file = await sendMessage({

@@ -2,10 +2,10 @@ import { desktopCapturer, remote } from 'electron'
 import sendMessage from './sendMessage'
 
 let recorder = false
-let timeout = false
 
 const handleStream = (stream, timer, isRecording, startLoading) => new Promise((resolve, reject) => {
   const blobs = []
+  let timeout = false
 
   recorder = new MediaRecorder(stream)
 
@@ -31,6 +31,7 @@ const handleStream = (stream, timer, isRecording, startLoading) => new Promise((
   }
 
   recorder.onstop = () => {
+    clearTimeout(timeout)
     isRecording(false)
     startLoading()
     resolve(blobs)
@@ -67,7 +68,6 @@ export const startRecording = async (timer, isRecording, startLoading) => {
 }
 
 export const stopRecording = () => {
-  clearTimeout(timeout)
   recorder.stop()
 }
 

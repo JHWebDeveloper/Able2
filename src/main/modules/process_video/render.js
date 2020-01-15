@@ -6,11 +6,11 @@ const render = (formData, command) => {
 
   const [ width, height ] = renderOutput.split('x')
 
-  const srcCmd  = () => source ? '[vid];[vid][1:v]overlay' : ''
+  const srcCmd = () => source ? '[vid];[vid][1:v]overlay' : ''
 
   const getBGPath = file => fixPathForAsarUnpack(process.env.NODE_ENV === 'development' 
     ? path.resolve(__dirname, '..', '..', 'backgrounds', height, file)
-    : path.join(__dirname, 'build', 'assets', 'backgrounds', height, file)
+    : path.join(__dirname, 'assets', 'backgrounds', height, file)
   )
   
   if (arc === 'fit' && (bg === 'blue' || bg === 'grey')) {

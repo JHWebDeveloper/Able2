@@ -1,12 +1,16 @@
-import React, { useContext } from 'react'
+import React, { useCallback, useContext } from 'react'
 
 import { FormContext } from '../../store/formStore'
-import { updateState, getURLInfo } from '../../actions/form'
+import { loading, updateState, getURLInfo } from '../../actions/form'
 import { isURL } from '../../utilities'
 
 const Fetcher = () => {
-  const ctx = useContext(FormContext)
-  const { dispatch, url } = ctx
+  const { url, end, renderOutput, dispatch } = useContext(FormContext)
+
+  const getInfoAndAnimate = useCallback(() => {
+    dispatch(loading())
+    dispatch(getURLInfo({ url, end, renderOutput }))
+  }, [url, end, renderOutput])
 
   return (
     <fieldset name="fetcher">
@@ -21,7 +25,7 @@ const Fetcher = () => {
         type="button"
         name="fetch"
         title="Fetch Video"
-        onClick={() => dispatch(getURLInfo(ctx))}
+        onClick={getInfoAndAnimate}
         disabled={!isURL(url)}>
         Fetch Video
       </button>

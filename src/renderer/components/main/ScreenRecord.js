@@ -7,29 +7,23 @@ import Timecode from '../form_elements/Timecode'
 const { interop } = window.ABLE2
 
 const ScreenRecord = () => {
-  const { recording, timer, end, dispatch } = useContext(FormContext)
+  const { recording, timer, dispatch } = useContext(FormContext)
 
-  const startRecording = useCallback(() => (
-    interop.screenRecorder.start(timer, end, recording => {
-      dispatch(setRecording(recording))
+  const startRecording = useCallback(async () => {
+    const file = await interop.screenRecorder.start(timer, recording => {
+      dispatch(recording ? setRecording(recording) : loading())
     })
-  ), [timer, end])
 
-  const stopRecording = useCallback(async () => {
-    dispatch(loading())
-
-    const files = await interop.screenRecorder.stop(end)
-
-    dispatch(uploadFile(await files))
-  }, [end])
+    dispatch(uploadFile(file))
+  }, [timer])
 
   const toggleRecording = useCallback(async () => {
     try {
-      await (recording ? stopRecording() : startRecording())
+      await (recording ? interop.screenRecorder.stop() : startRecording())
     } catch (err) {
       dispatch(setRecordingError())
     }
-  }, [recording, timer, end])
+  }, [recording, timer])
 
   return (
     <div className="screen-record">

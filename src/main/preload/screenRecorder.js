@@ -5,7 +5,7 @@ let recorder = false
 let timeout = false
 let blobs = []
 
-const handleStream = (stream, timer, end, isRecording) => new Promise((resolve, reject) => {
+const handleStream = (stream, timer, isRecording) => new Promise((resolve, reject) => {
   recorder = new MediaRecorder(stream)
 
   recorder.onstart = () => {
@@ -13,7 +13,7 @@ const handleStream = (stream, timer, end, isRecording) => new Promise((resolve, 
 
     if (timer.enabled) {
       timeout = setTimeout(() => {
-        stopRecording(end)
+        stopRecording()
         remote.getCurrentWindow().show()
       }, timer.tc * 1000)
     }
@@ -28,17 +28,17 @@ const handleStream = (stream, timer, end, isRecording) => new Promise((resolve, 
     recorder = false
   }
 
-  recorder.addEventListener('stop', () => {
+  recorder.onstop = () => {
     isRecording(false)
     resolve()
-  })
+  }
 
   requestAnimationFrame(() => {
     recorder.start()
   })
 })
 
-export const startRecording = async (timer, end, isRecording) => {
+export const startRecording = async (timer, isRecording) => {
   await desktopCapturer.getSources({
     types: ['screen']
   })
@@ -58,40 +58,37 @@ export const startRecording = async (timer, end, isRecording) => {
     }
   })
 
-  await handleStream(media, timer, end, isRecording)
+  await handleStream(media, timer, isRecording)
+
+  return saveRecordingToFile()
 }
 
-export const stopRecording = () => new Promise((resolve, reject) => {
+export const stopRecording = () => {
   clearTimeout(timeout)
+  recorder.stop()
+}
 
-  recorder.addEventListener('stop', () => {
-    toArrayBuffer(new Blob(blobs, { type: 'video/mp4' }), async ab => {
-      try {
-        const file = await sendMessage({
-          sendMsg: 'saveScreenRecord',
-          recieveMsg: 'screenRecordSaved',
-          errMsg: 'screenRecordSaveErr',
-          data: toBuffer(ab)
-        })
+export const saveRecordingToFile = async () => {
+  const result = await getBuffer(new Blob(blobs, { type: 'video/mp4' }))
 
-        resolve(file)
-      } catch (err) {
-        reject(err)
-      }
-    }).catch(reject)
-
-    recorder = false
-    blobs = []
+  const file = await sendMessage({
+    sendMsg: 'saveScreenRecord',
+    recieveMsg: 'screenRecordSaved',
+    errMsg: 'screenRecordSaveErr',
+    data: result
   })
 
-  recorder.stop()
-})
+  recorder = false
+  blobs = []
 
-const toArrayBuffer = (blob, callback) => new Promise((resolve, reject) => {
+  return file
+}
+
+const getBuffer = blob => new Promise((resolve, reject) => {
   const fileReader = new FileReader()
 
   fileReader.onload = () => {
-    callback(fileReader.result)
+    resolve(toBuffer(fileReader.result))
   }
 
   fileReader.onerror = reject

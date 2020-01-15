@@ -2,7 +2,7 @@ import { loadVideoInfo } from './loadVideoInfo'
 import { tcToSeconds } from '../../utilities'
 
 import * as ACTION from '../types'
-import { LOADING, FETCH_ERROR, UPLOAD_ERROR, RECORDING_ERROR } from '../../status/types'
+import * as STATUS from '../../status/types'
 
 const { interop } = window.ABLE2
 
@@ -15,36 +15,37 @@ export const mergePreferences = prefs => ({
 
 export const loading = () => ({
   type: ACTION.CHANGE_STATUS,
-  payload: LOADING
+  payload: STATUS.LOADING
 })
 
 export const getURLInfo = ({ url, end, renderOutput }) => async dispatch => {
-  dispatch(loading())
-
   try {
     const info = await interop.getURLInfo({ url, renderOutput })
     loadVideoInfo(info, end, dispatch)
   } catch (err) {
     dispatch({
       type: ACTION.CHANGE_STATUS,
-      payload: FETCH_ERROR
+      payload: STATUS.FETCH_ERROR
     })
   }
 }
 
 export const uploadFile = (files, end) => async dispatch => {
-  dispatch(loading())
-
   try {
     const info = await interop.uploadFile(files)
     loadVideoInfo(info, end, dispatch)
   } catch (err) {
     dispatch({
       type: ACTION.CHANGE_STATUS,
-      payload: UPLOAD_ERROR
+      payload: STATUS.UPLOAD_ERROR
     })
   }
 }
+
+export const setFileError = () => ({
+  type: ACTION.CHANGE_STATUS,
+  payload: STATUS.FILE_ERROR
+})
 
 export const updateState = e => ({
   type: ACTION.UPDATE_STATE,
@@ -127,5 +128,5 @@ export const setRecording = recording => ({
 
 export const setRecordingError = () => ({
   type: ACTION.CHANGE_STATUS,
-  payload: RECORDING_ERROR
+  payload: STATUS.RECORDING_ERROR
 })

@@ -1,8 +1,6 @@
 import React, { createRef, useCallback, useContext } from 'react'
 import { FormContext } from '../../store/formStore'
-import { uploadFile } from '../../actions/form'
-import { CHANGE_STATUS } from '../../actions/types'
-import { FILE_ERROR } from '../../status/types'
+import { loading, uploadFile, setFileError } from '../../actions/form'
 
 const { interop } = window.ABLE2
 const ref = createRef()
@@ -57,11 +55,9 @@ const FileUpload = () => {
     if (!validExtensions) {
       e.preventDefault()
 
-      dispatch({
-        type: CHANGE_STATUS,
-        payload: FILE_ERROR
-      })
+      dispatch(setFileError())
     } else {
+      dispatch(loading())
       dispatch(uploadFile(files, endData, 'upload'))
     }
   }, [])

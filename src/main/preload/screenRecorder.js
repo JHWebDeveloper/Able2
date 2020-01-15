@@ -5,7 +5,7 @@ let recorder = false
 let timeout = false
 let blobs = []
 
-const handleStream = (stream, timer, isRecording) => new Promise((resolve, reject) => {
+const handleStream = (stream, timer, isRecording, startLoading) => new Promise((resolve, reject) => {
   recorder = new MediaRecorder(stream)
 
   recorder.onstart = () => {
@@ -30,6 +30,7 @@ const handleStream = (stream, timer, isRecording) => new Promise((resolve, rejec
 
   recorder.onstop = () => {
     isRecording(false)
+    startLoading()
     resolve()
   }
 
@@ -38,7 +39,7 @@ const handleStream = (stream, timer, isRecording) => new Promise((resolve, rejec
   })
 })
 
-export const startRecording = async (timer, isRecording) => {
+export const startRecording = async (timer, isRecording, startLoading) => {
   await desktopCapturer.getSources({
     types: ['screen']
   })
@@ -58,7 +59,7 @@ export const startRecording = async (timer, isRecording) => {
     }
   })
 
-  await handleStream(media, timer, isRecording)
+  await handleStream(media, timer, isRecording, startLoading)
 
   return saveRecordingToFile()
 }

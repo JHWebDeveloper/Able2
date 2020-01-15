@@ -11,7 +11,9 @@ const ScreenRecord = () => {
 
   const startRecording = useCallback(async () => {
     const file = await interop.screenRecorder.start(timer, recording => {
-      dispatch(recording ? setRecording(recording) : loading())
+      dispatch(setRecording(recording))
+    }, () => {
+      dispatch(loading())
     })
 
     dispatch(uploadFile(file))

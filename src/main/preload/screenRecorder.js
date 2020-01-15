@@ -3,9 +3,10 @@ import sendMessage from './sendMessage'
 
 let recorder = false
 let timeout = false
-let blobs = []
 
 const handleStream = (stream, timer, isRecording, startLoading) => new Promise((resolve, reject) => {
+  let blobs = []
+
   recorder = new MediaRecorder(stream)
 
   recorder.onstart = () => {
@@ -31,7 +32,7 @@ const handleStream = (stream, timer, isRecording, startLoading) => new Promise((
   recorder.onstop = () => {
     isRecording(false)
     startLoading()
-    resolve()
+    resolve(blobs)
   }
 
   requestAnimationFrame(() => {
@@ -59,9 +60,9 @@ export const startRecording = async (timer, isRecording, startLoading) => {
     }
   })
 
-  await handleStream(media, timer, isRecording, startLoading)
+  const blobs = await handleStream(media, timer, isRecording, startLoading)
 
-  return saveRecordingToFile()
+  return saveRecordingToFile(blobs)
 }
 
 export const stopRecording = () => {
@@ -69,7 +70,7 @@ export const stopRecording = () => {
   recorder.stop()
 }
 
-export const saveRecordingToFile = async () => {
+export const saveRecordingToFile = async (blobs) => {
   const result = await getBuffer(new Blob(blobs, { type: 'video/mp4' }))
 
   const file = await sendMessage({

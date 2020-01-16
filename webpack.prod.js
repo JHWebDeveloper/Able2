@@ -9,7 +9,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const mainConfig = {
   entry: {
     main: path.join(__dirname, 'src', 'main'),
-    preload: path.join(__dirname, 'src', 'main', 'preload', 'preload.js'),
+    preload: path.join(__dirname, 'src', 'main', 'preload', 'preload.js')
   },
   output: {
     path: path.join(__dirname, 'build'),

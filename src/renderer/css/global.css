@@ -53,6 +53,7 @@ svg:not([fill]) { fill: currentColor; }
 /* --- GLOBAL STYLES --- */
 
 body {
+  padding-left: calc(100vw - 100%);
   background-color: #eee;
   color: #4c4c4c;
   font: 300 16px Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif;

@@ -1,9 +1,6 @@
 import toCSS from 'to-css'
 
 const getPCStyles = () => toCSS({
-  body: {
-    'padding-left': 'calc(100vw - 100%)'
-  },
   'body::-webkit-scrollbar': {
     width: '12px',
     height: '12px'

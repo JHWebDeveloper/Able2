@@ -40,19 +40,21 @@ const format = (formData, file, win) => new Promise((resolve, reject) => {
         directories,
         formatted,
         formatted.replace(/^formatted\./, '')
-      )
-
-      if (fileCount === fileQueue.length - 1) {
-        fileCount = 0
-        fileQueue = []
-        resolve()
-      } else {
-        fileCount += 1
-        format(formData, fileQueue[fileCount], win).then(resolve)
-      }
-      
-      ipcMain.removeAllListeners(['cancelProcess'])
-      win.setProgressBar(-1)
+      ).then(() => {
+        if (fileCount === fileQueue.length - 1) {
+          fileCount = 0
+          fileQueue = []
+          resolve()
+        } else {
+          fileCount += 1
+          format(formData, fileQueue[fileCount], win).then(resolve)
+        }
+      })
+      .catch(reject)
+      .finally(() => {
+        ipcMain.removeAllListeners(['cancelProcess'])
+        win.setProgressBar(-1)
+      })
     })
     .on('progress', prog => {
       win.webContents.send('renderProgress', {

@@ -294,7 +294,7 @@ ipcMain.on('render', async (evt, formData) => {
       evt.reply('renderErr', 'INIT')
     } else {
       evt.reply('renderErr', 'RENDER_ERROR')
-      clearTempFiles()
+      //clearTempFiles()
     }
   }
 })

@@ -1,3 +1,12 @@
+export const initTabbedBrowsing = () => {
+  document.body.onkeydown = function (e) {
+    if (e.keyCode !== 9) return
+    
+    this.className = 'accessible'
+    this.onkeydown = false
+  }
+}
+
 const urlRegex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/
 
 export const isURL = url => urlRegex.test(url)

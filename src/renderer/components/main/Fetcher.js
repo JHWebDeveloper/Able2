@@ -19,7 +19,6 @@ const Fetcher = () => {
         name="url"
         value={url}
         onChange={e => dispatch(updateState(e))}
-        maxLength="95"
         placeholder="Paste URL here..." />
       <button
         type="button"

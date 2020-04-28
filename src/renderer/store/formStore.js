@@ -44,10 +44,10 @@ export const initState = {
   sourceOnTop: false,
   optimize: 'quality',
   downloadProgress: {
-    file: null,
+    file: false,
     prc: '0%',
-    size: '0MB',
-    speed: '0MB/s',
+    size: '0MiB',
+    speed: '0MiB/s',
     eta: '00:00'
   },
   renderProgress: {

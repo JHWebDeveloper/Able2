@@ -32,8 +32,8 @@ const download = (formData, win) => new Promise((resolve, reject) => {
   const progress = {
     file: false,
     prc: '0%',
-    speed: '0MB/s',
-    size: '0MB',
+    speed: '0MiB/s',
+    size: '0MiB',
     eta: '00:00'
   }
 

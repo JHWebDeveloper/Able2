@@ -2,13 +2,12 @@ import React from 'react'
 import { oneOfType, bool, string } from 'prop-types'
 
 import CancelButton from './CancelButton'
-import { convertMiB } from '../../utilities'
 
 const ProgressBar = ({ file, prc, size, speed, eta }) => (
   <div className="progress">
     <p>Downloading{file ? ` ${file}` : '...'}</p>
     <progress value={parseInt(prc)} max="100" />
-    <span>{`${prc} of ${convertMiB(size)} at ${convertMiB(speed)}/s`}</span>
+    <span>{`${prc} of ${size} at ${speed}`}</span>
     <span>ETA: <span className="monospace">{eta}</span></span>
     <CancelButton />
   </div>

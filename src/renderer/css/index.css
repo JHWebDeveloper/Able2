@@ -81,7 +81,7 @@ input[type="file"] {
 
 @keyframes slide_up {
   0% { transform: translateY(138px) }
-  100% { transform: translateY(0px) }
+  100% { transform: translateY(0) }
 }
 
 .loading {

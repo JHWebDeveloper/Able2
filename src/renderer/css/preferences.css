@@ -1,117 +1,75 @@
-.preferences {
-  width: 510px;
-  margin: auto;
-  padding: 10px 0 62px;
+form { padding: 1rem 0; }
+
+fieldset { padding: 0 1rem; }
+
+fieldset:not([name="source-on-top-warning"]) { padding-top: 0.75rem; }
+
+fieldset[name="directories"] { margin-bottom: 3.25rem; }
+
+legend {
+  margin-left: -0.25rem;
+  font-weight: 600;
 }
 
-.preferences legend  { margin-bottom: 10px }
-.preferences legend:nth-of-type(2) { margin-top: 20px; }
+fieldset > label { margin-bottom: 0.25rem }
 
-.preferences legend + label {
-  margin-right: 10px;
+fieldset > label > input:matches([type="radio"], [type="checkbox"]) {
+  margin-right: 0.25rem;
 }
 
-table {
-  width: 510px;
-  border-collapse: collapse;
-  font-size: 0.875rem;
+.grid {
+  display: grid;
+  grid-template-columns: min-content min-content min-content auto min-content auto min-content min-content;
+  grid-gap: 0.25rem;
 }
 
-th {
-  padding: 0 2px;
-  text-align: left;
+.grid > :matches(button, input[type="text"], input[type="checkbox"]) {
+  height: 1.5rem;
 }
 
-td {
-  height: 26px;
-  padding-right: 2px;
-  vertical-align: middle;
-  white-space: nowrap;
+.grid > :matches(button, input[type="checkbox"]) { width: 1.5rem; }
+
+input[name="label"] {
+  padding: 0 6px;
+  border-radius: 3px;
+  background-color: #ccc;
 }
 
-td:first-child {
-  width: 30px;
-  padding-left: 2px;
-  text-align: center;
-}
-
-td > input[type="checkbox"] { margin-right: 0; }
-
-td > label {
-  display: inline-block;
-  width: 80px;
-}
-
-td > button {
-  display: inline-flex;
-  justify-content: center;
-  align-content: center;
-  width: 24px;
-  height: 24px;
+.grid > button {
   padding: 0;
-  font: 400 1.125rem/15px 'Material Icons';
+  font: 400 1rem 'Material Icons';
 }
 
-td > button:first-child { margin-right: 2px; }
+.grid > input[type="checkbox"] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-tr:first-child button[name="up"],
-tr:last-child button[name="down"] {
+#default { grid-column: 1 / span 3; }
+
+#folder { grid-column: 5 / span 4; }
+
+button[name="up"]:nth-of-type(4),
+button[name="down"]:last-of-type {
   visibility: hidden;
 }
 
-button > svg {
-  width: 18px;
-  height: 18px;
-}
-
-td > input[type="text"] {
-  height: 24px;
-  padding: 2px 5px;
-  border-radius: 5px;
-  line-height: 24px;
-}
-
-input[name="label"] { background-color: #fff; }
-
-input[name="directory"] { background-color: #ccc; }
-
-button[name="save-prefs"] {
-  width: 78px;
-  height: 31px;
-  margin-right: 5px;
-}
-
-.preferences > div {
+#save {
   position: fixed;
-  left: 0;
   bottom: 0;
   width: 100%;
-  border-top: 1px solid #ccc;
+  margin: 0;
+  padding: 0.75rem 1rem;
   background-color: #eee;
-  padding: 10px;
 }
 
-.dir-enter,
-.dir-leave {
-  opacity: 0;
+#save > button {
+  width: 4rem;
+  height: 1.75rem;
+  margin-right: 0.5rem;
+  padding: 0.25rem;
+  vertical-align: middle;
 }
 
-.dir-enter.dir-enter-active { opacity: 1; }
-
-.dir-enter.dir-enter-active {
-  transition: opacity 150ms 150ms;
-}
-
-.dir-enter ~ tr {
-  transform: translateY(-100%);
-}
-
-.dir-enter.dir-enter-active ~ tr {
-  transform: translateY(0);
-  transition: transform 150ms;
-}
-
-.dir-leave.dir-leave-active ~ tr {
-  transform: translateY(-100%);
-  transition: transform 150ms;
-}
+#save svg { height: 100%; }

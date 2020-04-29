@@ -1,46 +1,26 @@
-import React, { useContext } from 'react'
-import { CSSTransitionGroup } from 'react-transition-group'
+import React from 'react'
 
-import { PrefsContext } from '../../store/prefsStore'
 import { addNewDirectory } from '../../actions/preferences'
 import Directory from './Directory'
 
-const Directories = () => {
-  const { preferences, dispatch } = useContext(PrefsContext)
-  const { directories } = preferences
-
+const Directories = ({ directories, dispatch }) => {
   if (directories.length === 0) dispatch(addNewDirectory(0, false))
 
   return (
-    <fieldset>
+    <fieldset name="directories">
       <legend>Save Shortcuts</legend>
-      <table>
-        <thead>
-          <tr>
-            <th colSpan="2">Def.</th>
-            <th>Label</th>
-            <th colSpan="2">Folder</th>
-          </tr>
-        </thead>
-        <CSSTransitionGroup
-          component="tbody"
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={250}
-          transitionName={{
-            enter: 'dir-enter',
-            enterActive: 'dir-enter-active',
-            leave: 'dir-leave',
-            leaveActive: 'dir-leave-active'
-          }}>
-          {directories.map((dir, i) => (
-            <Directory
-              key={dir.id}
-              index={i}
-              dispatch={dispatch}
-              dir={dir} />
-          ))}
-        </CSSTransitionGroup>
-      </table>
+      <div className="grid">
+        <label id="default">Default</label>
+        <label id="label">Label</label>
+        <label id="folder">Folder</label>
+        {directories.map((dir, i) => (
+          <Directory
+            key={dir.id}
+            index={i}
+            dispatch={dispatch}
+            dir={dir} />
+        ))}
+      </div>
     </fieldset>
   )
 }

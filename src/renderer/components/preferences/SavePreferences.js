@@ -9,7 +9,7 @@ const { interop } = window.ABLE2
 
 const SavePreferences = () => {
   const { preferences, dispatch } = useContext(PrefsContext)
-  const [saving, toggleSaving] = useState(false)
+  const [ saving, toggleSaving ] = useState(false)
 
   const save = useCallback(async () => {
     toggleSaving(true)
@@ -17,7 +17,7 @@ const SavePreferences = () => {
   }, [preferences])
 
   return (
-    <div>
+    <div id="save">
       <button
         name="save-prefs"
         onClick={save}

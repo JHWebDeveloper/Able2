@@ -1,4 +1,5 @@
 import React from 'react'
+import { arrayOf, bool, func, shape, string } from 'prop-types'
 
 import { addNewDirectory } from '../../actions/preferences'
 import Directory from './Directory'
@@ -23,6 +24,16 @@ const Directories = ({ directories, dispatch }) => {
       </div>
     </fieldset>
   )
+}
+
+Directories.propTypes = {
+  directories: arrayOf(shape({
+    checked: bool.isRequired,
+    directory: string.isRequired,
+    id: string.isRequired,
+    label: string.isRequired
+  })),
+  dispatch: func.isRequired
 }
 
 export default Directories

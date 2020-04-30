@@ -29,6 +29,6 @@ export const copyToDirectories = (dirs, tempFile, newFile) => (
     .map(dir => fsp.copyFile(
       path.join(tempDir, tempFile),
       path.join(dir.directory, newFile || tempFile)
-    )
-  ))
+    ))
+  )
 )

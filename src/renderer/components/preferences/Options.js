@@ -1,4 +1,5 @@
 import React from 'react'
+import { bool, func, string } from 'prop-types'
 
 import { toggleCheckbox } from '../../actions/form'
 import RadioSet from '../form_elements/RadioSet'
@@ -35,5 +36,11 @@ const Options = ({ renderOutput, sourceOnTopWarning, dispatch }) => (
     </fieldset>
   </>
 )
+
+Options.propTypes = {
+  renderOutput: string.isRequired,
+  sourceOnTopWarning: bool.isRequired,
+  dispatch: func.isRequired
+}
 
 export default Options

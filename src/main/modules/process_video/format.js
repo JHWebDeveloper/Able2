@@ -49,9 +49,7 @@ const format = (formData, file, win) => new Promise((resolve, reject) => {
           fileCount += 1
           format(formData, fileQueue[fileCount], win).then(resolve)
         }
-      })
-      .catch(reject)
-      .finally(() => {
+      }).catch(reject).finally(() => {
         ipcMain.removeAllListeners(['cancelProcess'])
         win.setProgressBar(-1)
       })

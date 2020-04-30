@@ -28,17 +28,17 @@ export default () => {
     case STATUS.LOADING:
       return <Loading />
     case STATUS.FETCH_ERROR:
-      return <FetchError />
+      return <FetchError err={errMsg} />
     case STATUS.FILE_ERROR:
       return <FileError />
     case STATUS.UPLOAD_ERROR:
-      return <UploadError />
+      return <UploadError err={errMsg} />
     case STATUS.DOWNLOAD_ERROR:
       return <DownloadError err={errMsg} />
     case STATUS.RENDER_ERROR:
       return <RenderError err={errMsg} />
     case STATUS.RECORDING_ERROR:
-      return <RecordingError />
+      return <RecordingError err={errMsg} />
     case STATUS.URL_READY:
     case STATUS.VID_READY:
     case STATUS.IMG_READY:

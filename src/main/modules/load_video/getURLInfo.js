@@ -18,9 +18,11 @@ const info = ({ url, renderOutput }) => new Promise((resolve, reject) => {
   })
 
   getVideoInfo.stderr.on('data', err => {
-    if (/^ERROR: (Unsupported URL|No media found)/.test(err.toString())) {
+    const errString = err.toString()
+    
+    if (/^ERROR: (Unsupported URL|No media found)/.test(errString)) {
       getVideoInfo.kill()
-      reject(err)
+      reject(errString)
     }
   })
 

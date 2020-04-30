@@ -15,7 +15,9 @@ export const mergePreferences = prefs => ({
 
 export const loading = () => ({
   type: ACTION.CHANGE_STATUS,
-  payload: STATUS.LOADING
+  payload: {
+    status: STATUS.LOADING
+  }
 })
 
 export const getURLInfo = ({ url, end, renderOutput }) => async dispatch => {
@@ -25,7 +27,10 @@ export const getURLInfo = ({ url, end, renderOutput }) => async dispatch => {
   } catch (err) {
     dispatch({
       type: ACTION.CHANGE_STATUS,
-      payload: STATUS.FETCH_ERROR
+      payload: {
+        status: STATUS.FETCH_ERROR,
+        data: err
+      }
     })
   }
 }
@@ -37,14 +42,19 @@ export const uploadFile = (files, end) => async dispatch => {
   } catch (err) {
     dispatch({
       type: ACTION.CHANGE_STATUS,
-      payload: STATUS.UPLOAD_ERROR
+      payload: {
+        status: STATUS.UPLOAD_ERROR,
+        data: err
+      }
     })
   }
 }
 
 export const setFileError = () => ({
   type: ACTION.CHANGE_STATUS,
-  payload: STATUS.FILE_ERROR
+  payload: {
+    status: STATUS.FILE_ERROR
+  }
 })
 
 export const updateState = e => ({
@@ -126,7 +136,10 @@ export const setRecording = recording => ({
   payload: recording
 })
 
-export const setRecordingError = () => ({
+export const setRecordingError = err => ({
   type: ACTION.CHANGE_STATUS,
-  payload: STATUS.RECORDING_ERROR
+  payload: {
+    status: STATUS.RECORDING_ERROR,
+    data: err
+  }
 })

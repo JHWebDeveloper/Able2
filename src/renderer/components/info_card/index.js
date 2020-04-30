@@ -22,21 +22,21 @@ const Loading = () => (
 )
 
 export default () => {
-  const { status, vidData } = useContext(FormContext)
+  const { status, errMsg, vidData } = useContext(FormContext)
 
   switch (status) {
     case STATUS.LOADING:
       return <Loading />
     case STATUS.FETCH_ERROR:
       return <FetchError />
-    case STATUS.DOWNLOAD_ERROR:
-      return <DownloadError />
     case STATUS.FILE_ERROR:
       return <FileError />
     case STATUS.UPLOAD_ERROR:
       return <UploadError />
+    case STATUS.DOWNLOAD_ERROR:
+      return <DownloadError err={errMsg} />
     case STATUS.RENDER_ERROR:
-      return <RenderError />
+      return <RenderError err={errMsg} />
     case STATUS.RECORDING_ERROR:
       return <RecordingError />
     case STATUS.URL_READY:

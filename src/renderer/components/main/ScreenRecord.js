@@ -23,7 +23,7 @@ const ScreenRecord = () => {
     try {
       await (recording ? interop.screenRecorder.stop() : startRecording())
     } catch (err) {
-      dispatch(setRecordingError())
+      dispatch(setRecordingError(err))
     }
   }, [recording, timer])
 

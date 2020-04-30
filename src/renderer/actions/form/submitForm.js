@@ -93,7 +93,9 @@ export const submitForm = (state, e) => async dispatch => {
 
     dispatch({
       type: CHANGE_STATUS,
-      payload: DONE
+      payload: {
+        status: DONE
+      }
     })
   } catch (err) {
     dispatch({

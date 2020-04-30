@@ -30,8 +30,7 @@
 
 html, body, div, header, main, form,
 fieldset, legend, details, summary, label, input,
-table, thead, tbody, tr, th, td,
-h1, h2, h3, h4, p, ul, li, button, span, img {
+h1, h2, h3, h4, p, ul, li, button, span, img, code {
   margin: 0;
   padding: 0;
   border: 0;

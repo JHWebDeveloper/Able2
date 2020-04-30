@@ -239,7 +239,7 @@ ipcMain.on('getURLInfo', async (evt, urlData) => {
   try {
     evt.reply('urlInfoRetrieved', await getURLInfo(urlData))
   } catch (err) {
-    evt.reply('urlInfoErr')
+    evt.reply('urlInfoErr', err)
   }
 })
 
@@ -248,7 +248,7 @@ ipcMain.on('uploadFile', async (evt, files) => {
     const info = await upload(files)
     evt.reply('fileUploaded', info)
   } catch (err) {
-    evt.reply('fileUploadErr')
+    evt.reply('fileUploadErr', err)
     clearTempFiles()
   }
 })
@@ -258,7 +258,7 @@ ipcMain.on('saveScreenRecord', async (evt, buffer) => {
     const fileInfo = await saveScreenRecord(buffer)
     evt.reply('screenRecordSaved', fileInfo)
   } catch (err) {
-    evt.reply('saveScreenRecordErr')
+    evt.reply('saveScreenRecordErr', err)
     clearTempFiles()
   }
 })
@@ -277,9 +277,16 @@ ipcMain.on('download', async (evt, formData) => {
     evt.reply('downloadComplete')
   } catch (err) {
     if (err === 'canceled') {
-      evt.reply('downloadErr', 'INIT')
+      evt.reply('downloadErr', {
+        status: 'INIT',
+        data: false
+      })
     } else {
-      evt.reply('downloadErr', 'DOWNLOAD_ERROR')
+      evt.reply('downloadErr', {
+        status: 'DOWNLOAD_ERROR',
+        data: err
+      })
+
       clearTempFiles()
     }
   }
@@ -291,9 +298,16 @@ ipcMain.on('render', async (evt, formData) => {
     evt.reply('renderComplete')
   } catch (err) {
     if (err === 'canceled') {
-      evt.reply('renderErr', 'INIT')
+      evt.reply('renderErr', {
+        status: 'INIT',
+        data: false
+      })
     } else {
-      evt.reply('renderErr', 'RENDER_ERROR')
+      evt.reply('renderErr', {
+        status: 'RENDER_ERROR',
+        data: err
+      })
+
       clearTempFiles()
     }
   }

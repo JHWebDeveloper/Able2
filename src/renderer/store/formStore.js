@@ -7,6 +7,7 @@ import PrefsPropType from '../components/preferences/PrefsPropType'
 
 export const initState = {
   status: 'INIT',
+  errMsg: false,
   url: '',
   recording: false,
   vidData: {

@@ -17,8 +17,8 @@ const download = (formData, win) => new Promise((resolve, reject) => {
 
   const options = [
     url,
-    '-r',
-    '12500k',
+    // '-r',
+    // '12500k',
     '--ffmpeg-location',
     fixPathForAsarUnpack(ffmpegStatic.path),
     '-o',

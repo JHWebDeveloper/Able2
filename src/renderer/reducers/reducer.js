@@ -14,7 +14,8 @@ export default (state, action) => {
     case ACTION.CHANGE_STATUS:
       return {
         ...state,
-        status: payload
+        status: payload.status,
+        errMsg: payload.data || false
       }
     case ACTION.SET_RECORDING:
       return {

@@ -100,7 +100,10 @@ export const submitForm = (state, e) => async dispatch => {
   } catch (err) {
     dispatch({
       type: CHANGE_STATUS,
-      payload: err
+      payload: {
+        status: err.status,
+        data: err.data
+      }
     })
   } finally {
     interop.removeDownloadRenderListeners()

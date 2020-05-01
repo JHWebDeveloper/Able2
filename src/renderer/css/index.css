@@ -97,6 +97,21 @@ input[type="file"] {
   background-color: #ffb0b0;
 }
 
+.error > button {
+  all: unset;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: transparent;
+  color: currentColor;
+  font: 400 1rem 'Material Icons';
+}
+
+.error > button:hover {
+  background-color: transparent;
+  color: currentColor;
+}
+
 .error > p { margin-top: 6px; }
 
 code {
@@ -104,6 +119,8 @@ code {
   display: block;
   margin-top: 5px;
   padding: inherit;
+  word-wrap: break-word;
+  hyphens: none;
 }
 
 code::selection {

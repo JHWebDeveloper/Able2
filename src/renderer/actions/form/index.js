@@ -143,3 +143,10 @@ export const setRecordingError = err => ({
     data: err
   }
 })
+
+export const closeErrorBox = () => ({
+  type: ACTION.CHANGE_STATUS,
+  payload: {
+    status: STATUS.INIT
+  }
+})

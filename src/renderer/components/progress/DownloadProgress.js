@@ -7,8 +7,10 @@ const ProgressBar = ({ file, prc, size, speed, eta }) => (
   <div className="progress">
     <p>Downloading{file ? ` ${file}` : '...'}</p>
     <progress value={parseInt(prc)} max="100" />
-    <span>{`${prc} of ${size} at ${speed}`}</span>
-    <span>ETA: <span className="monospace">{eta}</span></span>
+    <span>
+      <span>{`${prc} of ${size} at ${speed}`}</span>
+      <span>ETA: <span className="monospace">{eta}</span></span>
+    </span>
     <CancelButton />
   </div>
 )

@@ -7,8 +7,10 @@ const RenderProgress = ({ prc, timemark, frames, fileCount, fileTotal }) => (
   <div className="progress">
     <p>Rendering{fileCount && fileTotal ? ` ${fileCount} of ${fileTotal}` : '...'}</p>
     <progress value={prc} max="100"></progress>
-    <span>Timemark: <span className="monospace">{timemark}</span></span>
-    <span>Frames Rendered: <span className="monospace">{frames}</span></span>
+    <span>
+      <span>Timemark: <span className="monospace">{timemark}</span></span>
+      <span>Frames Rendered: <span className="monospace">{frames}</span></span>
+    </span>
     <CancelButton />
   </div>
 )

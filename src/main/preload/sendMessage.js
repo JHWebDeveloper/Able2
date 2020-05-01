@@ -7,6 +7,7 @@ const sendMessage = ({ sendMsg, recieveMsg, errMsg, data }) => new Promise((reso
   })
 
   ipcRenderer.once(errMsg, (evt, err) => {
+    console.log(err)
     ipcRenderer.removeAllListeners(recieveMsg)
     reject(err)
   })

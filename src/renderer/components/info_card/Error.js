@@ -13,9 +13,9 @@ const Error = ({ heading, message }) => {
       <button onClick={() => dispatch(closeErrorBox())}>close</button>
       <h2>{heading}</h2>
       {message.map(p => <p key={uuidv1()}>{p}</p>)}
-      {errMsg.err && <>
+      {errMsg && <>
         <p>Please copy and email the below information to jonathan.hamilton@wftv.com:</p>
-        <code>{errMsg.err.toString()}</code>
+        <code>{errMsg.err ? errMsg.err.toString() : errMsg.toString()}</code>
       </>}
     </div>
   )

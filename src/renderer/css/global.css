@@ -59,6 +59,7 @@ svg:not([fill]) { fill: currentColor; }
   --disabled: #ccc;
   --highlight: #ff4800;
   --error-background: #ffb0b0;
+  --main-border-style: 2px solid var(--primary);
 }
 
 body {

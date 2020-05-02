@@ -6,7 +6,7 @@ input:matches([name="url"], [name="fileName"], [name="source"]) {
   display: block;
   width: 100%;
   padding: 3px 2px;
-  border-bottom: 2px solid var(--primary);
+  border-bottom: var(--main-border-style);
 }
 
 label[for="fileName"] { font-weight: 600; }
@@ -22,7 +22,7 @@ form > div {
 }
 
 .file-uploader, .loading, .error, .video-info {
-  border: 2px solid var(--primary);
+  border: var(--main-border-style);
   border-radius: 5px;
 }
 
@@ -259,7 +259,7 @@ progress {
   width: 100%;
   height: 14px;
   margin: 2px 0;
-  border: 2px solid var(--primary);
+  border: var(--main-border-style);
   border-radius: 2px;
 }
 

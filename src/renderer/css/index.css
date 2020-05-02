@@ -47,7 +47,7 @@ form > div {
 .file-uploader:matches(::before, ::after) {
   content: '';
   pointer-events: none;
-  display: block;
+  display: inherit;
   position: absolute;
   background-color: inherit;
 }
@@ -171,7 +171,7 @@ button[name="record"] {
 
 button[name="record"]::after {
   content: '';
-  display: block;
+  display: inherit;
   position: absolute;
   top: 12px;
   left: 12px;
@@ -204,7 +204,7 @@ button[name="record"] ~ p {
 .timecode input:disabled { color: var(--disabled); }
 
 .timecode > label {
-  display: inline-block;
+  display: inherit;
   margin-right: 10px;
   margin-bottom: 0;
 }

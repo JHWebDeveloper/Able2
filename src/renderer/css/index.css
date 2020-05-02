@@ -6,13 +6,13 @@ input:matches([name="url"], [name="fileName"], [name="source"]) {
   display: block;
   width: 100%;
   padding: 3px 2px;
-  border-bottom: 2px solid #4c4c4c;
+  border-bottom: 2px solid var(--primary);
 }
 
 label[for="fileName"] { font-weight: 600; }
 
-input[name="fileName"]:invalid { border-color: #f00; }
-input[name="fileName"]:invalid::placeholder { color: #f00; }
+input[name="fileName"]:invalid { border-color: var(--highlight); }
+input[name="fileName"]:invalid::placeholder { color: var(--highlight); }
 
 /* --- FILE UPLOADER AND INFO CARD --- */
 
@@ -22,7 +22,7 @@ form > div {
 }
 
 .file-uploader, .loading, .error, .video-info {
-  border: 2px solid #4c4c4c;
+  border: 2px solid var(--primary);
   border-radius: 5px;
 }
 
@@ -39,8 +39,8 @@ form > div {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #eee;
-  color: #7c7c7c;
+  background-color: var(--background);
+  color: var(--secondary);
   transition: background-color 150ms;
 }
 
@@ -63,8 +63,8 @@ form > div {
 }
 
 fieldset:not(:disabled) > :matches(.drag-enter, .file-uploader:active) {
-  background-color: #444;
-  color: #eee;
+  background-color: var(--primary);
+  color: var(--background);
 }
 
 .file-uploader > p,
@@ -94,7 +94,7 @@ input[type="file"] {
 
 .error {
   position: relative;
-  background-color: #ffb0b0;
+  background-color: var(--error-background);
 }
 
 .error > button {
@@ -124,8 +124,8 @@ code {
 }
 
 code::selection {
-  background: #4c4c4c;
-  color: #eee;
+  background: var(--primary);
+  color: var(--background);
 }
 
 .video-info { font-size: 0; }
@@ -150,14 +150,14 @@ ul {
 /* --- SCREEN RECORDER --- */
 
 @keyframes blink {
-  0%, 50% { background-color: #f00; }
-  51%, 100% { background-color: #eee; }
+  0%, 50% { background-color: var(--highlight); }
+  51%, 100% { background-color: var(--background); }
 }
 
 .screen-record {
   text-align: center;
   margin-top: 60px;
-  color: #7c7c7c;
+  color: var(--secondary);
 }
 
 button[name="record"] {
@@ -178,7 +178,7 @@ button[name="record"]::after {
   width: 26px;
   height: 26px;
   border-radius: inherit;
-  background-color: #eee;
+  background-color: var(--background);
 }
 
 button[name="record"].recording::after {
@@ -201,7 +201,7 @@ button[name="record"] ~ p {
 
 .timecode > input[type="text"] { width: 80px; }
 
-.timecode input:disabled { color: #ccc; }
+.timecode input:disabled { color: var(--disabled); }
 
 .timecode > label {
   display: inline-block;
@@ -212,7 +212,7 @@ button[name="record"] ~ p {
 details {
   padding: 10px 8px;
   border-radius: 5px;
-  background-color: #e0e0e0;
+  background-color: var(--background-alt);
 }
 
 details > fieldset { margin-bottom: 10px; }
@@ -259,12 +259,12 @@ progress {
   width: 100%;
   height: 14px;
   margin: 2px 0;
-  border: 2px solid #4c4c4c;
+  border: 2px solid var(--primary);
   border-radius: 2px;
 }
 
-::-webkit-progress-bar { background-color: #eee; }
-::-webkit-progress-value { background-color: #4c4c4c; }
+::-webkit-progress-bar { background-color: var(--background); }
+::-webkit-progress-value { background-color: var(--primary); }
 
 progress + span {
   display: flex;
@@ -290,16 +290,16 @@ button[name="cancel"] {
 .updater {
   margin-bottom: 20px;
   text-align: center;
-  color: #7c7c7c;
+  color: var(--secondary);
 }
 
 .loading ~ .updater { display: none; }
 
 .updater > progress {
   width: 250px;
-  border-color: #7c7c7c;
+  border-color: var(--secondary);
 }
 
-.updater > ::-webkit-progress-value { background-color: #7c7c7c; }
+.updater > ::-webkit-progress-value { background-color: var(--secondary); }
 
 .updater > button { margin-top: 10px; }

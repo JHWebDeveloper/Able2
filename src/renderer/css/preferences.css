@@ -32,7 +32,7 @@ fieldset > label > input:matches([type="radio"], [type="checkbox"]) {
 input[name="label"] {
   padding: 0 6px;
   border-radius: 3px;
-  background-color: #ccc;
+  background-color: var(--secondary);
 }
 
 .grid > button {
@@ -61,7 +61,7 @@ button[name="down"]:last-of-type {
   width: 100%;
   margin: 0;
   padding: 0.75rem 1rem;
-  background-color: #eee;
+  background-color: var(--background);
 }
 
 #save > button {

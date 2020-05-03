@@ -47,7 +47,6 @@ form > div {
 .file-uploader:matches(::before, ::after) {
   content: '';
   pointer-events: none;
-  display: inherit;
   position: absolute;
   background-color: inherit;
 }

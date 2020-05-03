@@ -71,9 +71,7 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-h1, h2, h3, h4 {
-  font: 600 1rem Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
+h1, h2, h3, h4 { font-weight: 600; }
 
 header > h1 {
   font-size: 4.45rem;

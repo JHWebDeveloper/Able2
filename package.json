@@ -1,6 +1,6 @@
 {
   "name": "able2",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "Able2 is an all-in-one News Editor's toolkit. Able2 is able to download video from the internet, do screen records and convert and process video for air.",
   "main": "build/main.js",
   "scripts": {
@@ -10,7 +10,7 @@
     "build": "rimraf build && webpack --config webpack.prod.js && npm run cleanup",
     "pack": "rimraf dist && electron-builder --dir",
     "dist": "rimraf dist && npm run build && electron-builder -w -m",
-    "deploy": "rimraf dist && npm run build && electron-builder build -w -m --publish always",
+    "deploy": "rimraf dist && npm run build && electron-builder build -w --publish always",
     "postinstall": "electron-builder install-app-deps",
     "start": "electron .",
     "update-ytdl:mac": "node_modules/youtube-dl-ffmpeg-ffprobe-static/bin/darwin/x64/youtube-dl -U",
@@ -48,7 +48,7 @@
     "css-loader": "^3.4.2",
     "cssnano": "^4.1.10",
     "electron": "^8.2.4",
-    "electron-builder": "^22.6.0",
+    "electron-builder": "^22.7.0",
     "eslint": "^6.8.0",
     "eslint-plugin-react": "^7.17.0",
     "html-webpack-plugin": "^3.2.0",
@@ -60,7 +60,7 @@
     "url-loader": "^2.3.0",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",
-    "webpack-dev-server": "^3.10.1",
+    "webpack-dev-server": "^3.11.0",
     "webpack-node-externals": "^1.7.2"
   },
   "browserslist": "electron 6.0.1"

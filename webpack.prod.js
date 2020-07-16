@@ -28,6 +28,10 @@ const mainConfig = {
   },
   plugins: [
     new CopyWebpackPlugin([
+			{
+        from: path.join(__dirname, 'installer.nsh'),
+        to: 'installer.nsh'
+      },
       {
         from: path.join('src', 'main', 'backgrounds'),
         to: path.join('assets', 'backgrounds')

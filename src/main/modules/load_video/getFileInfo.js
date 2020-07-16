@@ -12,7 +12,7 @@ const getFileFormat = (file, tempFilePath, thumbnail) => new Promise((resolve, r
 
     try {
       const { duration, width, height, avg_frame_rate } = metadata.streams[0]
-  
+
       resolve({
         readyStatus: `${isImage ? 'IMG' : 'VID'}_READY`,
         title: path.parse(file.name).name,

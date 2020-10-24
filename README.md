@@ -1,6 +1,6 @@
 # Able2
 
-Able2 is a multi-purpose Electron desktop app in use at multiple news stations across the country. Able2 is able to download press kit video from various online services, record video and audio from a user's desktop and convert and format video, image and audio files for air.
+Able2 is a multi-purpose Electron desktop app in use at multiple news stations across the country. Able2 is able to download legal-to-use video from various online services, record video and audio from a user's desktop and convert and format video, image and audio files for air.
 
 This repo is intended to preserve v1 separately for portfolio viewing purposes. For Able2 v2+ source code please visit the following repo: https://github.com/JHWebDeveloper/Able2Deux
 
